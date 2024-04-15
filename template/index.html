@@ -293,205 +293,109 @@
       </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
-      <style>
-        .sidebar {
-          background-color: #fff;
-          display: flex;
-          flex-direction: column;
-          font-size: 14px;
-          color: #6c7383;
-          font-weight: 500;
-          line-height: 100%;
-          padding: 23px 16px 80px;
-          margin-top: 4px;
-        }
-      
-        .home-link {
-          border-radius: 8px;
-          background-color: #5ac0ab;
-          display: flex;
-          width: 100%;
-          flex-direction: column;
-          color: #fff;
-          justify-content: center;
-        }
-      
-        .home-link-inner {
-          border-radius: 8px;
-          background-color: #5ac0ab;
-          display: flex;
-          gap: 0;
-          padding: 13px 16px;
-        }
-      
-        .icon {
-          width: 20px;
-          aspect-ratio: 1;
-          object-fit: auto;
-          object-position: center;
-        }
-      
-        .link-text {
-          font-family: Nunito, sans-serif;
-          margin: auto 0;
-        }
-      
-        .nav-item {
-          display: flex;
-          border-radius: 8px;
-          justify-content: space-between;
-          gap: 20px;
-          padding: 13px 24px 13px 16px;
-          margin-top: 4px;
-        }
-      
-        .nav-item-inner {
-          display: flex;
-          gap: 20px;
-        }
-      
-        .arrow-icon {
-          width: 11px;
-          aspect-ratio: 1.1;
-          object-fit: auto;
-          object-position: center;
-          margin: auto 0;
-        }
-      
-        .collaborators-item {
-          display: flex;
-          border-radius: 8px;
-          justify-content: space-between;
-          gap: 18px;
-          padding: 13px 24px 13px 16px;
-          margin-top: 6px;
-        }
-      
-        .collaborators-item-inner {
-          display: flex;
-          gap: 0;
-        }
-      
-        .collaborators-icon {
-          width: 32px;
-          aspect-ratio: 1.89;
-          object-fit: auto;
-          object-position: center;
-        }
-      
-        .collaborators-text {
-          font-family: Nunito, sans-serif;
-          max-width: 156px;
-        }
-      
-        .account-settings {
-          display: flex;
-          border-radius: 8px;
-          justify-content: space-between;
-          align-items: center;
-          gap: 0;
-          padding: 13px 17px 13px 16px;
-        }
-      
-        .account-settings-icon {
-          width: 32px;
-          aspect-ratio: 1.89;
-          object-fit: auto;
-          object-position: center;
-          align-self: stretch;
-        }
-      
-        .account-settings-text {
-          font-family: Nunito, sans-serif;
-          align-self: stretch;
-          margin: auto 0;
-        }
-      
-        .logout {
-          display: flex;
-          border-radius: 8px;
-          gap: 0;
-          padding: 13px 16px;
-        }
-      
-        .logout-icon {
-          width: 32px;
-          aspect-ratio: 1.89;
-          object-fit: auto;
-          object-position: center;
-        }
-      
-        .logout-text {
-          font-family: Nunito, sans-serif;
-          max-width: 156px;
-          margin: auto 0;
-        }
-      
-        @media (max-width: 991px) {
-          .home-link,
-          .home-link-inner,
-          .nav-item-inner,
-          .collaborators-item-inner {
-            white-space: initial;
-          }
-      
-          .nav-item,
-          .collaborators-item {
-            padding-right: 20px;
-          }
-        }
-      </style>
-      
-      <nav class="sidebar">
-        <a href="#" class="home-link">
-          <div class="home-link-inner">
-            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ebefdea6d06d5ca5f11820bb5d2b75e1f944ae8fe402365e8d08a5ca2369a47b?apiKey=b49f4fc845b0413092db35688957248d&" alt="Home icon" class="icon" />
-            <span class="link-text">Home</span>
-          </div>
-        </a>
-        
-        <div class="nav-item">
-          <div class="nav-item-inner">
-            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2de403aa34dcdbb85e76e538016119eccc1c0766522479a62784ea4c8a0a7bd?apiKey=b49f4fc845b0413092db35688957248d&" alt="Initiatives icon" class="icon" />
-            <span class="link-text">Iniciativas</span>
-          </div>
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3141c66187d22ae15cec81fa5460028d282fb0191ee46c12487312c1ec80034e?apiKey=b49f4fc845b0413092db35688957248d&" alt="Right arrow icon" class="arrow-icon" />
-        </div>
-      
-        <div class="collaborators-item">
-          <div class="collaborators-item-inner">
-            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c72550849ead34a0de32ac5a746221df3a2699e99f60eb29f20af3ee58db80b7?apiKey=b49f4fc845b0413092db35688957248d&" alt="Collaborators icon" class="collaborators-icon" />
-            <span class="collaborators-text">Colaboradores</span>
-          </div>
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d3459c769088d79be02901ff833e8e2134947a6def5fb5ec91460ad4fa4d30e?apiKey=b49f4fc845b0413092db35688957248d&" alt="Right arrow icon" class="arrow-icon" />
-        </div>
-      
-        <div class="nav-item">
-          <div class="nav-item-inner">
-            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3d5ce401ef8c06821b6fa450d85895c2815bb2dd522748bc9e2fd978a887bc1f?apiKey=b49f4fc845b0413092db35688957248d&" alt="Materials icon" class="icon" />
-            <span class="link-text">Materiais</span>
-          </div>
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/49bf2502e382c8bfe8c9276943b5189ac2ece45390f3f5c7babb5043d3f528c1?apiKey=b49f4fc845b0413092db35688957248d&" alt="Right arrow icon" class="arrow-icon" />
-        </div>
-      
-        <div class="nav-item">
-          <div class="nav-item-inner">
-            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/68764fbb58ea20c378fc448e8977019e48b65a0e4a1422c0306a069fe63f8623?apiKey=b49f4fc845b0413092db35688957248d&" alt="Dashboard icon" class="collaborators-icon" />
-            <span class="link-text">Dashboard</span>
-          </div>
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/efb23c20a983dc1ec8aa298b1252d6904d3ce470c8e0fa2e497e057df280f198?apiKey=b49f4fc845b0413092db35688957248d&" alt="Right arrow icon" class="arrow-icon" />
-        </div>
-      
-        <div class="account-settings">
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/101af350c4782ac46926a8e316be7b4844f638776d3d18f464b3ed5570f86d93?apiKey=b49f4fc845b0413092db35688957248d&" alt="Account settings icon" class="account-settings-icon" />
-          <span class="account-settings-text">Definições de Conta</span>
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/9595fe9acad06671601ae00d1f86b2b5482032a337eec41d020898253c30df71?apiKey=b49f4fc845b0413092db35688957248d&" alt="Right arrow icon" class="arrow-icon" />
-        </div>
-      
-        <div class="logout">
-          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6c98f316301669fb33dc7a873ba63efbb07a98ad06838853c10d57d2e3b8ff4e?apiKey=b49f4fc845b0413092db35688957248d&" alt="Logout icon" class="logout-icon" />
-          <span class="logout-text">Log Out</span>
-        </div>
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">UI Elements</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="icon-columns menu-icon"></i>
+              <span class="menu-title">Form elements</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="icon-bar-graph menu-icon"></i>
+              <span class="menu-title">Charts</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class="icon-grid-2 menu-icon"></i>
+              <span class="menu-title">Tables</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <i class="icon-contract menu-icon"></i>
+              <span class="menu-title">Icons</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="icons">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title">User Pages</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+              <i class="icon-ban menu-icon"></i>
+              <span class="menu-title">Error pages</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="error">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pages/documentation/documentation.html">
+              <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">Documentation</span>
+            </a>
+          </li>
+        </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">
