@@ -19699,7 +19699,7 @@ code {
 
 /* Footer */
 .footer {
-  background: #F5F7FF;
+  background: #F6FBF6;
   padding: 30px 2.45rem;
   transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
@@ -22077,7 +22077,7 @@ code {
 }
 
 .card.card-tale {
-  background: #7DA0FA;
+  background: #00A877;
   color: #ffffff;
 }
 
@@ -22086,30 +22086,30 @@ code {
 }
 
 .card.card-dark-blue {
-  background: #4747A1;
+  background: #00A877;
   color: #ffffff;
 }
 
 .card.card-dark-blue:hover {
-  background: #5050b2;
+  background: #00A877;
 }
 
 .card.card-light-blue {
-  background: #7978E9;
+  background: #00A877;
   color: #ffffff;
 }
 
 .card.card-light-blue:hover {
-  background: #8f8eed;
+  background: #00A877;
 }
 
 .card.card-light-danger {
-  background: #F3797E;
+  background: #00A877;
   color: #ffffff;
 }
 
 .card.card-light-danger:hover {
-  background: #f59095;
+  background: #00A877;
 }
 
 .card-inverse-primary {
@@ -28449,7 +28449,7 @@ div.tagsinput span.tag a {
 }
 
 .content-wrapper {
-  background: #F5F7FF;
+  background: #F6FBF6;
   padding: 2.375rem 2.375rem;
   width: 100%;
   -webkit-flex-grow: 1;
