@@ -12940,8 +12940,8 @@ input[type="button"].btn-block {
 }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
-  border-color: #007bff;
-  background-color: #007bff;
+  border-color: #ffffff;
+  background-color: #ffffff;
 }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::after {
@@ -12949,11 +12949,11 @@ input[type="button"].btn-block {
 }
 
 .custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: rgba(0, 123, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {
-  background-color: rgba(0, 123, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .custom-radio .custom-control-label::before {
@@ -25124,7 +25124,8 @@ dl li {
 .list-wrapper ul li {
   font-size: .9375rem;
   padding: 1.063rem 1.4rem;
-  border: 1px solid #CED4DA;
+  border: 1px solid #00AB77;
+  background-color: #00A877;
   margin-bottom: 0.812rem;
   border-radius: 7px;
 }
@@ -30592,4 +30593,8 @@ div.tagsinput span.tag a {
   }
 }
 
+.scrollable-table {
+  max-height: 520px; /* Ajuste a altura máxima conforme necessário */
+  overflow-y: auto;
+}
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */
