@@ -30597,4 +30597,8 @@ div.tagsinput span.tag a {
   max-height: 520px; /* Ajuste a altura máxima conforme necessário */
   overflow-y: auto;
 }
+
+.custom-negative-margin {
+  margin-top: -0.75rem; /* Defina o valor negativo desejado */
+}
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */
