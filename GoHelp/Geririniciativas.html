@@ -171,41 +171,54 @@
                                         <table id="example" class="display expandable-table" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Quote#</th>
-                                                    <th>Product</th>
-                                                    <th>Business type</th>
-                                                    <th>Policy holder</th>
-                                                    <th>Premium</th>
-                                                    <th>Status</th>
-                                                    <th>Updated at</th>
-                                                    <th></th>
+                                                    <th>Nome iniciativa</th>
+                                                    <th>Tipo de iniciativa</th>
+                                                    <th>Proponente</th>
+                                                    <th>Estado</th>
+                                                    <th>Ultima Atualização</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">
-                                                    <td>123</td>
-                                                    <td>Product X</td>
-                                                    <td>Corporate</td>
-                                                    <td>John Doe</td>
-                                                    <td>$1000</td>
-                                                    <td>Active</td>
-                                                    <td>2023-04-15</td>
-                                                    <td>More</td>
+                                                    <td>Limpeza de praia</td>
+                                                    <td>Limpeza</td>
+                                                    <td>Ana Pires</td>
+                                                    <td>Pendente</td>
+                                                    <td>25/04/2020</td>
                                                 </tr>
+                                               
+
                                                 <tr style="display:none;">
                                                     <td colspan="8" class="row-bg">
                                                         <div style="padding:5px;">
                                                             <div class="d-flex justify-content-between">
                                                                 <div class="cell-hilighted">
                                                                     <div class="d-flex mb-2">
-                                                                        <div class="mr-2 min-width-cell"><p>Policy start date</p><h6>25/04/2020</h6></div>
-                                                                        <div class="min-width-cell"><p>Policy end date</p><h6>24/04/2021</h6></div>
+                                                                      <div class="mr-2 min-width-cell">
+                                                                        <p>Número de Voluntários</p>
+                                                                        <h6>23</h6>
+                                                                      </div>
+                                                                      <div class="min-width-cell">
+                                                                        <p>Data Inicial</p>
+                                                                        <h6>25/03/2025 - 14:30</h6>
+                                                                      </div>
+                                                                      <div class="min-width-cell">
+                                                                        <p>Data Final</p>
+                                                                        <h6>25/04/2025 - 19:30</h6>
+                                                                      </div>
                                                                     </div>
                                                                     <div class="d-flex">
-                                                                        <div class="mr-2 min-width-cell"><p>Sum insured</p><h5>$26,000</h5></div>
-                                                                        <div class="min-width-cell"><p>Premium</p><h5>$1200</h5></div>
+                                                                      <div class="min-width-cell">
+                                                                        <p>Restrições</p>
+                                                                        <h6>Sem restrições</h6>
+                                                                      </div>
+                                                                      <div class="action-buttons ml-auto"> <!-- Adicionei a classe ml-auto aqui -->
+                                                                        <button class="btn btn-danger">Recusar</button>
+                                                                        <button class="btn btn-success">Aprovar</button>
+                                                                      </div>
                                                                     </div>
-                                                                </div>
+                                                                  </div>
+                                                                                                                                  
                                                                 <div class="expanded-table-normal-cell">
                                                                     <div class="mr-2 mb-4"><p>Quote no.</p><h6>Incs234</h6></div>
                                                                     <div class="mr-2"><p>Vehicle Reg. No.</p><h6>KL-65-A-7004</h6></div>
@@ -230,6 +243,7 @@
                                                                 <div class="expanded-table-normal-cell">
                                                                     <div class="mr-2 mb-4"><p>Channel</p><h6>Online</h6></div>
                                                                 </div>
+                                                                
                                                             </div>
                                                         </div>
                                                     </td>
@@ -252,7 +266,7 @@
                 table.addEventListener('click', function (e) {
                   // Check if the clicked element is a cell in the last column
                   const target = e.target;
-                  if (target.tagName === 'TD' && target.cellIndex === 7) {
+                  if (target.tagName === 'TD' && target.cellIndex === 4) {
                     const detailsRow = target.parentElement.nextElementSibling; // Get the next sibling row which holds the details
                     // Toggle the display of the details row
                     detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
