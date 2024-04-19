@@ -21,7 +21,7 @@
   <link rel="shortcut icon" href="images/favicon.png" />
 </head>
 <body>
-    div class="container-scroller">
+    <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -49,21 +49,6 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
 
-      <div id="right-sidebar" class="settings-panel">
-    
-        <div class="tab-content" id="setting-content">
- 
-          <!-- To do section tab ends -->
-          <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
-            <div class="d-flex align-items-center justify-content-between border-bottom">
-              <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
-            </div>
-            
-          </div>
-          <!-- chat tab ends -->
-        </div>
-      </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
             <!-- partial -->
@@ -84,9 +69,9 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Criar Iniciativa</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Lista de Iniciativas</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Histórico</a></li>
+                <li class="nav-item"> <a class="nav-link" href="criariniciativa.html">Criar Iniciativa</a></li>
+                <li class="nav-item"> <a class="nav-link" href="Geririniciativas.html">Gerir Iniciativas</a></li>
+                <li class="nav-item"> <a class="nav-link" href="historicoiniciativa.html">Histórico</a></li>
               </ul>
             </div>
           </li>
@@ -99,7 +84,7 @@
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Profissionais</a></li>
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Contas</a></li>
+                <li class="nav-item"><a class="nav-link" href="gerircontas.html">Contas</a></li>
 
               </ul>
             </div>
@@ -113,7 +98,7 @@
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Lista Materiais</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Criar Material</a></li>
+                <li class="nav-item"> <a class="nav-link" href="criarmaterial.html">Criar Material</a></li>
 
               </ul>
             </div>
@@ -144,8 +129,8 @@
           <div class="row">
             <div class="col-md-12 grid-margin" style="margin-bottom: 0.5rem;">
               <div class="row">
-                <div class="col-12 col-0 mb-0 mb-0">
-                  <h3 class="font-weight-bold">Gerir Iniciativas</h3>
+                <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                  <h3 class="font-weight-bold">Bem-Vindo, Pedro</h3>
                 </div>
                 <div class="col-12 col-xl-4">
                  <div class="justify-content-end d-flex">
@@ -163,11 +148,11 @@
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <p class="card-title">Lista de Iniciativas</p>
+                            <p class="card-title">Histórico de Iniciativas</p>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="table-responsive">
-                                        <table id="example" class="display expandable-table" style="width:100%">
+                                        <table id="example" class="display expandable-table pd-3" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th>Nome iniciativa</th>
@@ -175,6 +160,7 @@
                                                     <th>Proponente</th>
                                                     <th>Estado</th>
                                                     <th>Ultima Atualização</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -184,6 +170,11 @@
                                                     <td>Ana Pires</td>
                                                     <td>Pendente</td>
                                                     <td>25/04/2020</td>
+                                                    <td style="cursor: pointer;">
+                                                      <!-- Ícone de seta para baixo -->
+                                                      ↓
+                                                  </td>
+                                                    
                                                 </tr>
                                                
 
@@ -202,15 +193,21 @@
                                                                     </div>
                                                                     <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
                                                                         <p>Líder</p>
-                                                                        <h6>Ana Outeiro Pires</h6>
+                                                                        <select id="liderDropdown" class="custom-select">
+                                                                            <option selected>Selecione um líder...</option>
+                                                                            <option value="1">Pedro pires</option>
+                                                                            <option value="2">Liandro Cruz</option>
+                                                                            <option value="3">Rafa Silva</option>
+                                                                                            <!-- Mais opções aqui -->
+                                                                        </select>
                                                                     </div>
                                                                     <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
                                                                         <p>Id. Voluntário</p>
                                                                         <h6>AOP01</h6>
                                                                     </div>
                                                                     <div class="min-width-cell" style="padding: 10px;">
-                                                                        <p>E-mail Voluntário</p>
-                                                                        <h6>email@zmail.pt</h6>
+                                                                        <p >E-mail Voluntário</p>
+                                                                        <h6 style="margin-bottom: 3px;">email@zmail.pt</h6>
                                                                     </div>
                                                                 </div>
                                                                 <div class="expanded-table-normal-cell">
@@ -228,7 +225,7 @@
                                                                                     <label class="sr-only" for="materialDropdown">Material</label>
                                                                                     <div class="input-group">
                                                                                         <div class="input-group-prepend">
-                                                                                            <div class="input-group-text">Material</div>
+                                                                                            
                                                                                         </div>
                                                                                         <select class="custom-select material-dropdown">
                                                                                             <option selected>Selecionar Material...</option>
@@ -243,10 +240,10 @@
                                                                                     <label class="sr-only" for="quantityDropdown">Quantidade</label>
                                                                                     <div class="input-group">
                                                                                         <div class="input-group-prepend">
-                                                                                            <div class="input-group-text">Quantidade</div>
+                                                                                            
                                                                                         </div>
                                                                                         <select class="custom-select quantity-dropdown">
-                                                                                            <option selected>Escolher...</option>
+                                                                                            <option selected>Quantidade...</option>
                                                                                             <option value="12">12</option>
                                                                                             <option value="13">13</option>
                                                                                             <option value="14">14</option>
@@ -264,15 +261,43 @@
                                                                     </form>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-12">
+                                                                <form id="materials-form">
+                                                                    <div class="profissional-container">
+                                                                        <div class="form-row align-items-center profissional-row">
+                                                                            <div class="col-sm-6 my-1">
+                                                                                <label class="sr-only" for="materialDropdown">Associar Profissional</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        
+                                                                                    </div>
+                                                                                    <select class="custom-select material-dropdown">
+                                                                                        <option selected>Profissional</option>
+                                                                                        <option value="1">Jose Costa - Biologo</option>
+                                                                                        <option value="2">Joao Martins - Guarda Florestal</option>
+                                                                                        <!-- Mais opções aqui -->
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2 mt-2">
+                                                                        <button type="button" class="btn btn-link add-profissional-button">
+                                                                            <i class="fas fa-plus-circle"></i> Adicionar Profissional
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
                                                             
                                                             <script>
                                                                 document.addEventListener('DOMContentLoaded', function() {
-                                                                    document.querySelector('.add-material-button').addEventListener('click', function() {
-                                                                        var materialsContainer = document.querySelector('.materials-container');
-                                                                        var materialRow = document.querySelector('.material-row');
+                                                                    document.querySelector('.add-profissional-button').addEventListener('click', function() {
+                                                                        var materialsContainer = document.querySelector('.profissional-container');
+                                                                        var materialRow = document.querySelector('.profissional-row');
                                                                         var clonedMaterialRow = materialRow.cloneNode(true);
                                                                         materialsContainer.appendChild(clonedMaterialRow);
-                                                                        materialsContainer.appendChild(document.querySelector('.add-material-button').parentNode);
+                                                                        materialsContainer.appendChild(document.querySelector('.add-profissional-button').parentNode);
                                                                     });
                                                                 });
                                                             </script>
@@ -283,13 +308,13 @@
                                                                 
 
 
-                                                                <div class="cell-hilighted">
+                                                                <div class="cell-hilighted text-white">
                                                                     <div class="d-flex mb-2">
-                                                                      <div class="mr-2 min-width-cell">
+                                                                      <div class="mr-5 min-width-cell">
                                                                         <p>Número de Voluntários</p>
                                                                         <h6>23</h6>
                                                                       </div>
-                                                                      <div class="min-width-cell">
+                                                                      <div class="min-width-cell mr-3">
                                                                         <p>Data Inicial</p>
                                                                         <h6>25/03/2025 - 14:30</h6>
                                                                       </div>
@@ -299,7 +324,7 @@
                                                                       </div>
                                                                     </div>
                                                                     <div class="d-flex">
-                                                                      <div class="min-width-cell">
+                                                                      <div class="min-width-cell text-white">
                                                                         <p>Restrições</p>
                                                                         <h6>Sem restrições</h6>
                                                                       </div>
@@ -331,7 +356,7 @@
                 table.addEventListener('click', function (e) {
                   // Check if the clicked element is a cell in the last column
                   const target = e.target;
-                  if (target.tagName === 'TD' && target.cellIndex === 4) {
+                  if (target.tagName === 'TD' && target.cellIndex === 5) {
                     const detailsRow = target.parentElement.nextElementSibling; // Get the next sibling row which holds the details
                     // Toggle the display of the details row
                     detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>GoHelp</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="vendors/feather/feather.css">
+  <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+</head>
+<body>
+    div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="images/favicon.png" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/favicon.png" alt="logo"/></a>
+        <span>GoHelp</span>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img src="images/faces/face28.jpg" alt="profile"/>
+            </a>
+          </li>
+
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+
+      <div id="right-sidebar" class="settings-panel">
+    
+        <div class="tab-content" id="setting-content">
+ 
+          <!-- To do section tab ends -->
+          <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
+            <div class="d-flex align-items-center justify-content-between border-bottom">
+              <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
+              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
+            </div>
+            
+          </div>
+          <!-- chat tab ends -->
+        </div>
+      </div>
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+            <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Iniciativas</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="criariniciativa.html">Criar Iniciativa</a></li>
+                <li class="nav-item"> <a class="nav-link" href="Geririniciativas.html">Gerir Iniciativas</a></li>
+                <li class="nav-item"> <a class="nav-link" href="historicoiniciativa.html">Histórico</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="icon-columns menu-icon"></i>
+              <span class="menu-title">Colaboradores</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Profissionais</a></li>
+                <li class="nav-item"><a class="nav-link" href="gerir">Contas</a></li>
+
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="icon-bar-graph menu-icon"></i>
+              <span class="menu-title">Materiais</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Lista Materiais</a></li>
+                <li class="nav-item"> <a class="nav-link" href="criarmaterial.html">Criar Material</a></li>
+
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class="icon-grid-2 menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <i class="icon-contract menu-icon"></i>
+              <span class="menu-title">Definições de Conta</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title">Log Out</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 grid-margin" style="margin-bottom: 0.5rem;">
+              <div class="row">
+                <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                  <h3 class="font-weight-bold">Bem-Vindo, Pedro</h3>
+                </div>
+                <div class="col-12 col-xl-4">
+                 <div class="justify-content-end d-flex">
+                  <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
+                  </div>
+                 </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            <!-- gerir iniciativas -->
+
+
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">Histórico de iniciativas</p>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table id="example" class="display expandable-table pd-3" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome iniciativa</th>
+                                                    <th>Tipo de iniciativa</th>
+                                                    <th>Proponente</th>
+                                                    <th>Estado</th>
+                                                    <th>Ultima Atualização</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">
+                                                    <td>Limpeza de praia</td>
+                                                    <td>Limpeza</td>
+                                                    <td>Ana Pires</td>
+                                                    <td>Concluido</td>
+                                                    <td>25/04/2020</td>
+                                                    <td style="cursor: pointer;">
+                                                      <!-- Ícone de seta para baixo -->
+                                                      ↓
+                                                  </td>
+                                                    
+                                                </tr>
+                                               
+
+                                                <tr style="display:none;">
+                                                    <td colspan="8" class="row-bg">
+                                                        <div style="padding:5px;">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="d-flex mb-2 p-8" style="gap: 20px;">
+                                                                    <div class="mr-2 min-width-cell" style="margin-right: 20px; padding: 10px;">
+                                                                        <p>Localização</p>
+                                                                        <h6>PT, Esposende, Ofir</h6>
+                                                                    </div>
+                                                                    <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
+                                                                        <p>Tipo de iniciativa</p>
+                                                                        <h6>Limpeza de praia</h6>
+                                                                    </div>
+                                                                    <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
+                                                                        <p>Líder</p>
+                                                                        <h6>Ana Pires</h6>
+                                                                    </div>
+                                                                    <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
+                                                                        <p>Id. Voluntário</p>
+                                                                        <h6>AOP01</h6>
+                                                                    </div>
+                                                                    <div class="min-width-cell" style="padding: 10px;">
+                                                                        <p >E-mail Voluntário</p>
+                                                                        <h6 style="margin-bottom: 3px;">email@zmail.pt</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="expanded-table-normal-cell">
+                                                                    <p>Observação</p>
+                                                                    <h6>Vamos querer limpar a praia com vassouras e meter em saco do lixo. Há 3 elementos que já vão levar vassouras de casa, mas nenhum elemento vai levar sacos do lixo. Até já!</h6>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+
+                                                        <div style="display: flex; width: 100%; overflow-x: auto; margin-bottom: 40px; background-color: white;">
+                                                          <table class="table" style="flex: 1 1 auto; margin-right: 10px; background-color: white;">
+                                                              <thead>
+                                                                  <tr>
+                                                                      <th>Nome</th>
+                                                                      <th>Quantidade</th>
+                                                                  </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td>Vassoura</td>
+                                                                      <td>10</td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                      <td>Baldes</td>
+                                                                      <td>43</td>
+                                                                  </tr>
+                                                              </tbody>
+                                                          </table>
+                                                          <table class="table" style="flex: 1 1 auto; margin-right: 10px;">
+                                                              <thead>
+                                                                  <tr>
+                                                                      <th>Profissional</th>
+                                                                      <th>Cargo</th>
+                                                                  </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td>José Costa</td>
+                                                                      <td>Biologo</td>
+                                                                  </tr>
+                                                                  
+                                                              </tbody>
+                                                          </table>
+                                                          <table class="table" style="flex: 1 1 auto;">
+                                                              <thead>
+                                                                  <tr>
+                                                                      <th>ID</th>
+                                                                      <th>Nome</th>
+                                                                  </tr>
+                                                              </thead>
+                                                              <tbody>
+                                                                  <tr>
+                                                                      <td>1</td>
+                                                                      <td>Voluntário A</td>
+                                                                  </tr>
+                                                                  <tr>
+                                                                      <td>2</td>
+                                                                      <td>Voluntário B</td>
+                                                                  </tr>
+                                                              </tbody>
+                                                          </table>
+                                                        </div>
+                                                            
+                                                            
+                                                                <div class="cell-hilighted text-white">
+                                                                    <div class="d-flex mb-2">
+                                                                      <div class="mr-5 min-width-cell">
+                                                                        <p>Número de Voluntários</p>
+                                                                        <h6>23</h6>
+                                                                      </div>
+                                                                      <div class="min-width-cell mr-3">
+                                                                        <p>Data Inicial</p>
+                                                                        <h6>25/03/2025 - 14:30</h6>
+                                                                      </div>
+                                                                      <div class="min-width-cell ml-5">
+                                                                        <p>Data Final</p>
+                                                                        <h6>25/04/2025 - 19:30</h6>
+                                                                      </div>
+                                                                      <div class="min-width-cell ml-5">
+                                                                        <p>Restrições</p>
+                                                                        <h6>Sem restrições</h6>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                            </div>                                                                                                                         
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const table = document.getElementById('example');
+              
+                // Adding event listener to the table
+                table.addEventListener('click', function (e) {
+                  // Check if the clicked element is a cell in the last column
+                  const target = e.target;
+                  if (target.tagName === 'TD' && target.cellIndex === 5) {
+                    const detailsRow = target.parentElement.nextElementSibling; // Get the next sibling row which holds the details
+                    // Toggle the display of the details row
+                    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+                  }
+                });
+              });
+              </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.</span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+  
+    <!-- plugins:js -->
+    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="vendors/chart.js/Chart.min.js"></script>
+    <script src="vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <script src="js/dataTables.select.min.js"></script>
+  <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="js/off-canvas.js"></script>
+    <script src="js/hoverable-collapse.js"></script>
+    <script src="js/template.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="js/Chart.roundedBarCharts.js"></script>
+    <!-- End custom js for this page-->
+  </body>
+  
+  </html>
