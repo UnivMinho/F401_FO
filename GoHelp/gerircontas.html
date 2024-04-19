@@ -21,7 +21,7 @@
   <link rel="shortcut icon" href="images/favicn.png" />
 </head>
 <body>
-    <div <class="container-scroller">
+    <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -145,7 +145,7 @@
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-8 mb-0">
-                  <h3 class="font-weight-bold">Criar Material</h3>
+                  <h3 class="font-weight-bold">Lista de Contas</h3>
                 </div>
               </div>
             </div>
@@ -155,32 +155,110 @@
 
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body">
-                    <form class="forms-sample">
-                      <div class="form-group">
-                        <label for="exampleInputName1">Nome do Material</label>
-                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
-                      </div>
-                      <div class="form-group">
-                        <label for="localizacaoPretendida">Quantidade inicial</label>
-                        <input type="text" class="form-control" id="localizacaoPretendida" placeholder="Praia do Senhor da Pedra">
-                      </div>
-                      <div class="form-group">
-                        <label>Imagem do Material (Opcional)</label>
-                        <input type="file" name="img[]" class="file-upload-default">
-                        <div class="input-group col-xs-12">
-                          <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                          <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                          </span>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th>Nome</th>
+                                <th>ID de Conta</th>
+                                <th>Data de Criação</th>
+                                <th>Tipo de Conta</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Mariana Pinheiro</td>
+                                <td>53275531</td>
+                                <td>12/03/2014</td>
+                                <td> <div class="btn-group">
+                                    <button type="button" class="btn button-text" style="background-color: rgb(117, 190, 192); color: white;">Voluntário</button>
+                                    <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: rgb(117, 190, 192);">
+                                      <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Voluntário')">Voluntário</a>
+                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Administrador')">Administrador</a>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td><button class="btn btn-danger">Apagar Conta</button></td>
+                              </tr>
+                              <tr>
+                                <td>Raquel Molesa</td>
+                                <td>53275532</td>
+                                <td>15/08/2023</td>
+                                <td> <div class="btn-group">
+                                    <button type="button" class="btn button-text" style="background-color: rgb(117, 190, 192); color: white;">Voluntário</button>
+                                    <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: rgb(117, 190, 192);">
+                                      <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Voluntário')">Voluntário</a>
+                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Administrador')">Administrador</a>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td><button class="btn btn-danger">Apagar Conta</button></td>
+                              </tr>
+                              <tr>
+                                <td>Jony Dépe</td>
+                                <td>53275533</td>
+                                <td>14/04/2023</td>
+                                <td> <div class="btn-group">
+                                    <button type="button" class="btn button-text" style="background-color: rgb(117, 190, 192); color: white;">Voluntário</button>
+                                    <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: rgb(117, 190, 192);">
+                                      <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Voluntário')">Voluntário</a>
+                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Administrador')">Administrador</a>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td><button class="btn btn-danger">Apagar Conta</button></td>
+                              </tr>
+                              <tr>
+                                <td>Fiasco Macedo</td>
+                                <td>53275534</td>
+                                <td>09/04/2023</td>
+                                <td> <div class="btn-group">
+                                    <button type="button" class="btn button-text" style="background-color: rgb(117, 190, 192); color: white;">Voluntário</button>
+                                    <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: rgb(117, 190, 192);">
+                                      <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Voluntário')">Voluntário</a>
+                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Administrador')">Administrador</a>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td><button class="btn btn-danger">Apagar Conta</button></td>
+                              </tr>
+                              <tr>
+                                <td>Pedro Cruz</td>
+                                <td>53275535</td>
+                                <td>06/04/2023</td>
+                                <td> <div class="btn-group">
+                                    <button type="button" class="btn button-text" style="background-color: rgb(117, 190, 192); color: white;">Voluntário</button>
+                                    <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: rgb(117, 190, 192);">
+                                      <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Voluntário')">Voluntário</a>
+                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Administrador')">Administrador</a>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td><button class="btn btn-danger">Apagar Conta</button></td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary mr-2">Criar Material</button>
-                      </div>  
-                    </form>
-                  </div>                  
-       
+                </div>                  
+            </div>    
           <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -204,6 +282,15 @@
     <script src="vendors/datatables.net/jquery.dataTables.js"></script>
     <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
     <script src="js/dataTables.select.min.js"></script>
+
+    <script>
+        function updateButtonText(element, text) {
+          // Aqui 'element' é o item do dropdown que foi clicado
+          // O botão que queremos alterar é o irmão anterior do dropdown, então usamos '.previousElementSibling'
+          var button = element.closest('.btn-group').querySelector('.button-text');
+          button.textContent = text;
+        }
+    </script>
   
     <!-- End plugin js for this page -->
     <!-- inject:js -->
