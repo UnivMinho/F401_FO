@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>GoHelp</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="vendors/feather/feather.css">
+  <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="images/favicn.png" />
+</head>
+<body>
+    <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="images/favicon.png" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/favicon.png" alt="logo"/></a>
+        <span>GoHelp</span>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img src="images/faces/face28.jpg" alt="profile"/>
+            </a>
+          </li>
+
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+
+      <div id="right-sidebar" class="settings-panel">
+    
+        <div class="tab-content" id="setting-content">
+ 
+          <!-- To do section tab ends -->
+          <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
+            <div class="d-flex align-items-center justify-content-between border-bottom">
+              <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
+              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
+            </div>
+            
+          </div>
+          <!-- chat tab ends -->
+        </div>
+      </div>
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+            <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Iniciativas</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="criariniciativa.html">Criar Iniciativa</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Lista de Iniciativas</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Histórico</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="icon-columns menu-icon"></i>
+              <span class="menu-title">Colaboradores</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Profissionais</a></li>
+                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Contas</a></li>
+
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="icon-bar-graph menu-icon"></i>
+              <span class="menu-title">Materiais</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Lista Materiais</a></li>
+                <li class="nav-item"> <a class="nav-link" href="criarmaterial.html">Criar Material</a></li>
+
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+              <i class="icon-grid-2 menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <i class="icon-contract menu-icon"></i>
+              <span class="menu-title">Definições de Conta</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title">Log Out</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12 grid-margin">
+              <div class="row">
+                <div class="col-12 col-8 mb-0">
+                  <h3 class="font-weight-bold">Lista de Profissionais</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <!-- CRIAR Profissionais -->
+
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th>Nome</th>
+                                <th>Cargo</th>
+                                <th>Telemóvel</th>
+                                <th>E-mail</th>
+                                <th>Data de Criação</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>José Freitas</td>
+                                <td>Polícia</td>
+                                <td>934676184</td>
+                                <td> josefreitas@zmail.com</td>
+                                <td> 21/09/2023</td>
+                                <td><button class="btn btn-danger" style="height: 35px; padding-top: 0; padding-bottom: 0; line-height: 25px;">Apagar Conta</button></td>
+                              </tr>
+                              <tr>
+                                <td>Raquel Sá</td>
+                                <td>Ambientalista</td>
+                                <td>969888798</td>
+                                <td> raquelsaa@zmail.com</td>
+                                <td> 06/02/2022</td>
+                                <td><button class="btn btn-danger" style="height: 35px; padding-top: 0; padding-bottom: 0; line-height: 25px;">Apagar Conta</button></td>
+                              </tr>
+                              <tr>
+                                <td>Jony Dépe</td>
+                                <td>Guarda Florestal</td>
+                                <td>919883446</td>
+                                <td> jonydepe@zmail.com</td>
+                                <td> 11/11/2022</td>
+                                <td><button class="btn btn-danger" style="height: 35px; padding-top: 0; padding-bottom: 0; line-height: 25px;">Apagar Conta</button></td>
+                              </tr>
+                              <tr>
+                                <td>Fiasco Macedo</td>
+                                <td>Segurança</td>
+                                <td>928334789</td>
+                                <td> macedofiasco.com</td>
+                                <td> 18/04/2022</td>
+                                <td><button class="btn btn-danger" style="height: 35px; padding-top: 0; padding-bottom: 0; line-height: 25px;">Apagar Conta</button></td>
+                              </tr>
+                              <tr>
+                                <td>Pedro Cruz</td>
+                                <td>Guarda Florestal</td>
+                                <td>939557634</td>
+                                <td> pedrocruzes@zmail.com</td>
+                                <td> 02/07/2021</td>
+                                <td><button class="btn btn-danger" style="height: 35px; padding-top: 0; padding-bottom: 0; line-height: 25px;">Apagar Conta</button></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                </div>                  
+            </div>    
+          <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+
+
+            <div class="main-panel">
+            <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-12 grid-margin">
+                <div class="row">
+                    <div class="col-12 col-8 mb-0">
+                    <h3 class="font-weight-bold">Criar Profissional</h3>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+
+            <!-- Criar Profissional -->
+
+            <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <form class="forms-sample">
+                    <div class="form-group">
+                      <label for="exampleInputName1">Nome</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="localizacaoPretendida">E-mail</label>
+                      <input type="text" class="form-control" id="localizacaoPretendida" placeholder="email@zmail.com">
+                    </div>
+                    <div class="form-group">
+                      <label for="localizacaoPretendida">Telemóvel</label>
+                      <input type="text" class="form-control" id="localizacaoPretendida" placeholder="939939939">
+                    </div>
+                    <div class="form-group">
+                      <label for="localizacaoPretendida">Cargo</label>
+                      <input type="text" class="form-control" id="localizacaoPretendida" placeholder="Guarda Florestal">
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <button type="submit" class="btn btn-primary mr-2">Criar Profissional</button>
+                    </div>  
+                  </form>
+                </div>              
+          <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        
+
+        <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.</span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+  
+    <!-- plugins:js -->
+    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="vendors/chart.js/Chart.min.js"></script>
+    <script src="vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <script src="js/dataTables.select.min.js"></script>
+
+    <script>
+      function updateButtonText(element, text) {
+          // 'element' é o item do dropdown que foi clicado
+          // O botão que queremos alterar é o elemento 'button' dentro do componente 'dropdown' que contém o item clicado
+          var button = element.closest('.dropdown').querySelector('.dropdown-toggle');
+          button.textContent = text;
+      }
+  </script>
+  
+  
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="js/off-canvas.js"></script>
+    <script src="js/hoverable-collapse.js"></script>
+    <script src="js/template.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="js/Chart.roundedBarCharts.js"></script>
+    <!-- End custom js for this page-->
+  </body>
+  
+  </html>
