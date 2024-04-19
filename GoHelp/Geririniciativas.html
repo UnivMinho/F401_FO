@@ -21,7 +21,7 @@
   <link rel="shortcut icon" href="images/favicon.png" />
 </head>
 <body>
-    div class="container-scroller">
+    <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -49,21 +49,6 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
 
-      <div id="right-sidebar" class="settings-panel">
-    
-        <div class="tab-content" id="setting-content">
- 
-          <!-- To do section tab ends -->
-          <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
-            <div class="d-flex align-items-center justify-content-between border-bottom">
-              <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
-            </div>
-            
-          </div>
-          <!-- chat tab ends -->
-        </div>
-      </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
             <!-- partial -->
@@ -84,9 +69,9 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Criar Iniciativa</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Lista de Iniciativas</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Histórico</a></li>
+                <li class="nav-item"> <a class="nav-link" href="criariniciativa.html">Criar Iniciativa</a></li>
+                <li class="nav-item"> <a class="nav-link" href="Geririniciativas.html">Gerir Iniciativas</a></li>
+                <li class="nav-item"> <a class="nav-link" href="historicoiniciativa.html">Histórico</a></li>
               </ul>
             </div>
           </li>
@@ -99,7 +84,7 @@
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Profissionais</a></li>
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Contas</a></li>
+                <li class="nav-item"><a class="nav-link" href="gerircontas.html">Contas</a></li>
 
               </ul>
             </div>
@@ -113,7 +98,7 @@
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Lista Materiais</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Criar Material</a></li>
+                <li class="nav-item"> <a class="nav-link" href="criarmaterial.html">Criar Material</a></li>
 
               </ul>
             </div>
@@ -146,7 +131,6 @@
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                   <h3 class="font-weight-bold">Bem-Vindo, Pedro</h3>
-                  <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have <span class="text-primary">3 unread alerts!</span></h6>
                 </div>
                 <div class="col-12 col-xl-4">
                  <div class="justify-content-end d-flex">
@@ -164,7 +148,7 @@
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <p class="card-title">Advanced Table</p>
+                            <p class="card-title">Histórico de Iniciativas</p>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="table-responsive">
@@ -186,10 +170,10 @@
                                                     <td>Ana Pires</td>
                                                     <td>Pendente</td>
                                                     <td>25/04/2020</td>
-                                                    <td>
-                                                        <!-- Ícone de seta para baixo -->
-                                                        <i class="mdi mdi-arrow-down"></i>
-                                                    </td>
+                                                    <td style="cursor: pointer;">
+                                                      <!-- Ícone de seta para baixo -->
+                                                      ↓
+                                                  </td>
                                                     
                                                 </tr>
                                                
