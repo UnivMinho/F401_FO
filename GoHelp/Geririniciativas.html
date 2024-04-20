@@ -289,7 +289,17 @@
                                                                 </form>
                                                             </div>
                                                         </div>
-                                                            
+                                                        <script>
+                                                          document.addEventListener('DOMContentLoaded', function() {
+                                                              document.querySelector('.add-material-button').addEventListener('click', function() {
+                                                                  var materialsContainer = document.querySelector('.materials-container');
+                                                                  var materialRow = document.querySelector('.material-row');
+                                                                  var clonedMaterialRow = materialRow.cloneNode(true);
+                                                                  materialsContainer.appendChild(clonedMaterialRow);
+                                                                  materialsContainer.appendChild(document.querySelector('.add-materials-button').parentNode);
+                                                              });
+                                                          });
+                                                      </script>
                                                             <script>
                                                                 document.addEventListener('DOMContentLoaded', function() {
                                                                     document.querySelector('.add-profissional-button').addEventListener('click', function() {
