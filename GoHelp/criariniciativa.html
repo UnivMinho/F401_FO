@@ -19,9 +19,10 @@
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
+   <link rel="stylesheet" href="./vendors/mdi/css/materialdesignicons.min.css">
 </head>
 <body>
-    div <class="container-scroller">
+    <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -49,21 +50,7 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
 
-      <div id="right-sidebar" class="settings-panel">
-    
-        <div class="tab-content" id="setting-content">
- 
-          <!-- To do section tab ends -->
-          <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
-            <div class="d-flex align-items-center justify-content-between border-bottom">
-              <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
-            </div>
-            
-          </div>
-          <!-- chat tab ends -->
-        </div>
-      </div>
+      
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
             <!-- partial -->
@@ -72,13 +59,13 @@
         <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="index.html">
-              <i class="icon-grid menu-icon"></i>
+              <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Home</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="icon-layout menu-icon"></i>
+              <i class="mdi mdi-human-greeting menu-icon"></i>
               <span class="menu-title">Iniciativas</span>
               <i class="menu-arrow"></i>
             </a>
@@ -106,7 +93,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-              <i class="icon-bar-graph menu-icon"></i>
+              <i class="mdi mdi-cart menu-icon"></i>
               <span class="menu-title">Materiais</span>
               <i class="menu-arrow"></i>
             </a>
@@ -120,19 +107,19 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="dashboard.html">
-              <i class="icon-grid-2 menu-icon"></i>
+              <i class="icon-bar-graph menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="definicoesconta.html">
-              <i class="icon-contract menu-icon"></i>
+              <i class="mdi mdi-contact-mail menu-icon"></i>
               <span class="menu-title">Definições de Conta</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="logout.html">
-              <i class="icon-head menu-icon"></i>
+              <i class="mdi mdi-logout menu-icon"></i>
               <span class="menu-title">Log Out</span>
             </a>
           </li>
@@ -172,7 +159,7 @@
                       <div class="form-group">
                     <br>
                         <label for="exampleInputName1">Número máximo de participantes</label>
-                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Nome">
                       </div>
                       <div class="form-group">
                         <label for="localizacaoPretendida">Localização pretendida</label>
@@ -210,9 +197,9 @@
                                     <label class="sr-only" for="materialDropdown">Material</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text">Material</div>
+                                            
                                         </div>
-                                        <select class="custom-select material-dropdown">
+                                        <select class="custom-select material-dropdown mr-3">
                                             <option selected>Selecionar Material...</option>
                                             <option value="1">Luvas</option>
                                             <option value="2">Balde</option>
@@ -225,7 +212,7 @@
                                     <label class="sr-only" for="quantityDropdown">Quantidade</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text">Quantidade</div>
+                                            
                                         </div>
                                         <select class="custom-select quantity-dropdown">
                                             <option selected>Escolher...</option>
@@ -238,11 +225,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 mt-2">
-                            <button type="button" class="btn btn-link add-material-button">
-                                <i class="fas fa-plus-circle"></i> Adicionar Material
-                            </button>
-                        </div>
+                        <div class="col-md-5 mt-2">
+                          <button type="button" class="btn btn-link add-material-button" style="margin-left: -38px;">
+                              <i class="mdi mdi-plus-circle-outline"></i> Adicionar Material
+                          </button>
+                      </div>
+                                       
                     </form>
                 </div>
              
@@ -269,7 +257,7 @@
                                   <div class="input-group-prepend">
                                       
                                   </div>
-                                  <select class="custom-select material-dropdown">
+                                  <select class="custom-select material-dropdown mr-3">
                                       <option selected>Profissional</option>
                                       <option value="1">Jose Costa - Biologo</option>
                                       <option value="2">Joao Martins - Guarda Florestal</option>
@@ -280,8 +268,8 @@
                       </div>
                   </div>
                   <div class="col-md-2 mt-2">
-                      <button type="button" class="btn btn-link add-profissional-button">
-                          <i class="fas fa-plus-circle"></i> Adicionar Profissional
+                      <button type="button" class="btn btn-link add-profissional-button" style="margin-left: -54px;">
+                          <i class="mdi mdi-account-plus"></i> Adicionar Profissional
                       </button>
                   </div>
               </form>

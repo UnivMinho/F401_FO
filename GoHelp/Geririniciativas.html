@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
+  <link rel="stylesheet" href="./vendors/mdi/css/materialdesignicons.min.css">
 </head>
 <body>
     <div class="container-scroller">
@@ -57,13 +58,13 @@
         <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="index.html">
-              <i class="icon-grid menu-icon"></i>
+              <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Home</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="icon-layout menu-icon"></i>
+              <i class="mdi mdi-human-greeting menu-icon"></i>
               <span class="menu-title">Iniciativas</span>
               <i class="menu-arrow"></i>
             </a>
@@ -91,7 +92,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-              <i class="icon-bar-graph menu-icon"></i>
+              <i class="mdi mdi-cart menu-icon"></i>
               <span class="menu-title">Materiais</span>
               <i class="menu-arrow"></i>
             </a>
@@ -105,19 +106,19 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="dashboard.html">
-              <i class="icon-grid-2 menu-icon"></i>
+              <i class="icon-bar-graph menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="definicoesconta.html">
-              <i class="icon-contract menu-icon"></i>
+              <i class="mdi mdi-contact-mail menu-icon"></i>
               <span class="menu-title">Definições de Conta</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="logout.html">
-              <i class="icon-head menu-icon"></i>
+              <i class="mdi mdi-logout menu-icon"></i>
               <span class="menu-title">Log Out</span>
             </a>
           </li>
@@ -185,29 +186,31 @@
                                                                 <div class="d-flex mb-2 p-8" style="gap: 20px;">
                                                                     <div class="mr-2 min-width-cell" style="margin-right: 20px; padding: 10px;">
                                                                         <p>Localização</p>
-                                                                        <h6>PT, Esposende, Ofir</h6>
+                                                                        <h6 class="mt-3">PT, Esposende, Ofir</h6>
                                                                     </div>
                                                                     <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
                                                                         <p>Tipo de iniciativa</p>
-                                                                        <h6>Limpeza de praia</h6>
+                                                                        <h6 class="mt-3">Limpeza de praia</h6>
                                                                     </div>
-                                                                    <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
+                                                                    
+                                                                    <div class="min-width-cell" style="margin-right: 20px; padding: 10px; border-radius: 10px;">
                                                                         <p>Líder</p>
-                                                                        <select id="liderDropdown" class="custom-select">
-                                                                            <option selected>Selecione um líder...</option>
+                                                                        <select id="liderDropdown" class="custom-select" style="font-size: 13px; padding: 5px; width: 100px;">
+                                                                            <option selected>Selecione</option>
                                                                             <option value="1">Pedro pires</option>
                                                                             <option value="2">Liandro Cruz</option>
                                                                             <option value="3">Rafa Silva</option>
                                                                                             <!-- Mais opções aqui -->
                                                                         </select>
                                                                     </div>
+                                                                  
                                                                     <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
                                                                         <p>Id. Voluntário</p>
-                                                                        <h6>AOP01</h6>
+                                                                        <h6 class="mt-3" class="mt-3">AOP01</h6>
                                                                     </div>
                                                                     <div class="min-width-cell" style="padding: 10px;">
                                                                         <p >E-mail Voluntário</p>
-                                                                        <h6 style="margin-bottom: 3px;">email@zmail.pt</h6>
+                                                                        <h6 class="mt-3"style="margin-bottom: 3px;">email@zmail.pt</h6>
                                                                     </div>
                                                                 </div>
                                                                 <div class="expanded-table-normal-cell">
@@ -251,13 +254,14 @@
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
+                                                                                
+                                                                                  <button type="button" class="btn btn-link add-material-button">
+                                                                                    <i class="mdi mdi-plus-circle-outline mr-2"></i> Adicionar Material
+                                                                                  </button>
+                                                                              
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-2 mt-2">
-                                                                            <button type="button" class="btn btn-link add-material-button">
-                                                                                <i class="fas fa-plus-circle"></i> Adicionar Material
-                                                                            </button>
-                                                                        </div>
+                                                                        
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -281,11 +285,11 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-2 mt-2">
+                                                                    
                                                                         <button type="button" class="btn btn-link add-profissional-button">
-                                                                            <i class="fas fa-plus-circle"></i> Adicionar Profissional
+                                                                          <i class="mdi mdi-account-plus mr-2"></i> Adicionar Profissional
                                                                         </button>
-                                                                    </div>
+                                                                    
                                                                 </form>
                                                             </div>
                                                         </div>

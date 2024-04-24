@@ -26256,6 +26256,7 @@ body.avgrund-active {
 .expandable-table tr td {
   padding: 14px;
   font-size: 14px;
+  background-color:#F6FBF6 ;
 }
 
 .expandable-table tr td.select-checkbox {
