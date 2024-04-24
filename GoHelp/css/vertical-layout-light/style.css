@@ -13784,6 +13784,7 @@ input[type="button"].btn-block {
   background-clip: border-box;
   border: 1px solid #e3e3e3;
   border-radius: 20px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .card > hr {
@@ -19785,6 +19786,7 @@ code {
 .stretch-card > .card {
   width: 100%;
   min-width: 100%;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2)
 }
 
 @media (min-width: 576px) {
@@ -26277,6 +26279,7 @@ body.avgrund-active {
   padding: 18px;
   color: #fff;
   font-size: 11px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .expandable-table tr td .cell-hilighted h5 {
