@@ -21,54 +21,9 @@
   <link rel="shortcut icon" href="images/favicn.png" />
 </head>
 <body>
-    <div <class="container-scroller">
+    <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
-    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="images/favicon.png" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/favicon.png" alt="logo"/></a>
-        <span>GoHelp</span>
-      </div>
-      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-          <span class="icon-menu"></span>
-        </button>
-        <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item nav-profile dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="images/faces/face28.jpg" alt="profile"/>
-            </a>
-          </li>
-
-        </ul>
-        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-          <span class="icon-menu"></span>
-        </button>
-      </div>
-    </nav>
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
-
-      <div id="right-sidebar" class="settings-panel">
-    
-        <div class="tab-content" id="setting-content">
- 
-          <!-- To do section tab ends -->
-          <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
-            <div class="d-flex align-items-center justify-content-between border-bottom">
-              <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
-            </div>
-            
-          </div>
-          <!-- chat tab ends -->
-        </div>
-      </div>
-      <!-- partial -->
-      <!-- partial:partials/_sidebar.html -->
-            <!-- partial -->
-      <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+   <nav class="sidebar sidebar-offcanvas" id="sidebar" style="  box-shadow: 0px 5px 11px -5px #CDD1E1;">
         <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="index.html">
@@ -85,8 +40,8 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="criariniciativa.html">Criar Iniciativa</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Lista de Iniciativas</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Histórico</a></li>
+                <li class="nav-item"> <a class="nav-link" href="Geririniciativas.html">Gerir Iniciativas</a></li>
+                <li class="nav-item"> <a class="nav-link" href="historicoiniciativa.html">Histórico</a></li>
               </ul>
             </div>
           </li>
@@ -98,8 +53,8 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Profissionais</a></li>
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Contas</a></li>
+                <li class="nav-item"><a class="nav-link" href="gerirprofisisonais.html">Profissionais</a></li>
+                <li class="nav-item"><a class="nav-link" href="gerircontas.html">Contas</a></li>
 
               </ul>
             </div>
@@ -112,26 +67,26 @@
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">Lista Materiais</a></li>
+                <li class="nav-item"> <a class="nav-link" href="listamaterial.html">Lista Materiais</a></li>
                 <li class="nav-item"> <a class="nav-link" href="criarmaterial.html">Criar Material</a></li>
 
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+            <a class="nav-link" href="dashboard.html">
               <i class="icon-grid-2 menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+            <a class="nav-link" href="definicoesconta.html">
               <i class="icon-contract menu-icon"></i>
               <span class="menu-title">Definições de Conta</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <a class="nav-link" href="logout.html">
               <i class="icon-head menu-icon"></i>
               <span class="menu-title">Log Out</span>
             </a>
@@ -150,49 +105,51 @@
                 </div>
               </div>
             </div>
+
+            <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-description">
+                      Altere os seus dados pessoais.
+                    </p>
+                  <a style="display: block; text-align: center;">
+                      <img src="images/faces/face28.jpg" alt="profile" style="display: block; margin: auto;"/>
+                  </a>
+                  
+                  <form class="forms-sample">
+                    <div class="form-group">
+                      <label for="exampleInputName1">Nome</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                      <label for="localizacaoPretendida">E-mail</label>
+                      <input type="text" class="form-control" id="localizacaoPretendida" placeholder="email@zmail.com" readonly
+                        style="background-color: #e9ecef; opacity: 1; cursor: not-allowed;">
+                    </div>                      
+                    <div class="form-group">
+                      <label for="localizacaoPretendida">Telemóvel</label>
+                      <input type="text" class="form-control" id="localizacaoPretendida" placeholder="939939939">
+                    </div>
+                    <div class="form-group">
+                      <label>Upload Fotografia</label>
+                      <input type="file" name="img[]" class="file-upload-default">
+                      <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <button type="submit" class="btn btn-primary mr-2">Submenter alterações</button>
+                    </div>  
+                  </form>
+                </div>
           </div>
 
             <!-- Definições de Conta -->
 
-            <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <p class="card-description">
-                        Altere os seus dados pessoais.
-                      </p>
-                    <a style="display: block; text-align: center;">
-                        <img src="images/faces/face28.jpg" alt="profile" style="display: block; margin: auto;"/>
-                    </a>
-                    
-                    <form class="forms-sample">
-                      <div class="form-group">
-                        <label for="exampleInputName1">Nome</label>
-                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Name">
-                      </div>
-                      <div class="form-group">
-                        <label for="localizacaoPretendida">E-mail</label>
-                        <input type="text" class="form-control" id="localizacaoPretendida" placeholder="email@zmail.com" readonly
-                          style="background-color: #e9ecef; opacity: 1; cursor: not-allowed;">
-                      </div>                      
-                      <div class="form-group">
-                        <label for="localizacaoPretendida">Telemóvel</label>
-                        <input type="text" class="form-control" id="localizacaoPretendida" placeholder="939939939">
-                      </div>
-                      <div class="form-group">
-                        <label>Upload Fotografia</label>
-                        <input type="file" name="img[]" class="file-upload-default">
-                        <div class="input-group col-xs-12">
-                          <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                          <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                          </span>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary mr-2">Submenter alterações</button>
-                      </div>  
-                    </form>
-                  </div>                  
+                              
        
           <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->

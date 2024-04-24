@@ -13817,6 +13817,7 @@ input[type="button"].btn-block {
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
+  
 }
 
 .card-title {
@@ -22079,10 +22080,12 @@ code {
 .card.card-tale {
   background: #5BC2AC;
   color: #ffffff;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra mais notável */
+  
 }
 
 .card.card-tale:hover {
-  background: #96b2fb;
+  background: #00A877;
 }
 
 .card.card-dark-blue {
@@ -28766,9 +28769,11 @@ div.tagsinput span.tag a {
     -webkit-transition: all 0.25s ease-out;
     -o-transition: all 0.25s ease-out;
     transition: all 0.25s ease-out;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
   }
   .sidebar-offcanvas.active {
     right: 0;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -28781,7 +28786,7 @@ div.tagsinput span.tag a {
   -ms-transition: background 0.25s ease;
   -webkit-box-shadow: 0px 5px 21px -5px #CDD1E1;
   -moz-box-shadow: 0px 5px 21px -5px #CDD1E1;
-  box-shadow: 0px 5px 21px -5px #CDD1E1;
+  box-shadow: 0px 5px 11px -5px #CDD1E1;
   /* Navbar color variations */
 }
 
