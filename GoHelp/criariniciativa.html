@@ -21,7 +21,7 @@
   <link rel="shortcut icon" href="images/favicon.png" />
 </head>
 <body>
-    div class="container-scroller">
+    div <class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -245,7 +245,7 @@
                         </div>
                     </form>
                 </div>
-            </div>      
+             
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     document.querySelector('.add-material-button').addEventListener('click', function() {
@@ -257,17 +257,54 @@
                     });
                 });
             </script> 
-                      <div class="form-group">
-                        <label for="exampleInputPassword4">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">
+
+                  
+            <div class="col-12">
+              <form id="materials-form">
+                  <div class="profissional-container">
+                      <div class="form-row align-items-center profissional-row">
+                          <div class="col-sm-6 my-1">
+                              <label class="sr-only" for="materialDropdown">Associar Profissional</label>
+                              <div class="input-group">
+                                  <div class="input-group-prepend">
+                                      
+                                  </div>
+                                  <select class="custom-select material-dropdown">
+                                      <option selected>Profissional</option>
+                                      <option value="1">Jose Costa - Biologo</option>
+                                      <option value="2">Joao Martins - Guarda Florestal</option>
+                                      <!-- Mais opções aqui -->
+                                  </select>
+                              </div>
+                          </div>
                       </div>
-                      <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary mr-2">Criar Iniciativa</button>
-                      </div>                      
-                    </form>
                   </div>
-                </div>
-              </div>
+                  <div class="col-md-2 mt-2">
+                      <button type="button" class="btn btn-link add-profissional-button">
+                          <i class="fas fa-plus-circle"></i> Adicionar Profissional
+                      </button>
+                  </div>
+              </form>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary mr-2">Criar Iniciativa</button>
+            </div>  
+            </div>
+
+            <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                  document.querySelector('.add-profissional-button').addEventListener('click', function() {
+                      var materialsContainer = document.querySelector('.profissional-container');
+                      var materialRow = document.querySelector('.profissional-row');
+                      var clonedMaterialRow = materialRow.cloneNode(true);
+                      materialsContainer.appendChild(clonedMaterialRow);
+                      materialsContainer.appendChild(document.querySelector('.add-profissional-button').parentNode);
+                  });
+              });
+            </script>
+  </div>   
+
+
 
             <script>
             document.addEventListener('DOMContentLoaded', function () {
