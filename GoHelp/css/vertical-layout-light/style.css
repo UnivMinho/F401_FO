@@ -25113,7 +25113,7 @@ dl li {
 
 .list-wrapper {
   height: 100%;
-  max-height: 390px;
+  max-height: 250px;
   overflow: scroll;
 }
 
@@ -30620,5 +30620,34 @@ div.tagsinput span.tag a {
     order:0;
 }
 
+/* Estilo da barra de rolagem para navegadores WebKit (Google Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+  width: 10px; /* largura da barra de rolagem */
+}
+
+/* Estilo do botão na barra de rolagem para navegadores WebKit */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3); /* cor do botão */
+  border-radius: 5px; /* borda arredondada */
+}
+
+/* Estilo da pista na barra de rolagem para navegadores WebKit */
+::-webkit-scrollbar-track {
+  background-color: transparent; /* torna a pista transparente para que o fundo da página seja visível */
+}
+
+/* Estilo da barra de rolagem para navegadores Firefox */
+/* Note que o estilo da barra de rolagem no Firefox é aplicado através de uma pseudo-classe */
+/* Mais detalhes sobre a personalização da barra de rolagem no Firefox podem ser encontrados na documentação oficial */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar */
+* {
+  scrollbar-width: thin; /* largura da barra de rolagem */
+}
+
+/* Estilo do botão na barra de rolagem para navegadores Firefox */
+/* Esta propriedade de cor pode ser ajustada conforme necessário */
+* {
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent; /* cor do botão e do fundo da barra de rolagem */
+}
 
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */

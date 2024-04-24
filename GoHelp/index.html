@@ -294,7 +294,7 @@
                   <div class="card" style="background-color: #5AC0AB; box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);">
                     <div class="card-body p-0">
                       <h5 class="mb-4 text-white pl-3 pt-3 py-2">Material</h5>
-                      <div class="table-responsive scrollable-table">
+                      <div class="table-responsive scrollable-table" style="max-height: 316px; overflow-y: auto;">
                         <table class="table table-borderless text-white pb-6">
                           <thead>
                             <tr style="background-color: #00A877;">
@@ -356,10 +356,10 @@
                 
                 </div>
                 <div class="col-md-6 grid-margin stretch-card">
-                  <div class="card text-white" style="background-color: #5AC0AB; box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);"">
+                  <div class="card text-white" style="background-color: #5AC0AB; box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); overflow-y: hidden;">
                     <div class="card-body" >
                       <h4 class="card-title text-white">Tarefas Pendentes</h4>
-                      <div class="list-wrapper pt-2">
+                      <div class="list-wrapper pt-2" style="overflow-x: hidden;">
                         <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
                           <li>
                             <div class="form-check form-check-flat">
@@ -367,7 +367,7 @@
                                 <input class="checkbox" type="checkbox"> Analisar estado da plantação de monção
                               </label>
                             </div>
-                            <i class="remove ti-close"></i>
+                            <i class="remove ti-close text-white"></i>
                           </li>
                           <li class="completed">
                             <div class="form-check form-check-flat">
@@ -404,8 +404,8 @@
                         </ul>
                       </div>
                       <div class="add-items d-flex mb-0 mt-2 text-white">
-                        <input type="text" class="form-control todo-list-input text-white" placeholder="Add new task">
-                        <button class="add btn btn-icon text-primary todo-list-add-btn bg-transparent"><i class="icon-circle-plus"></i></button>
+                        <input type="text" class="form-control todo-list-input text-white" placeholder="Adicionar nova tarefa">
+                        <button class="add btn btn-icon text-primary todo-list-add-btn bg-transparent text-white"><i class="mdi mdi-plus-circle-outline text-white"></i></button>
                       </div>
                     </div>
                   </div>
