@@ -6,18 +6,18 @@
         labels: ["10","","","20","","","30","","","40","","", "50","","", "60","","","70"],
         datasets: [
           {
-            data: [200, 480, 700, 600, 620, 350, 380, 350, 850, "600", "650", "350", "590", "350", "620", "500", "990", "780", "650"],
+            data: [200, 480, 700, 600, 620, 350, 380, 350, 850, 600, 650, 350, 590, 350, 620, 500, 990, 780, 650],
             borderColor: [
-              '#4747A1'
+              'rgba(144, 238, 144, 1)' // Verde Pálido
             ],
             borderWidth: 2,
             fill: false,
             label: "Orders"
           },
           {
-            data: [400, 450, 410, 500, 480, 600, 450, 550, 460, "560", "450", "700", "450", "640", "550", "650", "400", "850", "800"],
+            data: [400, 450, 410, 500, 480, 600, 450, 550, 460, 560, 450, 700, 450, 640, 550, 650, 400, 850, 800],
             borderColor: [
-              '#F09397'
+              'rgba(176, 224, 230, 1)' // Azul Pastel
             ],
             borderWidth: 2,
             fill: false,
@@ -81,7 +81,7 @@
             radius: 0
           }
         }
-      }
+      };
       var revenueChartCanvas = $("#order-chart").get(0).getContext("2d");
       var revenueChart = new Chart(revenueChartCanvas, {
         type: 'line',
@@ -89,6 +89,7 @@
         options: areaOptions
       });
     }
+    
     if ($("#order-chart-dark").length) {
       var areaData = {
         labels: ["10","","","20","","","30","","","40","","", "50","","", "60","","","70"],
@@ -186,12 +187,12 @@
           datasets: [{
               label: 'Offline Sales',
               data: [480, 230, 470, 210, 330],
-              backgroundColor: '#98BDFF'
+              backgroundColor: 'rgba(144, 238, 144, 0.8)' // Verde Pálido
             },
             {
               label: 'Online Sales',
               data: [400, 340, 550, 480, 170],
-              backgroundColor: '#4B49AC'
+              backgroundColor: 'rgba(173, 216, 230, 0.8)' // Azul Pastel
             }
           ]
         },
@@ -220,11 +221,11 @@
                 min: 0,
                 max: 560,
                 callback: function(value, index, values) {
-                  return  value + '$' ;
+                  return value + '$';
                 },
                 autoSkip: true,
                 maxTicksLimit: 10,
-                fontColor:"#6C7383"
+                fontColor: "#6C7383"
               }
             }],
             xAxes: [{
@@ -252,6 +253,7 @@
       });
       document.getElementById('sales-legend').innerHTML = SalesChart.generateLegend();
     }
+    
     if ($("#sales-chart-dark").length) {
       var SalesChartCanvas = $("#sales-chart-dark").get(0).getContext("2d");
       var SalesChart = new Chart(SalesChartCanvas, {

@@ -22077,7 +22077,7 @@ code {
 }
 
 .card.card-tale {
-  background: #00A877;
+  background: #5BC2AC;
   color: #ffffff;
 }
 
@@ -22086,30 +22086,30 @@ code {
 }
 
 .card.card-dark-blue {
-  background: #00A877;
+  background: #5BC2AC;
   color: #ffffff;
 }
 
 .card.card-dark-blue:hover {
-  background: #00A877;
+  background: #5BC2AC;
 }
 
 .card.card-light-blue {
-  background: #00A877;
+  background: #5BC2AC;
   color: #ffffff;
 }
 
 .card.card-light-blue:hover {
-  background: #00A877;
+  background: #5BC2AC;
 }
 
 .card.card-light-danger {
-  background: #00A877;
+  background: #5BC2AC;
   color: #ffffff;
 }
 
 .card.card-light-danger:hover {
-  background: #00A877;
+  background: #5BC2AC;
 }
 
 .card-inverse-primary {
@@ -25125,7 +25125,7 @@ dl li {
   font-size: .9375rem;
   padding: 1.063rem 1.4rem;
   border: 1px solid #00AB77;
-  background-color: #00A877;
+  background-color: #5BC2AC;
   margin-bottom: 0.812rem;
   border-radius: 7px;
 }
