@@ -1,0 +1,278 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoHelp</title>
+    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap-icons.css" rel="stylesheet">
+    <link href="./css/front-office.css" rel="stylesheet">
+
+    <!--LOGIN GOOGLE-->
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+    <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-auth.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-8 col-12 d-flex flex-wrap">
+                    <p class="d-flex me-4 mb-0">
+                        <i class="bi-geo-alt me-2"></i>
+                        Av. Universidade, 4800-058, Guimarães
+                    </p>
+
+                    <p class="d-flex mb-0">
+                        <i class="bi-envelope me-2"></i>
+                        <a href="mailto:info@company.com">gohelp@gmail.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg bg-light shadow-lg">
+        <div class="container">
+            <a class="navbar-brand">
+                <img src="images/logo.png" class="logo img-fluid" alt="GoHelp">
+                <span>
+                    GoHelp
+                    <small>Organização sem fins lucrativos</small>
+                </span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="minhasIniciativas.html" >Minhas iniciativas</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="sugerir.html">Sugerir</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="associar.html">Associar</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="utilizador.html">Utilizador</a>
+                    </li>
+
+                    <li class="nav-item ms-3">
+                        <a class="nav-link custom-btn custom-border-btn btn" href="index.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        
+        <section class="volunteer-section section-padding section">
+            
+            <h2 class="text-white text-center">Sugere uma iniciativa!</h2>
+            <h6 class="text-white text-center">Sabes de alguma zona a precisar de intervenção?<br>Tens alguma ideia para partilhar?</h6>
+            <h6 class="text-white text-center ">Sugere-nos e nós organizamos!</h6>
+
+        <div class="container">
+            <div class="row">              
+                <div class="col-lg-6 col-12 mx-auto">
+                    <form class="custom-form donate-form" action="#" method="get" role="form">
+                        <h3 class="mb-4 text-center">Sugestão</h3>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <h5 class="mb-3">Tipo de iniciativa:</h5>
+                            </div>
+
+                            <div class="col-lg-6 col-6 form-check-group form-check-group-donation-frequency">
+                                <div class="form-check form-check-radio">
+                                    <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaLimpeza" checked>
+                                    <label class="form-check-label" for="TipoIniciativaLimpeza">Limpeza</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-6 form-check-group form-check-group-donation-frequency">
+                                <div class="form-check form-check-radio">
+                                    <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaReflorestacao">
+                                    <label class="form-check-label" for="TipoIniciativaReflorestacao">Reflorestação</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-6 form-check-group form-check-group-donation-frequency">
+                                <div class="form-check form-check-radio">
+                                    <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaCampanhas" checked>
+                                    <label class="form-check-label" for="TipoIniciativaCampanhas">Campanhas</label>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-12">
+                                <h5 class="mt-2 mb-3">Número máximo de participantes:</h5>
+                            </div>
+                            <div class="col-lg-2 col-md-6 col-6 form-check-group">
+                                <div class="form-check form-check-radio">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        5
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-6 col-6 form-check-group">
+                                <div class="form-check form-check-radio">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        10
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-6 col-6 form-check-group">
+                                <div class="form-check form-check-radio">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                    <label class="form-check-label" for="flexRadioDefault3">
+                                        15
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-6 col-6 form-check-group">
+                                <div class="form-check form-check-radio">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+                                    <label class="form-check-label" for="flexRadioDefault4">
+                                        20
+                                    </label>
+                                </div>
+                            </div>
+
+                        
+                            <div class="col-lg-4 col-12 form-check-group">
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1"></span>
+                                    <input type="text" class="form-control" placeholder="Outro número" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-12">
+                                <h5 class="mt-1">Localização pretendida:</h5>
+                            </div>
+                            <div class="col-lg-12 col-12 mt-2">
+                                <input type="text" name="iniciativa-location" id="iniciativa-location" class="form-control" placeholder="Praia do Senhor da Pedra, Vila Nova de Gaia " required>
+                            </div>
+
+
+                            <div class="col-lg-12 col-12">
+                                <h5 class="mt-1">Data pretendida:</h5>
+                            </div>
+                            <div class="col-lg-12 col-12 mt-2">
+                                <input type="date" name="iniciativa-date" id="iniciativa-date" class="form-control" required>
+                            </div>
+
+                            <div class="col-lg-12 col-12">
+                                <h5 class="mt-1">Hora pretendida:</h5>
+                            </div>
+                            <div class="col-lg-12 col-12 mt-2">
+                                <input type="time" name="iniciativa-hour" id="iniciativa-hour" class="form-control" required>
+                            </div>
+
+                            <div class="col-lg-12 col-12">
+                                <h5 class="mt-1">Nome da iniciativa:</h5>
+                            </div>
+                            <div class="col-lg-12 col-12 mt-2">
+                                <input type="text" name="iniciativa-name" id="iniciativa-name" class="form-control" placeholder="Praia limpa!" required>
+                            </div>
+
+                            <div class="col-lg-12 col-12">
+                                <h5 class="mt-1">Descrição:</h5>
+                            </div>
+                            <div class="col-lg-12 col-12 mt-2">
+                                <input type="text" name="iniciativa-description" id="iniciativa-description" class="form-control" placeholder="Junte-se a nós para uma manhã revigorante e significativa na nossa iniciativa 'Praia limpa'" required>
+                            </div>
+
+                            <div class="col-lg-12 col-12">
+                                <h5 class="mt-1">Observações:</h5>
+                            </div>
+                            <div class="col-lg-12 col-12 mt-2">
+                                <input type="text" name="iniciativa-comments" id="iniciativa-comments" class="form-control" 
+                                placeholder="Exemplo: materiais/profissionais que sabe que precisa, número mínimo de pessoas que pretende,
+                                entre outras informações que considere relevantes para a organização da iniciativa. Se não tiver ideia dos 
+                                materiais/profissionais que precisa, com base no numero de pessoas e na iniciativa que pretende, nós definimos os mesmos.">
+                            </div>
+
+
+                                <button type="submit" class="form-control mt-4">Enviar sugestão!</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </main>
+    
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <!--alterar tamanho logo-->
+                <div class="col-lg-3 col-12 mb-4">
+                    <img src="images/logoFim.png" class="logo-bottom img-fluid" alt="">
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <h5 class="site-footer-title mb-3">Ligações rápidas</h5>
+                    <ul class="footer-menu">
+                        <li class="footer-menu-item"><a href="minhasIniciativas.html" class="footer-menu-link">Minhas iniciativas</a></li>
+
+                        <li class="footer-menu-item"><a href="sugerir.html" class="footer-menu-link">Sugerir</a></li>
+
+                        <li class="footer-menu-item"><a href="associar.html" class="footer-menu-link">Associar</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-12 mx-auto">
+                    <h5 class="site-footer-title mb-3">Informações de contacto</h5>
+
+                    <p class="text-white d-flex mb-2">
+                        <i class="bi-telephone me-2"></i>
+
+                        <a href="tel: 120-240-9600" class="site-footer-link">
+                            999 999 999
+                        </a>
+                    </p>
+
+                    <p class="text-white d-flex">
+                        <i class="bi-envelope me-2"></i>
+
+                        <a href="mailto:info@yourgmail.com" class="site-footer-link">
+                            gohelp@gmail.com
+                        </a>
+                    </p>
+
+                    <p class="text-white d-flex mt-3">
+                        <i class="bi-geo-alt me-2"></i>
+                        Av. Universidade, 4800-058, Guimarães
+                    </p>
+
+                    <a href="#" class="custom-btn btn mt-3">Direções</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+      <!-- JAVASCRIPT FILES -->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/jquery.sticky.js"></script>
+      <script src="js/click-scroll.js"></script>
+      <script src="js/counter.js"></script>
+      <script src="js/custom.js"></script>
+
+</body>
+</html>
