@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GoHelp</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="vendors/feather/feather.css">
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="images/favicn.png" />
+    <link rel="stylesheet" href="./vendors/mdi/css/materialdesignicons.min.css">
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="images/favicon.png" class="mr-2"
+                        alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/favicon.png"
+                        alt="logo" /></a>
+                <span>GoHelp</span>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="icon-menu"></span>
+                </button>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                            <img src="images/faces/face28.jpg" alt="profile" />
+                        </a>
+                    </li>
+
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="icon-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+
+            <div id="right-sidebar" class="settings-panel">
+
+                <div class="tab-content" id="setting-content">
+
+                    <!-- To do section tab ends -->
+                    <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
+                        <div class="d-flex align-items-center justify-content-between border-bottom">
+                            <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
+                            <small
+                                class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See
+                                All</small>
+                        </div>
+
+                    </div>
+                    <!-- chat tab ends -->
+                </div>
+            </div>
+            <!-- partial -->
+            <!-- partial:partials/_sidebar.html -->
+            <!-- partial -->
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar" style="  box-shadow: 0px 5px 11px -5px #CDD1E1;">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="mdi mdi-home menu-icon"></i>
+                            <span class="menu-title">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
+                            aria-controls="ui-basic">
+                            <i class="mdi mdi-human-greeting menu-icon"></i>
+                            <span class="menu-title">Iniciativas</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="criariniciativa.html">Criar
+                                        Iniciativa</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="Geririniciativas.html">Gerir
+                                        Iniciativas</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="historicoiniciativa.html">Histórico</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
+                            aria-controls="form-elements">
+                            <i class="icon-columns menu-icon"></i>
+                            <span class="menu-title">Colaboradores</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="form-elements">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link"
+                                        href="gerirprofisisonais.html">Profissionais</a></li>
+                                <li class="nav-item"><a class="nav-link" href="gerircontas.html">Contas</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false"
+                            aria-controls="charts">
+                            <i class="mdi mdi-cart menu-icon"></i>
+                            <span class="menu-title">Materiais</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="charts">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="listamaterial.html">Lista Materiais</a>
+                                </li>
+                                <li class="nav-item"> <a class="nav-link" href="criarmaterial.html">Criar Material</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="icon-bar-graph menu-icon"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="definicoesconta.html">
+                            <i class="mdi mdi-contact-mail menu-icon"></i>
+                            <span class="menu-title">Definições de Conta</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.html">
+                            <i class="mdi mdi-logout menu-icon"></i>
+                            <span class="menu-title">Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <h3 class="font-weight-bold">Gerir Materiais</h3>
+                        </div>
+                        <div class="col-md-4">
+                            <form class="form-inline">
+                                <div class="form-group mx-auto">
+                                    <input type="text" class="form-control rounded" id="searchInput"
+                                        placeholder="Procurar material">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <a class="nav-link" href="criarmaterial.html">
+                                <button type="submit" class="btn btn-primary">Adicionar Material</button>
+                            </a>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <!-- MATERIAIS -->
+
+                    <div class="container">
+                        <div class="row" style="margin-top: 30px;">
+                            <div class="col-md-3 grid-margin stretch-card">
+                                <div class="card" style="box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); height: 350px;">
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <h4 class="mb-auto">Sacos de lixo</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 grid-margin stretch-card">
+                                <div class="card" style="box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); height: 350px;">
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <h4 class="mb-auto">Luvas</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 grid-margin stretch-card">
+                                <div class="card" style="box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); height: 350px;">
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <h4 class="mb-auto">Balde Reutilizável</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 grid-margin stretch-card">
+                                <div class="card" style="box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); height: 350px;">
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <h4 class="mb-auto">Carrinho De Mão</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row" style="margin-top: 30px;">
+                            <div class="col-md-3 grid-margin stretch-card">
+                                <div class="card" style="box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); height: 350px;">
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <h4 class="mb-auto">Pá</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 grid-margin stretch-card">
+                                <div class="card" style="box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); height: 350px;">
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <h4 class="mb-auto">Enxada</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 grid-margin stretch-card">
+                                <div class="card" style="box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); height: 350px;">
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <h4 class="mb-auto">Regador</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 grid-margin stretch-card">
+                                <div class="card" style="box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); height: 350px;">
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <h4 class="mb-auto">Sementes</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="footer">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright ©
+                                2021.</span>
+                        </div>
+                    </footer>
+                    <!-- page-body-wrapper ends -->
+                </div>
+                <!-- container-scroller -->
+
+                <!-- plugins:js -->
+                <script src="vendors/js/vendor.bundle.base.js"></script>
+                <!-- endinject -->
+                <!-- Plugin js for this page -->
+                <script src="vendors/chart.js/Chart.min.js"></script>
+                <script src="vendors/datatables.net/jquery.dataTables.js"></script>
+                <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+                <script src="js/dataTables.select.min.js"></script>
+
+                <!-- End plugin js for this page -->
+                <!-- inject:js -->
+                <script src="js/off-canvas.js"></script>
+                <script src="js/hoverable-collapse.js"></script>
+                <script src="js/template.js"></script>
+                <script src="js/settings.js"></script>
+                <script src="js/todolist.js"></script>
+                <!-- endinject -->
+                <!-- Custom js for this page-->
+                <script src="js/Chart.roundedBarCharts.js"></script>
+                <!-- End custom js for this page-->
+</body>
+
+</html>
