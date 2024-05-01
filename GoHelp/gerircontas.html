@@ -171,54 +171,6 @@
                             </thead>
                             <tbody>
                               <tr>
-                                <td>Mariana Pinheiro</td>
-                                <td>53275531</td>
-                                <td>12/03/2014</td>
-                                <td> <div class="dropdown"> <!-- Largura aumentada para tornar o botão mais cumprido -->
-                                  <button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: rgb(117, 190, 192); color: white; width: 140px;">
-                                      Voluntário
-                                  </button>
-                                  <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Voluntário')">Voluntário</a>
-                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Administrador')">Administrador</a>
-                                  </div>
-                              </div>
-                                </td>
-                                <td><button class="btn btn-danger" style="height: 35px; padding-top: 0; padding-bottom: 0; line-height: 25px;">Apagar Conta</button></td>
-                              </tr>
-                              <tr>
-                                <td>Raquel Molesa</td>
-                                <td>53275532</td>
-                                <td>15/08/2023</td>
-                                <td> <div class="dropdown"> <!-- Largura aumentada para tornar o botão mais cumprido -->
-                                  <button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: rgb(117, 190, 192); color: white; width: 140px;">
-                                      Voluntário
-                                  </button>
-                                  <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Voluntário')">Voluntário</a>
-                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Administrador')">Administrador</a>
-                                  </div>
-                              </div>
-                                </td>
-                                <td><button class="btn btn-danger" style="height: 35px; padding-top: 0; padding-bottom: 0; line-height: 25px;">Apagar Conta</button></td>
-                              </tr>
-                              <tr>
-                                <td>Jony Dépe</td>
-                                <td>53275533</td>
-                                <td>14/04/2023</td>
-                                <td> <div class="dropdown"> <!-- Largura aumentada para tornar o botão mais cumprido -->
-                                  <button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: rgb(117, 190, 192); color: white; width: 140px;">
-                                      Voluntário
-                                  </button>
-                                  <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Voluntário')">Voluntário</a>
-                                      <a class="dropdown-item" href="#" onclick="updateButtonText(this, 'Administrador')">Administrador</a>
-                                  </div>
-                              </div>
-                                </td>
-                                <td><button class="btn btn-danger" style="height: 35px; padding-top: 0; padding-bottom: 0; line-height: 25px;">Apagar Conta</button></td>
-                              </tr>
-                              <tr>
                                 <td>Fiasco Macedo</td>
                                 <td>53275534</td>
                                 <td>09/04/2023</td>
@@ -272,6 +224,20 @@
     <!-- container-scroller -->
   
     <!-- plugins:js -->
+    <script src="./Front/js/google.js" type="module"></script>
+    <script src="./Backend/gerircontas.js" type="module"></script>
+
+     <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- endinject -->
+    <!-- Certifique-se de que estas linhas estão presentes e corretas em seu <head> ou antes do fechamento do </body> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <!-- Custom js for this page-->
+    <script src="js/Chart.roundedBarCharts.js"></script>
     <script src="vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
@@ -279,27 +245,6 @@
     <script src="vendors/datatables.net/jquery.dataTables.js"></script>
     <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
     <script src="js/dataTables.select.min.js"></script>
-
-    <script>
-      function updateButtonText(element, text) {
-          // 'element' é o item do dropdown que foi clicado
-          // O botão que queremos alterar é o elemento 'button' dentro do componente 'dropdown' que contém o item clicado
-          var button = element.closest('.dropdown').querySelector('.dropdown-toggle');
-          button.textContent = text;
-      }
-  </script>
-  
-  
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="js/off-canvas.js"></script>
-    <script src="js/hoverable-collapse.js"></script>
-    <script src="js/template.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/todolist.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="js/Chart.roundedBarCharts.js"></script>
     <!-- End custom js for this page-->
   </body>
   

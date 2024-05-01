@@ -20,6 +20,7 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
    <link rel="stylesheet" href="./vendors/mdi/css/materialdesignicons.min.css">
+   
 </head>
 <body>
     <div class="container-scroller">
@@ -150,12 +151,13 @@
                       <div class="form-group">
                             <label for="exampleInputName1">Tipo de iniciativa</label>
                             <div class="d-flex justify-content-center">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                  <button type="button" class="btn" style="background-color: #00A877; color: white; border: 1px solid rgb(163, 164, 165);">Limpeza</button>
-                                  <button type="button" class="btn" style="background-color: #FFFFFF; color: rgb(163, 164, 165); border-top: 1px solid rgb(163, 164, 165); border-bottom: 1px solid rgb(163, 164, 165); border-left: 1px solid rgb(163, 164, 165);">Reflorestação</button>
-                                  <button type="button" class="btn" style="background-color: #FFFFFF; color: rgb(163, 164, 165); border: 1px solid rgb(163, 164, 165);">Campanha</button>
-                                </div>
-                            </div>                                                                                    
+                              <div class="btn-group" role="group" aria-label="Basic example">
+                                  <button type="button" class="btn">Limpeza</button>
+                                  <button type="button" class="btn">Reflorestação</button>
+                                  <button type="button" class="btn">Campanha</button>
+                              </div>
+                          </div>
+                          </script>                                                                            
                       <div class="form-group">
                     <br>
                         <label for="exampleInputName1">Número máximo de participantes</label>
@@ -164,6 +166,10 @@
                       <div class="form-group">
                         <label for="localizacaoPretendida">Localização pretendida</label>
                         <input type="text" class="form-control" id="localizacaoPretendida" placeholder="Praia do Senhor da Pedra">
+                      </div>
+                      <div class="form-group">
+                        <label for="descricao">Breve Descrição</label>
+                        <input type="text" class="form-control" id="desc" placeholder="Vamos querer limpar a praia com vassouras e meter em saco do lixo. Há 3 elementos que já vão levar vassouras de casa, mas nenhum elemento vai levar sacos do lixo. Até já!                        ">
                       </div>
                       
                       <div class="form-group">
@@ -294,60 +300,8 @@
 
 
 
-            <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const table = document.getElementById('example');
-              
-                // Adding event listener to the table
-                table.addEventListener('click', function (e) {
-                  // Check if the clicked element is a cell in the last column
-                  const target = e.target;
-                  if (target.tagName === 'TD' && target.cellIndex === 4) {
-                    const detailsRow = target.parentElement.nextElementSibling; // Get the next sibling row which holds the details
-                    // Toggle the display of the details row
-                    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
-                  }
-                });
-              });
-              </script>
             
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
 
           <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -381,6 +335,7 @@
     <script src="js/template.js"></script>
     <script src="js/settings.js"></script>
     <script src="js/todolist.js"></script>
+    <script src="./Backend/criariniciativa.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="js/Chart.roundedBarCharts.js"></script>
