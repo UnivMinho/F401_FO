@@ -38,8 +38,7 @@ function handleGoogleLogin() {
                 imageUrl: user.photoURL,
                 email: user.email,
                 dataCriado: new Date().toISOString(),
-                userType: 'Voluntário',
-                telemovel: '', // Definindo telemovel como vazio inicialmente                // Definindo tipo de usuário como 'Voluntário' por padrão
+                userType: 'Voluntário'
             };
 
             // Verifica se o usuário já existe e mantém o tipo se ele já estiver definido
@@ -138,7 +137,7 @@ function updateUserData(userData) {
 
 function redirectToPage(userType) {
     if (userType === 'Administrador') {
-        window.location.href = "http://localhost:3000/GoHelp/index.html";  // Página de back office
+        window.location.href = "http://localhost:3000/GoHelp/back/index.html";  // Página de back office
     } else {  // Assume-se que todos os outros são 'Voluntário'
         window.location.href = "minhasIniciativas.html";  // Página de front office
     }
