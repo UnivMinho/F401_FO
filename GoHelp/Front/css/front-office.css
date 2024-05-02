@@ -593,6 +593,7 @@ strong {
   background: var(--primary-color);
   padding-top: 15px;
   padding-bottom: 10px;
+  width: 100%;
 }
 
 .site-header p,
@@ -1766,4 +1767,16 @@ blockquote::before {
   .donate-form {
     padding: 25px;
   }
+}
+
+.site-header .container {
+  padding: 0; /* Remove o padding do container para ocupar todo o espaço */
+}
+
+.site-header .col-lg-8 {
+  padding-right: 0; /* Remove o padding direito para ocupar todo o espaço */
+}
+
+.site-header p {
+  margin-bottom: 0; /* Remove o espaço extra entre os parágrafos */
 }

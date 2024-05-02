@@ -8,7 +8,7 @@
         <meta name="author" content="">
 
         <title>GoHelp</title>
-        <link rel="icon" type="image/x-icon" href="/images/logo.ico">
+        <link rel="icon" type="image/x-icon" href="./images/logo.ico">
 
         <!-- CSS FILES -->        
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,94 +17,6 @@
         <link rel="stylesheet" href="css/style.css">
 
 
-        <!--LOGIN GOOGLE-->
-        <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-auth.js"></script>
-
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
-            import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
-    
-            const firebaseConfig = {
-                apiKey: "AIzaSyDYfzXglNuRQOo8fYKObQqrhixdfzrbt3k",
-                authDomain: "pw-f401.firebaseapp.com",
-                projectId: "pw-f401",
-                storageBucket: "pw-f401.appspot.com",
-                messagingSenderId: "171557937473",
-                appId: "1:171557937473:web:cf399649671b58007d01c0",
-                measurementId: "G-7KPNJ7MYWT"
-            };
-
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-            const auth = getAuth();
-            const google = new GoogleAuthProvider();
-
-            const googleButton = document.getElementById("google-btn");
-            const googleButton1 = document.getElementById("google-btn-1");
-            const googleButton2 = document.getElementById("google-btn-2");
-            const googleButton3 = document.getElementById("google-btn-3");
-            const googleButton4 = document.getElementById("google-btn-4");
-            const googleButton5 = document.getElementById("google-btn-5");
-
-
-            googleButton.addEventListener('click', () => handleGoogleLogin());
-            googleButton1.addEventListener('click', () => handleGoogleLogin());
-            googleButton2.addEventListener('click', () => handleGoogleLogin());
-            googleButton3.addEventListener('click', () => handleGoogleLogin());
-            googleButton4.addEventListener('click', () => handleGoogleLogin());
-            googleButton5.addEventListener('click', () => handleGoogleLogin());
-        
-            function handleGoogleLogin() {
-                signInWithPopup(auth, google)
-                    .then((result) => {
-                        /** @type {firebase.User} */
-                        let user = result.user;
-                    
-                        let userData = {
-                            id: user.uid,
-                            name: user.displayName,
-                            imageUrl: user.photoURL,
-                            email: user.email
-                        };
-                
-                    // Store user data in localStorage
-                    localStorage.setItem('userData', JSON.stringify(userData));
-                    console.log('User data saved to localStorage:', userData);
-
-                    const userType = localStorage.getItem('userType');
-                    if (!userType) {
-                        localStorage.setItem('userType', 'voluntario');
-                        console.log('Tipo de usuário definido como voluntário por padrão.');
-                    }
-
-                    // Redirecionar pagina correta
-                    if (userType === 'voluntario') {
-                        window.location.href = "minhasIniciativas.html";
-                    } else if (userType === 'administrador') {
-                        window.location.href = "../BackOffice/index.html";
-                    } else {
-                        window.location.href = "minhasIniciativas.html";
-                    }                   
-
-                    })
-                
-                    .catch((error) => {
-                    console.log(error);
-                });
-        }
-
-        firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            console.log('User signed in');
-            console.log(user);
-        } else {
-            console.log('No user is signed in');
-        }
-        });
-    </script>
-
     </head>
     
     <body id="section_1">
@@ -112,26 +24,27 @@
         <header class="site-header">
             <div class="container">
                 <div class="row">
-                    
-                    <div class="col-lg-8 col-12 d-flex flex-wrap">
-                        <p class="d-flex me-4 mb-0">
-                            <i class="bi-geo-alt me-2"></i>
-                            Av. Universidade, 4800-058, Guimarães
-                        </p>
-
-                        <p class="d-flex mb-0">
-                            <i class="bi-envelope me-2"></i>
-                            <a href="mailto:info@company.com">gohelp@gmail.com</a>
-                        </p>
+                    <div class="col-12"> <!-- Adicione a classe col-12 aqui -->
+                        <div class="col-lg-8 col-12 d-flex flex-wrap">
+                            <p class="d-flex me-4 mb-0">
+                                <i class="bi-geo-alt me-2"></i>
+                                Av. Universidade, 4800-058, Guimarães
+                            </p>
+                            <p class="d-flex mb-0">
+                                <i class="bi-envelope me-2"></i>
+                                <a href="mailto:info@company.com">gohelp@gmail.com</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </header>
+        
 
         <nav class="navbar navbar-expand-lg bg-light shadow-lg">
             <div class="container">
                 <a class="navbar-brand" href="index.html">
-                    <img src="images/logo.png" class="logo img-fluid" alt="Kind Heart Charity">
+                    <img src="./images/logo.png" class="logo img-fluid" alt="Kind Heart Charity">
                     <span>
                         GoHelp
                         <small>Organização sem fins lucrativos</small>
@@ -171,7 +84,7 @@
                         <li class="nav-item ms-3">
                             <!-- Abrir pop-up do Google (fazer coisas no Google Cloud para ver se funciona) -->
                             <button class="nav-link custom-btn custom-border-btn btn" id="google-btn">
-                                <img src="/images/googleLogo.png" alt="Google Logo" class="google-logo">
+                                <img src="./images/googleLogo.png" alt="Google Logo" class="google-logo">
                                 Sign in
                             </button>                        
                         </li>

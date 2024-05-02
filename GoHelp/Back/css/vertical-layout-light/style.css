@@ -19781,6 +19781,7 @@ code {
   align-items: stretch;
   -webkit-justify-content: stretch;
   justify-content: stretch;
+  margin-top: 50px;
 }
 
 .stretch-card > .card {
@@ -30664,4 +30665,12 @@ div.tagsinput span.tag a {
   background-color: #00865A; /* Verde mais escuro para o botão ativo */
   color: white;
 }
+
+.card-inner {
+  border: 2px solid #E8F2E8;
+  width: 100%; /* Ajusta para ocupar todo o espaço disponível do card pai */
+  padding: 20px;
+  box-sizing: border-box; /* Garante que o padding não adicione ao width definido */
+}
+
 

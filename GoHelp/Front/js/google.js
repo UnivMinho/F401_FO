@@ -143,75 +143,15 @@ function redirectToPage(userType) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const userData = JSON.parse(localStorage.getItem('userData')) || {};
-
-    // Preencher os campos do formulário com os dados do usuário do Google
-    fillFormFields(userData);
-
-    const imgElement = document.querySelector('img[src="images/faces/face28.jpg"]');
-    if (imgElement && userData.imageUrl) {
-        imgElement.src = userData.imageUrl;
-    }
-
-    const imgElementForm = document.getElementById('user-profile-form');
-    if (imgElementForm && userData.imageUrl) {
-        imgElementForm.src = userData.imageUrl;
-    }
-
-    const uploadButton = document.getElementById('uploadButton');
-    uploadButton.addEventListener('click', function() {
-        const inputFoto = document.createElement('input');
-        inputFoto.type = 'file';
-        inputFoto.accept = 'image/*';
-        inputFoto.onchange = function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const fotoURL = e.target.result;
-                    if (imgElement) {
-                        imgElement.src = fotoURL;
-                    }
-                    userData.photoURL = fotoURL;
-                    localStorage.setItem('userData', JSON.stringify(userData));
-                };
-                reader.readAsDataURL(file);
-            }
-        };
-        inputFoto.click();
-    });
-
-    const form = document.querySelector('.forms-sample');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const nome = document.getElementById('nome').value;
-        const email = document.getElementById('email').value;
-        const telemovel = document.getElementById('telemovel').value;
-        const fotoURL = userData.photoURL || '';
-
-        const userDataUpdated = { name: nome, email: email, telemovel: telemovel, photoURL: fotoURL };
-
-        localStorage.setItem('userData', JSON.stringify(userDataUpdated));
-
-        form.reset();
-    });
-});
-
-function fillFormFields(userData) {
-    document.getElementById('nome').value = userData.name || '';
-    document.getElementById('email').value = userData.email || '';
-    document.getElementById('telemovel').value = userData.telemovel || '';
-
-    const imgElement = document.querySelector('img[src="images/faces/face28.jpg"]');
-    if (imgElement && userData.photoURL) {
-        imgElement.src = userData.photoURL;
-    }
-
-    const imgElementForm = document.getElementById('user-profile-form');
-    if (imgElementForm && userData.photoURL) {
-        imgElementForm.src = userData.photoURL;
+function updateUserType(userId, newUserType) {
+    let users = JSON.parse(localStorage.getItem('usersData')) || [];
+    const userIndex = users.findIndex(user => user.id === userId);
+    if(userIndex !== -1) {
+        users[userIndex].userType = newUserType;  // Atualiza o tipo de usuário
+        localStorage.setItem('usersData', JSON.stringify(users));  // Salva no localStorage
+        loadUserData();  // Recarrega os dados do usuário para atualizar a tabela
     }
 }
+  
+
  
