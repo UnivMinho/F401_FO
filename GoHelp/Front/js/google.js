@@ -12,7 +12,7 @@ const firebaseConfig = {
     measurementId: "G-7KPNJ7MYWT"
 };
 
-// Inicializa o Firebase
+/// Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -54,7 +54,6 @@ function handleGoogleLogin() {
             console.error(error);
         });
 }
-
 
 function saveUserData(userData) {
     let users = JSON.parse(localStorage.getItem('usersData')) || [];
@@ -115,13 +114,6 @@ function loadUserData() {
     }
 }
 
-window.removeUser = function(userId) {
-    let users = JSON.parse(localStorage.getItem('usersData')) || [];
-    users = users.filter(user => user.id !== userId);
-    localStorage.setItem('usersData', JSON.stringify(users));
-    loadUserData(); // Recarrega a tabela para mostrar as mudanças
-};
-
 function updateUserData(userData) {
     let users = JSON.parse(localStorage.getItem('usersData')) || [];
     const existingUser = users.find(user => user.id === userData.id);
@@ -152,6 +144,3 @@ function updateUserType(userId, newUserType) {
         loadUserData();  // Recarrega os dados do usuário para atualizar a tabela
     }
 }
-  
-
- 

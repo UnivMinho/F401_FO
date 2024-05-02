@@ -3,18 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     buttons.forEach(button => {
         button.addEventListener('click', function() {
-            buttons.forEach(btn => btn.classList.remove('active')); // Remove 'active' de todos os botões
-            button.classList.add('active'); // Adiciona 'active' ao botão clicado
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
         });
     });
-});
 
-
-document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.btn.btn-primary.mr-2').addEventListener('click', function(event) {
-        event.preventDefault();  // Impede o comportamento padrão do formulário
+        event.preventDefault();
 
-        // Verifica se todos os campos estão preenchidos
         var tipoIniciativa = document.querySelector('.btn-group .btn.active') ? document.querySelector('.btn-group .btn.active').textContent : '';
         var maxParticipantes = document.getElementById('exampleInputName1').value;
         var localizacao = document.getElementById('localizacaoPretendida').value;
@@ -23,16 +19,14 @@ document.addEventListener('DOMContentLoaded', function() {
         var dataInicio = document.getElementById('dataInicio').value;
         var horaFim = document.getElementById('horaFim').value;
         var dataFim = document.getElementById('dataFim').value;
-
-        // Captura informações dos materiais
+        
         var materiais = Array.from(document.querySelectorAll('.materials-container .material-row')).map(row => {
             return {
                 material: row.querySelector('.material-dropdown').value,
                 quantidade: row.querySelector('.quantity-dropdown').value
             };
         });
-
-        // Captura informações dos profissionais
+        
         var profissionais = Array.from(document.querySelectorAll('.profissional-container .profissional-row')).map(row => {
             return {
                 profissional: row.querySelector('.material-dropdown').value
@@ -44,21 +38,25 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Se todos os campos estiverem preenchidos, guarda no Local Storage
-        var dadosIniciativa = {
-            tipoIniciativa: tipoIniciativa,
-            maxParticipantes: maxParticipantes,
-            localizacao: localizacao,
-            descricao: descricao,
-            horaInicio: horaInicio,
-            dataInicio: dataInicio,
-            horaFim: horaFim,
-            dataFim: dataFim,
-            materiais: materiais,
-            profissionais: profissionais
+        var newInitiative = {
+            type: tipoIniciativa,
+            volunteers: maxParticipantes,
+            location: localizacao, 
+            date: dataInicio,
+            start_hour: horaInicio,
+            end_hour: horaFim,
+            end_date: dataFim,
+            name: 'Nome da Iniciativa', // Você pode modificar conforme necessário
+            description: descricao,
+            comments: 'Comentários', // Modifique conforme necessário
+            status: "pendente",
+            userEmail: 'email@example.com', // Substitua pelo email do usuário atual
+            associatedVolunteers: ['email@example.com'],
+            materials: materiais,
+            professionals: profissionais
         };
 
-        localStorage.setItem('iniciativa', JSON.stringify(dadosIniciativa));
+        localStorage.setItem('Initiatives', JSON.stringify(newInitiative));
         alert('Iniciativa criada com sucesso!');
     });
 });

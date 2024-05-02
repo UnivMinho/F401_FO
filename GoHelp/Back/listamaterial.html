@@ -162,15 +162,14 @@
                             <h3 class="font-weight-bold">Gerir Materiais</h3>
                         </div>
                         <div class="col-md-4">
-                            <form class="form-inline">
+                            <form class="form-inline" onsubmit="return false;">
                                 <div class="form-group mx-auto position-relative">
-                                    <input type="text" class="form-control rounded pl-4" id="searchInput"
-                                        placeholder="Procurar material">
-                                    <i class="mdi mdi-magnify position-absolute"
-                                        style="left: 4px; top: 16px;"></i>
+                                    <input type="text" class="form-control rounded pl-4" id="searchInput" placeholder="Procurar material" onkeyup="filterMaterials()">
+                                    <i class="mdi mdi-magnify position-absolute" style="left: 4px; top: 16px;"></i>
                                 </div>
                             </form>
                         </div>
+                        
 
                         <div class="col-md-4 text-right">
                             <a class="nav-link" href="criarmaterial.html">
