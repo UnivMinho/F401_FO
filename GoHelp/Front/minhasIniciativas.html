@@ -9,20 +9,10 @@
        <link href="css/bootstrap.min.css" rel="stylesheet">
        <link href="css/bootstrap-icons.css" rel="stylesheet">
        <link href="css/front-office.css" rel="stylesheet">
-
-        <!--GOOGLE MAPS, para preencher com key-->
-        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
-            <style>
-                /* Style your map container */
-                #map {
-                    height: 400px;
-                    width: 100%;
-                }
-            </style>
-   
+       <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body>     
     <header class="site-header">
         <div class="container">
             <div class="row">
@@ -62,19 +52,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="minhasIniciativas.html" >Minhas iniciativas</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="sugerir.html">Sugerir</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="associar.html">Associar</a>
                     </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="utilizador.html">Utilizador</a>
                     </li>
-
                     <li class="nav-item ms-3">
                         <a class="nav-link custom-btn custom-border-btn btn" href="index.html">Logout</a>
                     </li>
@@ -90,27 +76,202 @@
                     <div class="col-lg-10 col-12 text-left mx-auto">
                         <h2>Minhas iniciativas</h2>
                         <div class="side-by-side">
+
                             <div class="left-content">
                                 <h4>Localização</h4>
-                                <!-- Place your content related to Localização here -->
-                                <div id="map"></div>
+                                
+                                <div id="map">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13300878.969021041!2d-29.44930648146512!3d35.52195651376503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb32242dbf4226d5%3A0x2ab84b091c4ef041!2sPortugal!5e0!3m2!1spt-PT!2spt!4v1713884299200!5m2!1spt-PT!2spt" 
+                                    width="400" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>                      
                             </div>
+
                             <div class="right-content">
                                 
                                 <!--
                                     falta adicionar botao notificacoes
                                 -->
-
                                 <h4>As minhas iniciativas</h4>
-                                
                                 <h6 class="text-center">Associadas</h6>
-                                <!--
-                                    tabela iniciativas associadas
-                                -->
+                                 <!--
+                                    tabela iniciativas associadas como nao proponente
+                                -->       
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-12 grid-margin stretch-card">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="table-responsive">
+                                                                <table id="associadas" class="display expandable-table pd-3" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Nome iniciativa</th>
+                                                                            <th>Tipo de iniciativa</th>
+                                                                            <th>Data Iniciativa</th>
+                                                                            <th>Estado</th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">
+                                                                            <td class="iniciativa-titulo"></td>
+                                                                            <td class="iniciativa-tipo"></td>
+                                                                            <td class="data-iniciativa"></td>
+                                                                            <td class="status-column">
+                                                                                <button class="status-button"></button>
+                                                                            </td>
+                                                                            
+                                                                            <td style="cursor: pointer;"> ↓</td>
+                                                                        </tr>
+                                                                        <tr style="display:none;">
+                                                                            <td colspan="8" class="row-bg">
+                                                                                <div style="padding:5px;">
+                                                                                    <div class="d-flex justify-content-between">
+                                                                                        <div class="d-flex flex-column justify-content-between">
+                                                                                            <div class="mb-2 p-8" style="gap: 10px;">
+                                                                                                <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
+                                                                                                    <p>Proponente</p>
+                                                                                                    <h6 style="font-size: 15px;">Ana Pires</h6>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="mr-2 min-width-cell" style="margin-right: 20px; padding: 10px; margin-bottom: 30px;">
+                                                                                                <p>Localização</p>
+                                                                                                <h6  style="font-size: 15px;">PT, Esposende, Ofir</h6>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="expanded-table-normal-cell">
+                                                                                            <p>Descrição</p>
+                                                                                            <h6 style="font-size: 15px;">Nesta iniciativa pretendemos ajudar esposende! Esposende tem praias bonitas que podem ser limpas com a nossa ajuda! Associa-te!</h6>
+                                                                                        </div> 
+                                                                                        <div class="cell-hilighted text-white">
+                                                                                            <div class="d-flex mb-2">
+                                                                                                <div class="min-width-cell mr-3">
+                                                                                                    <p style="font-size: 15px;">Nº voluntários atuais</p>
+                                                                                                    <h6>5</h6>
+                                                                                                </div>
+                                                                                                <div class="min-width-cell mr-3">
+                                                                                                    <p style="font-size: 15px;">Nº voluntários máximo</p>
+                                                                                                    <h6>23</h6>
+                                                                                                </div>
+                                                                                                <div class="min-width-cell mr-3">
+                                                                                                    <p style="font-size: 15px;">Início</p>
+                                                                                                    <h6>26/05/2025 - 14:30</h6>
+                                                                                                </div>
+                                                                                                <div class="min-width-cell mr-3">
+                                                                                                    <p style="font-size: 15px;">Fim</p>
+                                                                                                    <h6>26/05/2025 - 19:30</h6>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>                      
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
                                 <h6 class="text-center">Propostas</h6>
                                 <!--
-                                    tabela iniciativas propostas
+                                    tabela iniciativas como proponente
                                 -->
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-12 grid-margin stretch-card">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="table-responsive">
+                                                                <table id="propostas" class="display expandable-table pd-3" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Nome iniciativa</th>
+                                                                            <th>Tipo de iniciativa</th>
+                                                                            <th>Data Iniciativa</th>
+                                                                            <th>Estado</th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">
+                                                                            <td class="iniciativa-titulo"></td>
+                                                                            <td class="iniciativa-tipo"></td>
+                                                                            <td class="data-iniciativa"></td>
+                                                                            <td class="status-column">
+                                                                                <button class="status-button"></button>
+                                                                            </td>
+                                                                            
+                                                                            <td style="cursor: pointer;"> ↓</td>
+                                                                        </tr>
+                                                                        
+                                                                        <tr style="display:none;">
+                                                                            <td colspan="8" class="row-bg">
+                                                                                <div style="padding:5px;">
+                                                                                    <div class="d-flex justify-content-between">
+                                                                                        <!-- Container for "Proponente" and "Localização" -->
+                                                                                        <div class="d-flex flex-column justify-content-between">
+                                                                                            <!-- "Proponente" -->
+                                                                                            <div class="mb-2 p-8" style="gap: 10px;">
+                                                                                                <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
+                                                                                                    <p>Proponente</p>
+                                                                                                    <h6 style="font-size: 15px;">Ana Pires</h6>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!-- "Localização" -->
+                                                                                            <div class="mr-2 min-width-cell" style="margin-right: 20px; padding: 10px; margin-bottom: 30px;">
+                                                                                                <p>Localização</p>
+                                                                                                <h6 style="font-size: 15px;">PT, Esposende, Ofir</h6>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!-- "Descrição" -->
+                                                                                        <div class="expanded-table-normal-cell">
+                                                                                            <p>Descrição</p>
+                                                                                            <h6 style="font-size: 15px;">Nesta iniciativa pretendemos ajudar esposende! Esposende tem praias bonitas que podem ser limpas com a nossa ajuda! Associa-te!</h6>
+                                                                                        </div> 
+                                                                                        <!-- "cell-highlighted" -->
+                                                                                        <div class="cell-hilighted text-white">
+                                                                                            <div class="d-flex mb-2">
+                                                                                                <div class="min-width-cell mr-3">
+                                                                                                    <p style="font-size: 15px;">Nº voluntários atuais</p>
+                                                                                                    <h6>5</h6>
+                                                                                                </div>
+                                                                                                <div class="min-width-cell mr-3">
+                                                                                                    <p style="font-size: 15px;">Nº voluntários max</p>
+                                                                                                    <h6>23</h6>
+                                                                                                </div>
+                                                                                                <div class="min-width-cell mr-3">
+                                                                                                    <p style="font-size: 15px;">Início</p>
+                                                                                                    <h6>26/05/2025 - 14:30</h6>
+                                                                                                </div>
+                                                                                                <div class="min-width-cell mr-3">
+                                                                                                    <p style="font-size: 15px;">Fim</p>
+                                                                                                    <h6>26/05/2025 - 19:30</h6>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>                      
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
                                 
                             </div>
                         </div>
@@ -123,7 +284,6 @@
     <footer class="site-footer">
         <div class="container">
             <div class="row">
-                <!--alterar tamanho logo-->
                 <div class="col-lg-3 col-12 mb-4">
                     <img src="images/logoFim.png" class="logo-bottom img-fluid" alt="">
                 </div>
@@ -132,9 +292,7 @@
                     <h5 class="site-footer-title mb-3">Ligações rápidas</h5>
                     <ul class="footer-menu">
                         <li class="footer-menu-item"><a href="minhasIniciativas.html" class="footer-menu-link">Minhas iniciativas</a></li>
-
                         <li class="footer-menu-item"><a href="sugerir.html" class="footer-menu-link">Sugerir</a></li>
-
                         <li class="footer-menu-item"><a href="associar.html" class="footer-menu-link">Associar</a></li>
                     </ul>
                 </div>
@@ -177,6 +335,34 @@
       <script src="js/click-scroll.js"></script>
       <script src="js/counter.js"></script>
       <script src="js/custom.js"></script>
+      <script src="js/displayMyIniciatives.js"></script>
+        
+      <!--FILES 'BACKOFFICE'-->
+      <script src="BackOffice/vendors/datatables.net/jquery.dataTables.js"></script>
+      <script src="BackOffice/js/dataTables.select.min.js"></script>
 
-</body>
+      <!--mostrar detalhes da seta-->
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const table = document.getElementById('associadas');
+            const table1 = document.getElementById('propostas');
+
+            table.addEventListener('click', function (e) {
+              const target = e.target;
+              if (target.tagName === 'TD' && target.cellIndex === 4) {
+                const detailsRow = target.parentElement.nextElementSibling;
+                detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+              }
+            });
+            
+            table1.addEventListener('click', function (e) {
+              const target = e.target;
+              if (target.tagName === 'TD' && target.cellIndex === 4) {
+                const detailsRow = target.parentElement.nextElementSibling;
+                detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+              }
+            });
+          });
+    </script>
+    </body>
 </html>

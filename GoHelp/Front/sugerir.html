@@ -3,17 +3,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoHelp</title>
-    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+    <link rel="icon" type="image/x-icon" href="/images/logo.ico">
 
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/bootstrap-icons.css" rel="stylesheet">
-    <link href="./css/front-office.css" rel="stylesheet">
-
-    <!--LOGIN GOOGLE-->
-    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
-    <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-auth.js"></script>
+       <!-- CSS FILES -->        
+       <link href="css/bootstrap.min.css" rel="stylesheet">
+       <link href="css/bootstrap-icons.css" rel="stylesheet">
+       <link href="css/front-office.css" rel="stylesheet">
 </head>
 <body>
     <header class="site-header">
@@ -97,19 +92,19 @@
 
                             <div class="col-lg-6 col-6 form-check-group form-check-group-donation-frequency">
                                 <div class="form-check form-check-radio">
-                                    <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaLimpeza" checked>
+                                    <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaLimpeza" value="Limpeza" checked>
                                     <label class="form-check-label" for="TipoIniciativaLimpeza">Limpeza</label>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-6 form-check-group form-check-group-donation-frequency">
                                 <div class="form-check form-check-radio">
-                                    <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaReflorestacao">
+                                    <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaReflorestacao" value="Reflorestação">
                                     <label class="form-check-label" for="TipoIniciativaReflorestacao">Reflorestação</label>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-6 form-check-group form-check-group-donation-frequency">
                                 <div class="form-check form-check-radio">
-                                    <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaCampanhas" checked>
+                                    <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaCampanhas" value="Campanhas">
                                     <label class="form-check-label" for="TipoIniciativaCampanhas">Campanhas</label>
                                 </div>
                             </div>
@@ -117,44 +112,12 @@
                             <div class="col-lg-12 col-12">
                                 <h5 class="mt-2 mb-3">Número máximo de participantes:</h5>
                             </div>
-                            <div class="col-lg-2 col-md-6 col-6 form-check-group">
-                                <div class="form-check form-check-radio">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        5
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-6 col-6 form-check-group">
-                                <div class="form-check form-check-radio">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        10
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-6 col-6 form-check-group">
-                                <div class="form-check form-check-radio">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                                    <label class="form-check-label" for="flexRadioDefault3">
-                                        15
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-6 col-6 form-check-group">
-                                <div class="form-check form-check-radio">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
-                                    <label class="form-check-label" for="flexRadioDefault4">
-                                        20
-                                    </label>
-                                </div>
-                            </div>
-
-                        
-                            <div class="col-lg-4 col-12 form-check-group">
+                            <div class="col-lg-6 col-6 form-check-group">
                                 <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1"></span>
-                                    <input type="text" class="form-control" placeholder="Outro número" aria-label="Username" aria-describedby="basic-addon1">
+                                    <span class="input-group-text" id="basic-addon1">Voluntários</span>
+                                    <input type="number" class="form-control" id="volunteersInput" name="volunteers" value="5" min="1" max="100">
+                                    <button class="btn btn-secondary" type="button" id="decrementBtn">-</button>
+                                    <button class="btn btn-secondary" type="button" id="incrementBtn">+</button>
                                 </div>
                             </div>
 
@@ -184,7 +147,7 @@
                                 <h5 class="mt-1">Nome da iniciativa:</h5>
                             </div>
                             <div class="col-lg-12 col-12 mt-2">
-                                <input type="text" name="iniciativa-name" id="iniciativa-name" class="form-control" placeholder="Praia limpa!" required>
+                                <input type="text" name="iniciativa-title" id="iniciativa-title" class="form-control" placeholder="Praia limpa!" required>
                             </div>
 
                             <div class="col-lg-12 col-12">
@@ -273,6 +236,8 @@
       <script src="js/click-scroll.js"></script>
       <script src="js/counter.js"></script>
       <script src="js/custom.js"></script>
+      <script src="js/saveIniciativesPen.js"></script>
+      <script src="js/incrementalVolunteer.js"></script>
 
 </body>
 </html>

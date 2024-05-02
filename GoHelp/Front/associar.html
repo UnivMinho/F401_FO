@@ -5,15 +5,12 @@
     <title>GoHelp</title>
     <link rel="icon" type="image/x-icon" href="/images/logo.ico">
 
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/bootstrap-icons.css" rel="stylesheet">
-    <link href="./css/front-office.css" rel="stylesheet">
+       <!-- CSS FILES -->        
+       <link href="css/bootstrap.min.css" rel="stylesheet">
+       <link href="css/bootstrap-icons.css" rel="stylesheet">
+       <link href="css/front-office.css" rel="stylesheet">
 
-    <!--LOGIN GOOGLE-->
-    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
-    <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-auth.js"></script>
+       <link rel="stylesheet" href="css/style.css">
 
 </head>
 
@@ -87,22 +84,67 @@
 
                 <div class="col-lg-10 col-12 text-center mx-auto">
                     <div>
-                        <!--mudar a cor e mudar a estrutura, meter lado a lado-->
                         <h4>Torna-te voluntário!</h4>
                         <p>Associa-te à iniciativa que mais gostas!</p>
                     </div>
-        
+
+                    <!--Código tabela-->
                     <div>
-                      <!--
-                    tabela de listas para associar
-                    -->
+                        <div class="row">
+                            <div class="col-md-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table id="example" class="display expandable-table pd-3" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nome iniciativa</th>
+                                                                <th>Tipo de iniciativa</th>
+                                                                <th>Proponente</th>
+                                                                <th>Data Iniciativa</th>
+                                                                <th>Associar-se</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">
+                                                                
+                                                            </tr>
+                                                            <tr>
+                                                                
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <!--mostrar detalhes da seta-->
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const table = document.getElementById('example');
+                            
+                                table.addEventListener('click', function (e) {
+                                  const target = e.target;
+                                  if (target.tagName === 'TD' && target.cellIndex === 5) {
+                                    const detailsRow = target.parentElement.nextElementSibling;
+                                    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+                                  }
+                                });
+                              });
+                        </script>
+          
                     </div>
-
+                    </div>
                 </div>
-
             </div>
         </div>
-
     </section>
 
     </main>
@@ -120,9 +162,7 @@
                     <h5 class="site-footer-title mb-3">Ligações rápidas</h5>
                     <ul class="footer-menu">
                         <li class="footer-menu-item"><a href="minhasIniciativas.html" class="footer-menu-link">Minhas iniciativas</a></li>
-
                         <li class="footer-menu-item"><a href="sugerir.html" class="footer-menu-link">Sugerir</a></li>
-
                         <li class="footer-menu-item"><a href="associar.html" class="footer-menu-link">Associar</a></li>
                     </ul>
                 </div>
@@ -165,6 +205,12 @@
       <script src="js/click-scroll.js"></script>
       <script src="js/counter.js"></script>
       <script src="js/custom.js"></script>
+      <script src="js/displayAssociar.js"></script>
+
+      <!--FILES 'BACKOFFICE'-->
+        <script src="BackOffice/vendors/datatables.net/jquery.dataTables.js"></script>
+        <script src="BackOffice/js/dataTables.select.min.js"></script>
+
 
 </body>
 </html>

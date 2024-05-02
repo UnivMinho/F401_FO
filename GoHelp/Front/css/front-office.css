@@ -1,7 +1,20 @@
 
 /*acrescentado*/
+
+.map {
+  height: 400px;
+  width: 600px;
+}
+
+.btn-associar{
+    background-color:#FBBC05;
+    border-radius: 30px;
+    border: none;
+    padding: 10px;
+}
+
 .contact-image-team{
-    border-radius: 30px; /* ou qualquer valor que preferir para arredondar os cantos */
+    border-radius: 30px;
     display: block;
     width: 600px;
     height: 500px;
@@ -14,42 +27,21 @@
 
 .side-by-side {
   display: flex;
+  height: auto;
+  width: auto;
 }
 
-.left-content, .right-content {
-  flex: 1;
+.left-content{
+  flex-basis: 30%;
 }
 
-.login-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+.right-content {
+  flex-basis: 70%;
+  margin-left: 2em;
 }
 
-.g-signin-button {
-  margin-top: 20px;
-}
-
-.login-content-container {
-  position: relative;
-  padding: 50px; /* Add padding to the content container */
-}
-
-.login-content-container::after {
-  content: "";
-  background-image: url('images/tipos-voluntariado.jpg');
-  background-size: cover; 
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.5; 
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
+.right-content .text-center {
+  margin-top: 2em;
 }
 
 /*acrescentado*/
@@ -396,6 +388,18 @@ strong {
   background-color: #FBBC05;
   color: #000000;
   font-weight: bold;
+}
+
+.status-button{
+  border: 2px solid transparent;
+  border-radius: var(--border-radius-large);
+  color: var(--white-color);
+  font-size: 15px;
+  font-weight: var(--font-weight-normal);
+  line-height: normal;
+  padding: 10px 15px;
+  background: transparent;
+  
 }
 
 /*---------------------------------------
@@ -1371,7 +1375,7 @@ blockquote::before {
 }
 
 .donate-form .form-control {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 /*---------------------------------------
@@ -1763,4 +1767,3 @@ blockquote::before {
     padding: 25px;
   }
 }
-

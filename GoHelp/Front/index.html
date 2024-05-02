@@ -8,20 +8,103 @@
         <meta name="author" content="">
 
         <title>GoHelp</title>
-        <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+        <link rel="icon" type="image/x-icon" href="/images/logo.ico">
 
         <!-- CSS FILES -->        
-        <link href="./css/bootstrap.min.css" rel="stylesheet">
-        <link href="./css/bootstrap-icons.css" rel="stylesheet">
-        <link href="./css/front-office.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+        <link href="css/front-office.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+
 
         <!--LOGIN GOOGLE-->
         <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-auth.js"></script>
 
-        <!--LOGIN GOOGLE-->
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
+            import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
+    
+            const firebaseConfig = {
+                apiKey: "AIzaSyDYfzXglNuRQOo8fYKObQqrhixdfzrbt3k",
+                authDomain: "pw-f401.firebaseapp.com",
+                projectId: "pw-f401",
+                storageBucket: "pw-f401.appspot.com",
+                messagingSenderId: "171557937473",
+                appId: "1:171557937473:web:cf399649671b58007d01c0",
+                measurementId: "G-7KPNJ7MYWT"
+            };
+
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth();
+            const google = new GoogleAuthProvider();
+
+            const googleButton = document.getElementById("google-btn");
+            const googleButton1 = document.getElementById("google-btn-1");
+            const googleButton2 = document.getElementById("google-btn-2");
+            const googleButton3 = document.getElementById("google-btn-3");
+            const googleButton4 = document.getElementById("google-btn-4");
+            const googleButton5 = document.getElementById("google-btn-5");
+
+
+            googleButton.addEventListener('click', () => handleGoogleLogin());
+            googleButton1.addEventListener('click', () => handleGoogleLogin());
+            googleButton2.addEventListener('click', () => handleGoogleLogin());
+            googleButton3.addEventListener('click', () => handleGoogleLogin());
+            googleButton4.addEventListener('click', () => handleGoogleLogin());
+            googleButton5.addEventListener('click', () => handleGoogleLogin());
         
+            function handleGoogleLogin() {
+                signInWithPopup(auth, google)
+                    .then((result) => {
+                        /** @type {firebase.User} */
+                        let user = result.user;
+                    
+                        let userData = {
+                            id: user.uid,
+                            name: user.displayName,
+                            imageUrl: user.photoURL,
+                            email: user.email
+                        };
+                
+                    // Store user data in localStorage
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                    console.log('User data saved to localStorage:', userData);
+
+                    const userType = localStorage.getItem('userType');
+                    if (!userType) {
+                        localStorage.setItem('userType', 'voluntario');
+                        console.log('Tipo de usuário definido como voluntário por padrão.');
+                    }
+
+                    // Redirecionar pagina correta
+                    if (userType === 'voluntario') {
+                        window.location.href = "minhasIniciativas.html";
+                    } else if (userType === 'administrador') {
+                        window.location.href = "../BackOffice/index.html";
+                    } else {
+                        window.location.href = "minhasIniciativas.html";
+                    }                   
+
+                    })
+                
+                    .catch((error) => {
+                    console.log(error);
+                });
+        }
+
+        firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            console.log('User signed in');
+            console.log(user);
+        } else {
+            console.log('No user is signed in');
+        }
+        });
+    </script>
+
     </head>
     
     <body id="section_1">
@@ -88,7 +171,7 @@
                         <li class="nav-item ms-3">
                             <!-- Abrir pop-up do Google (fazer coisas no Google Cloud para ver se funciona) -->
                             <button class="nav-link custom-btn custom-border-btn btn" id="google-btn">
-                                <img src="./images/googleLogo.png" alt="Google Logo" class="google-logo">
+                                <img src="/images/googleLogo.png" alt="Google Logo" class="google-logo">
                                 Sign in
                             </button>                        
                         </li>
@@ -446,11 +529,97 @@
                                 <div class="left-content">
                                     <h4>Localização</h4>
                                     <!-- Place your content related to Localização here -->
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13300878.969021041!2d-29.44930648146512!3d35.52195651376503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb32242dbf4226d5%3A0x2ab84b091c4ef041!2sPortugal!5e0!3m2!1spt-PT!2spt!4v1713884299200!5m2!1spt-PT!2spt" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                    <div id="map"></div>
+                                    <div id="map">
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13300878.969021041!2d-29.44930648146512!3d35.52195651376503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb32242dbf4226d5%3A0x2ab84b091c4ef041!2sPortugal!5e0!3m2!1spt-PT!2spt!4v1713884299200!5m2!1spt-PT!2spt" 
+                                        width="400" height="700" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
                                 </div>
                                 <div class="right-content">
                                     <h4>Iniciativas</h4>
+                                                                        <!-- Place your content related to Lista das minhas iniciativas here -->
+
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-12 grid-margin stretch-card">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="table-responsive">
+                                                                    <table id="iniciativasIndex" class="display expandable-table pd-3" style="width:100%">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Nome iniciativa</th>
+                                                                                <th>Tipo de iniciativa</th>
+                                                                                <th>Data Iniciativa</th>
+                                                                                <th></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">
+                                                                                <td>O ambiente</td>
+                                                                                <td>Campanha</td>
+                                                                                <td>31/05/2024</td>                                                                                
+                                                                                <td style="cursor: pointer;"> ↓</td>
+                                                                            </tr>
+                                                                            <tr style="display:none;">
+                                                                                <td colspan="8" class="row-bg">
+                                                                                    <div style="padding:5px;">
+                                                                                        <div class="d-flex justify-content-between">
+                                                                                            <!-- Container for "Proponente" and "Localização" -->
+                                                                                            <div class="d-flex flex-column justify-content-between">
+                                                                                                <!-- "Proponente" -->
+                                                                                                <div class="mb-2 p-8" style="gap: 10px;">
+                                                                                                    <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
+                                                                                                        <p>Proponente</p>
+                                                                                                        <h6 style="font-size: 15px;">Ana Pires</h6>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <!-- "Localização" -->
+                                                                                                <div class="mr-2 min-width-cell" style="margin-right: 20px; padding: 10px; margin-bottom: 30px;">
+                                                                                                    <p>Localização</p>
+                                                                                                    <h6 style="font-size: 15px;">PT, Esposende, Ofir</h6>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!-- "Descrição" -->
+                                                                                            <div class="expanded-table-normal-cell">
+                                                                                                <p>Descrição</p>
+                                                                                                <h6 style="font-size: 15px;">Nesta iniciativa pretendemos ajudar esposende! Esposende tem praias bonitas que podem ser limpas com a nossa ajuda! Associa-te!</h6>
+                                                                                            </div>
+                                                                                            <!-- "cell-highlighted" -->
+                                                                                            <div class="cell-hilighted text-white">
+                                                                                                <div class="d-flex mb-2">
+                                                                                                    <div class="min-width-cell mr-3">
+                                                                                                        <p style="font-size: 15px;">Nº voluntários atuais</p>
+                                                                                                        <h6>5</h6>
+                                                                                                    </div>
+                                                                                                    <div class="min-width-cell mr-3">
+                                                                                                        <p style="font-size: 15px;">Nº voluntários máximo</p>
+                                                                                                        <h6>23</h6>
+                                                                                                    </div>
+                                                                                                    <div class="min-width-cell mr-3">
+                                                                                                        <p style="font-size: 15px;">Início</p>
+                                                                                                        <h6>26/05/2025 - 14:30</h6>
+                                                                                                    </div>
+                                                                                                    <div class="min-width-cell mr-3">
+                                                                                                        <p style="font-size: 15px;">Fim</p>
+                                                                                                        <h6>26/05/2025 - 19:30</h6>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>                      
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     <!-- Place your content related to Lista das minhas iniciativas here -->
                                 </div>
                             </div>
@@ -581,16 +750,31 @@
         </footer>
 
         <!-- JAVASCRIPT FILES -->
-        <script src="./js/jquery.min.js"></script>
-        <script src=".//js/bootstrap.min.js"></script>
-        <script src=".//js/jquery.sticky.js"></script>
-        <script src=".//js/click-scroll.js"></script>
-        <script src=".//js/counter.js"></script>
-        <script src=".//js/custom.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/counter.js"></script>
+        <script src="js/custom.js"></script>
         <script src=".//js/google.js" type="module"></script>
 
         <!--adicionado ??-->
         <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+
+        <!--mostrar detalhes da seta-->
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const table = document.getElementById('iniciativasIndex');
+        
+            table.addEventListener('click', function (e) {
+              const target = e.target;
+              if (target.tagName === 'TD' && target.cellIndex === 3) {
+                const detailsRow = target.parentElement.nextElementSibling;
+                detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+              }
+            });
+          });
+    </script>
 
 
     </body>
