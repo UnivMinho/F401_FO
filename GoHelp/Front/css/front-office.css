@@ -1,9 +1,9 @@
 
 /*acrescentado*/
 
-.map {
-  height: 400px;
-  width: 600px;
+#map {
+  height: 700px;
+  width: 300px;
 }
 
 .btn-associar{
@@ -23,6 +23,11 @@
 
 .google-logo{
   width:40px;
+}
+
+#google-btn {
+  display: flex;
+  align-items: center;
 }
 
 .side-by-side {
@@ -882,7 +887,16 @@ strong {
   padding: 50px;
   margin-left: -150px;
   margin-right: -150px;
+  z-index: 1;
 }
+
+#iniciativa-comments {
+  height: 130px;
+  white-space: normal;
+  word-break: normal;
+}
+
+
 
 
 /*---------------------------------------
@@ -1207,6 +1221,7 @@ blockquote::before {
   padding-top: 13px;
   padding-bottom: 13px;
   outline: none;
+  z-index:1;
 }
 
 .custom-form .form-control:hover,
@@ -1623,6 +1638,8 @@ blockquote::before {
   .volunteer-section::after {
     width: 300px;
     height: 300px;
+    position: absolute;
+    z-index: -1;
   }
 
   .testimonial-section::before {
@@ -1746,8 +1763,7 @@ blockquote::before {
   .volunteer-section::after {
     width: 200px;
     height: 200px;
-  }
-
+}
   .testimonial-section::before {
     top: -50px;
     width: 100px;

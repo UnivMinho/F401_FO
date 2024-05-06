@@ -43,7 +43,9 @@ function saveUpdatedUserInfo() {
 // Função que começa assim que a página é carregada
 document.addEventListener('DOMContentLoaded', function() {
     const userData = JSON.parse(localStorage.getItem('userData'));
-    if (userData) {
+    const users = JSON.parse(localStorage.getItem('usersData'));
+    
+    if (users.find(user => user.email === userData.email)) {
         populateFormFields(userData);
     } else {
         console.log('Dados do utilizador não encontrados em localStorage.');
