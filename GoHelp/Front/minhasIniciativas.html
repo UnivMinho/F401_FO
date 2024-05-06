@@ -80,10 +80,7 @@
                             <div class="left-content">
                                 <h4>Localização</h4>
                                 
-                                <div id="map">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13300878.969021041!2d-29.44930648146512!3d35.52195651376503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xb32242dbf4226d5%3A0x2ab84b091c4ef041!2sPortugal!5e0!3m2!1spt-PT!2spt!4v1713884299200!5m2!1spt-PT!2spt" 
-                                    width="400" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                </div>                      
+                                <div id="map"></div>                   
                             </div>
 
                             <div class="right-content">
@@ -337,6 +334,7 @@
       <script src="js/custom.js"></script>
       <script src="js/displayMyIniciatives.js"></script>
       <script src=".//js/google.js" type="module"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7M3JveIeVQP579NFgw4nG_uGR8dp1XI&libraries=places&callback=initMap" async defer></script>
         
       <!--FILES 'BACKOFFICE'-->
       <script src="../Back/vendors/datatables.net/jquery.dataTables.js"></script>

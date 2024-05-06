@@ -14,6 +14,11 @@ function displayInitiativesApproved() {
     const alliniciativesTableBody = document.querySelector('#iniciativasIndex tbody');
     alliniciativesTableBody.innerHTML = ''; 
 
+    const map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 39.540393319546496, lng: -8.307363083499494},
+        zoom: 7
+    });
+
     userInitiatives.forEach((initiative) => {
         if (initiative.status === 'aprovada') { // Check if initiative is approved
             const row = document.createElement('tr');
@@ -31,7 +36,23 @@ function displayInitiativesApproved() {
         alliniciativesTableBody.appendChild(row);
         alliniciativesTableBody.insertAdjacentHTML('beforeend', hiddenRowHtml);
         
+        const marker = new google.maps.Marker({
+            position: { lat: parseFloat(initiative.latitude), lng: parseFloat(initiative.longitude) },
+            map: map,
+            title: initiative.name
+        });
+
+        // Informação do marker
+        const infoWindow = new google.maps.InfoWindow({
+            content: `<p>${initiative.name}</p>`
+        });
+
+        marker.addListener('click', function() {
+            infoWindow.open(map, marker);
+        });
+
         }
+
     });
 }
 
