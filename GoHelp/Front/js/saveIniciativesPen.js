@@ -56,7 +56,6 @@ function saveDataToLocalStorage(data) {
         console.error('localStorage não é suportada neste browser');
     }
 }
-
 //gerar longitude e latitude para por o pin no mapa
 function geocodeLocation(location, callback) {
     var geocoder = new google.maps.Geocoder();
@@ -75,7 +74,6 @@ function geocodeLocation(location, callback) {
 
 //Event Listener para começar a funcção de guardar as iniciativas assim que o utilizador carregar no submit
 document.addEventListener('DOMContentLoaded', function() {
-
     const form = document.querySelector('.donate-form');
     form.addEventListener('submit', function(event) {
         event.preventDefault(); 
@@ -84,17 +82,44 @@ document.addEventListener('DOMContentLoaded', function() {
         const serializedData = {};
         for (const [key, value] of formData.entries()) {
             serializedData[key] = value;
-        }
-
-        saveDataToLocalStorage(serializedData);
-
-        form.reset();
-
-        clearAndRestoreFormInputs(form);
-
-        alert('Iniciativa guardada e a aguardar aprovação!');
+        }        
+          // Salvar dados em localStorage
+          saveDataToLocalStorage(serializedData);
+          form.reset();
+          clearAndRestoreFormInputs(form);
+          alert("Iniciativa guardada e a aguardar aprovação!");
     });
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("iniciativa-date").addEventListener("input", function() {
+        validateDate();
+    });
+});
+
+function validateDate() {
+    const inputDate = new Date(document.getElementById("iniciativa-date").value);
+    const currentDate = new Date();
+    const threeDaysAfter = new Date(currentDate);
+    threeDaysAfter.setDate(currentDate.getDate() + 1);
+
+    let dateError = document.getElementById("dateError");
+
+    if (inputDate < threeDaysAfter) {
+        dateError.innerText = "Por favor selecione uma data no futuro.";
+        return false;
+    } else {
+        dateError.innerText = "";
+    }
+
+    return true; 
+}
+
+function submitForm() {
+    if (!validateDate()) {
+        alert("Por favor selecione uma data e hora no futuro.");
+    }
+}
 
 //Apaga os campos e faz reload dos placeholders
 function clearAndRestoreFormInputs(form) {
