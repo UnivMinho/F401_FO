@@ -2,8 +2,8 @@
 /*acrescentado*/
 
 #map {
-  height: 700px;
-  width: 300px;
+  height: 100%;
+  width: 100%;
 }
 
 .btn-associar{
@@ -29,49 +29,6 @@
   display: flex;
   align-items: center;
 }
-
-.side-by-side {
-  display: flex;
-  height: auto;
-  width: auto;
-}
-
-.left-content{
-  flex-basis: 30%;
-}
-
-.right-content {
-  flex-basis: 70%;
-  margin-left: 2em;
-}
-
-.right-content .text-center {
-  margin-top: 2em;
-}
-
-.hidden {
-  display: none;
-}
-
-.alert {
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 1rem;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-}
-
-.alert-danger {
-  color: #721c24;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-}
-
-.alert-success {
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-}
-
 
 /*acrescentado*/
 
@@ -423,10 +380,10 @@ strong {
   border: 2px solid transparent;
   border-radius: var(--border-radius-large);
   color: var(--white-color);
-  font-size: 15px;
+  font-size: 12px;
   font-weight: var(--font-weight-normal);
   line-height: normal;
-  padding: 10px 15px;
+  padding: 8px 12px;
   background: transparent;
   
 }
