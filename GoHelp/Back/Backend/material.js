@@ -61,19 +61,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const cardHtml = document.createElement('div');
             cardHtml.className = 'col-md-3 grid-margin stretch-card';
             cardHtml.innerHTML = `
-                <div class="card" style="height: 400px;">
-                    <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                        <h4 class="mb-auto">${material.nome}</h4>
-                        <img src="${material.imagem}" style="max-width: 100%; max-height: 150px; margin-bottom: 15px;">
-                        <div class="card" style="border: 2px solid #E8F2E8; width: 16em; height: 10em; padding: 20px;">
-                            <h5 class="text-center mt-3" id="quantidade-${index}">Quantidade: ${material.quantidade}</h5>
-                            <div class="d-flex justify-content-between mt-4">
-                                <button type="button" class="btn btn-sm btn-danger mr-2" onclick="removeMaterial(${index})">Remover</button>
-                                <button type="button" class="btn btn-sm btn-success" onclick="addMaterial(${index})">Adicionar</button>
-                            </div>
-                        </div>
-                    </div>
+            <div class="card" style="height: 400px;">
+            <div class="card-body d-flex flex-column align-items-center justify-content-between">
+                <h4 class="mb-auto">${material.nome}</h4>
+                <img src="${material.imagem}" style="max-width: 100%; max-height: 150px; margin-bottom: 15px;">
+            </div>
+            <div class="card-footer" style="border-top: 2px solid #000; border-radius: 10px 10px 10px 10px; border: 2px solid #E8F2E8; height: 150px; background:#ffffff">
+                <h5 class="text-center mt-3" id="quantidade-${index}">Quantidade: ${material.quantidade}</h5>
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-sm btn-danger mr-2" onclick="removeMaterial(${index})">Remover</button>
+                    <button type="button" class="btn btn-sm btn-success" onclick="addMaterial(${index})">Adicionar</button>
                 </div>
+            </div>
+        </div>
+        
             `;
 
             materialsContainer.appendChild(cardHtml);
