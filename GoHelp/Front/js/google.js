@@ -163,7 +163,7 @@ function updateUserData(userData) {
 
 function redirectToPage(userType) {
     if (userType === 'Administrador') {
-        window.location.href = "http://localhost:3000/GoHelp/back/index.html";  // Página de back office
+        window.location.href = "../back/index.html";  // Página de back office
     } else {  // Assume-se que todos os outros são 'Voluntário'
         window.location.href = "minhasIniciativas.html";  // Página de front office
     }

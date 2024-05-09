@@ -1,33 +1,32 @@
 document.addEventListener('DOMContentLoaded', function() {
     function adicionarLinha(initiative) {
         var tabela = document.querySelector('#example tbody');
-        var materiaisHTML = '';
-        
-        // Verifica se a lista de materiais existe e é uma array antes de iterar
-        if (Array.isArray(initiative.materiais)) {
-            initiative.materiais.forEach(material => {
-                materiaisHTML += `<div class="col-sm-6 my-1">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"></div>
-                                        <input type="text" class="form-control" value="${material.nome} - Quantidade: ${material.quantidade}" readonly>
-                                    </div>
-                                  </div>`;
-            });
-        }
 
-        var profissionaisHTML = '';
-        
-        // Verifica se a lista de profissionais existe e é uma array antes de iterar
-        if (Array.isArray(initiative.profissionais)) {
-            initiative.profissionais.forEach(profissional => {
-                profissionaisHTML += `<div class="col-sm-6 my-1">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend"></div>
-                                            <input type="text" class="form-control" value="${profissional.nome}" readonly>
-                                        </div>
-                                      </div>`;
+        // Busca dados de materiais e profissionais no localStorage
+        var materiaisData = JSON.parse(localStorage.getItem('materials'));
+        var profissionaisData = JSON.parse(localStorage.getItem('profissionais'));
+
+        // Cria dropdown de materiais
+        var materiaisHTML = '<select class="custom-select material-dropdown" onchange="updateMaxQuantity(this)">';
+        materiaisHTML += '<option value="">Selecione um material</option>';
+        if (Array.isArray(materiaisData)) {
+            materiaisData.forEach(material => {
+                materiaisHTML += `<option value="${material.nome}" data-quantidade="${material.quantidade}">${material.nome}</option>`;
             });
         }
+        materiaisHTML += '</select>';
+
+        // Campo para inserir a quantidade
+        var quantidadeHTML = '<input type="number" class="form-control material-quantity" min="1" value="1" />';
+
+        // Cria dropdown de profissionais
+        var profissionaisHTML = '<select class="form-control">';
+        if (Array.isArray(profissionaisData)) {
+            profissionaisData.forEach(profissional => {
+                profissionaisHTML += `<option value="${profissional.nome}">${profissional.nome}</option>`;
+            });
+        }
+        profissionaisHTML += '</select>';
 
         var lideresDropdownHTML = '';
         var usersData = JSON.parse(localStorage.getItem('usersData'));
@@ -82,19 +81,60 @@ document.addEventListener('DOMContentLoaded', function() {
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <form id="materials-form">
-                                            <div class="materials-container">
-                                                ${materiaisHTML}
+                                    <form id="materials-form">
+                                        <div class="materials-container">
+                                            <div class="form-row align-items-center material-row">
+                                                <div class="col-sm-6 my-1">
+                                                    <label class="sr-only" for="materialDropdown">Material</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            
+                                                        </div>
+                                                        ${materiaisHTML}
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 my-1">
+                                                    <label class="sr-only" for="quantityDropdown">Quantidade</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            
+                                                        </div>
+                                                        ${quantidadeHTML}
+                                                    </div>
+                                                </div>
+                                                
+                                                  <button type="button" class="btn btn-link add-material-button">
+                                                    <i class="mdi mdi-plus-circle-outline mr-2"></i> Adicionar Material
+                                                  </button>
+                                              
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="col-12">
-                                        <form id="profissionais-form">
-                                            <div class="profissional-container">
-                                                ${profissionaisHTML}
+                                        </div>
+                                        
+                                    </form>
+                                </div>
+                                    
+                                <div class="col-12">
+                                <form id="materials-form">
+                                    <div class="profissional-container">
+                                        <div class="form-row align-items-center profissional-row">
+                                            <div class="col-sm-6 my-1">
+                                                <label class="sr-only" for="materialDropdown">Associar Profissional</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        
+                                                    </div>
+                                                    ${profissionaisHTML}
+                                                </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
+                                    
+                                        <button type="button" class="btn btn-link add-profissional-button">
+                                          <i class="mdi mdi-account-plus mr-2"></i> Adicionar Profissional
+                                        </button>
+                                    
+                                </form>
+                            </div>
                                     <div class="cell-hilighted text-white">
                                         <div class="d-flex mb-2">
                                             <div class="mr-5 min-width-cell">
@@ -125,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </td>
                         </tr>`;
         tabela.innerHTML += novaLinha;
+        
     }
 
     // Chamando a função adicionarLinha() quando o DOM estiver pronto
@@ -149,16 +190,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-    window.addMaterial = function(button) {
-        var materialsContainer = button.closest('.materials-container');
-        var materialRow = materialsContainer.querySelector('.material-row').cloneNode(true);
-        materialRow.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-        materialsContainer.appendChild(materialRow);
-    };
-
-    window.addProfessional = function(button) {
-        var professionalsContainer = button.closest('.profissional-container');
-        var professionalRow = professionalsContainer.querySelector('.profissional-row').cloneNode(true);
-        professionalRow.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-        professionalsContainer.appendChild(professionalRow);
-    };
+    // Função para atualizar a quantidade máxima baseada no material selecionado
+    window.updateMaxQuantity = function(selectElement) {
+        var quantidade = selectElement.options[selectElement.selectedIndex].dataset.quantidade;
+        var inputQuantity = selectElement.closest('.material-container').querySelector('.material-quantity');
+        inputQuantity.max = quantidade;
+    }
