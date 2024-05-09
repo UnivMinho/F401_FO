@@ -24,7 +24,7 @@
         <header class="site-header">
             <div class="container">
                 <div class="row">
-                    <div class="col-12"> <!-- Adicione a classe col-12 aqui -->
+                    <div class="col-12">
                         <div class="col-lg-8 col-12 d-flex flex-wrap">
                             <p class="d-flex me-4 mb-0">
                                 <i class="bi-geo-alt me-2"></i>
@@ -82,7 +82,6 @@
                         </li>
 
                         <li class="nav-item ms-3">
-                            <!-- Abrir pop-up do Google (fazer coisas no Google Cloud para ver se funciona) -->
                             <button class="nav-link custom-btn custom-border-btn btn" id="google-btn">
                                 <img src="./images/googleLogo.png" alt="Google Logo" class="google-logo">
                                 Log in
@@ -103,7 +102,6 @@
                             <div id="hero-slide" class="carousel carousel-fade slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <!-- Falta imagem -->
                                         <img src="images/slide/rioCarrossel.jpg" class="carousel-image img-fluid" alt="...">
                                         
                                         <div class="carousel-caption d-flex flex-column justify-content-end">
@@ -331,7 +329,6 @@
                 </div>
             </section>
 
-            <!-- MUDAR A COR do botao-->
             <section class="cta-section section-padding section-bg">
                 <div class="container">
                     <div class="row justify-content-center align-items-center">
@@ -347,7 +344,7 @@
                 </div>
             </section>
 
-
+            <!--verificar as diferenças de tamanho quando se diminui a página-->
             <section class="section-padding" id="section_3">
                 <div class="container">
                     <div class="row">
@@ -441,13 +438,10 @@
                             <div class="side-by-side">
                                 <div class="left-content">
                                     <h4>Localização</h4>
-                                    <!-- Place your content related to Localização here -->
                                     <div id="map"></div>
                                 </div>
                                 <div class="right-content">
                                     <h4>Iniciativas</h4>
-                                                                        <!-- Place your content related to Lista das minhas iniciativas here -->
-
                                     <div>
                                         <div class="row">
                                             <div class="col-md-12 grid-margin stretch-card">
@@ -530,7 +524,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    <!-- Place your content related to Lista das minhas iniciativas here -->
                                 </div>
                             </div>
                         </div>
@@ -546,10 +539,7 @@
                             <h2 class="mb-lg-3">Sugere uma iniciativa!</h2>
                             <h6>Sabes de alguma zona a precisar de intervenção? <br> Tens alguma ideia para partilhar?</h6>
                             <h6>Sugere-nos e nós organizamos!</h6>
-                            
-                                <!--falta alterar aqui-->
                             <button class="custom-btn" id="google-btn-5">SUGERIR</button>
-
                         </div>
                     </div>
                 </div>
@@ -669,24 +659,20 @@
         <script src=".//js/google.js" type="module"></script>
         <script src="js/displayIndex.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7M3JveIeVQP579NFgw4nG_uGR8dp1XI&libraries=places&callback=initMap" async defer></script>
-        <!--adicionado ??-->
-        <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
-
         <!--mostrar detalhes da seta-->
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const table = document.getElementById('iniciativasIndex');
-        
-            table.addEventListener('click', function (e) {
-              const target = e.target;
-              if (target.tagName === 'TD' && target.cellIndex === 3) {
-                const detailsRow = target.parentElement.nextElementSibling;
-                detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
-              }
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const table = document.getElementById('iniciativasIndex');
+            
+                table.addEventListener('click', function (e) {
+                const target = e.target;
+                if (target.tagName === 'TD' && target.cellIndex === 3) {
+                    const detailsRow = target.parentElement.nextElementSibling;
+                    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+                }
+                });
             });
-          });
-    </script>
-
+        </script>
 
     </body>
 </html>
