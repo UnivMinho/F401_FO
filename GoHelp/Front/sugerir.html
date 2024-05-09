@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GoHelp</title>
-    <link rel="icon" type="image/x-icon" href="/images/logo.ico">
+    <link rel="icon" type="image/x-icon" href="../Front/images/logo.ico">
 
        <!-- CSS FILES -->        
        <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -64,7 +64,7 @@
                     </li>
 
                     <li class="nav-item ms-3">
-                        <a class="nav-link custom-btn custom-border-btn btn" href="index.html">Logout</a>
+                        <a class="nav-link custom-btn custom-border-btn btn" id="logoutButton" href="index.html">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -134,6 +134,7 @@
                             </div>
                             <div class="col-lg-12 col-12 mt-2">
                                 <input type="date" name="iniciativa-date" id="iniciativa-date" class="form-control" required>
+                                <span id="dateError" style="color: red;"></span>
                             </div>
 
                             <div class="col-lg-12 col-12">
@@ -141,6 +142,7 @@
                             </div>
                             <div class="col-lg-12 col-12 mt-2">
                                 <input type="time" name="iniciativa-hour" id="iniciativa-hour" class="form-control" required>
+                                <span id="timeError" style="color: red;"></span>
                             </div>
 
                             <div class="col-lg-12 col-12">
@@ -161,13 +163,13 @@
                                 <h5 class="mt-1">Observações:</h5>
                             </div>
                             <div class="col-lg-12 col-12 mt-2">
-                                <input type="text" name="iniciativa-comments" id="iniciativa-comments" class="form-control" 
+                                <textarea type="text" name="iniciativa-comments" id="iniciativa-comments" class="form-control" 
                                 placeholder="Exemplo: materiais/profissionais que sabe que precisa, número mínimo de pessoas que pretende,
                                 entre outras informações que considere relevantes para a organização da iniciativa. Se não tiver ideia dos 
-                                materiais/profissionais que precisa, com base no numero de pessoas e na iniciativa que pretende, nós definimos os mesmos.">
+                                materiais/profissionais que precisa, com base no numero de pessoas e na iniciativa que pretende, nós definimos os mesmos."></textarea>
                             </div>
 
-
+                                <div id="alertBox" class="hidden"></div>
                                 <button type="submit" class="form-control mt-4">Enviar sugestão!</button>
                             </div>
                         </div>
@@ -238,6 +240,8 @@
       <script src="js/custom.js"></script>
       <script src="js/saveIniciativesPen.js"></script>
       <script src="js/incrementalVolunteer.js"></script>
+      <script src=".//js/google.js" type="module"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7M3JveIeVQP579NFgw4nG_uGR8dp1XI&libraries=places&callback=initMap" async defer></script>
 
 </body>
 </html>

@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadUserData();
 });
 
+
 function handleGoogleLogin() {
     signInWithPopup(auth, provider)
         .then((result) => {
@@ -38,10 +39,14 @@ function handleGoogleLogin() {
                 imageUrl: user.photoURL,
                 email: user.email,
                 dataCriado: new Date().toISOString(),
-                userType: 'Voluntário'
+                userType: 'Voluntário',
+                phone: '',
+                fullName: ''
             };
-
-            // Verifica se o usuário já existe e mantém o tipo se ele já estiver definido
+            //Guardar informações do user com sessão iniciada
+            saveUserData(userData);
+            
+            // Verifica se o user já existe e mantém o tipo se ele já estiver definido
             updateUserData(userData);
 
             // Atualiza a tabela com os novos dados
@@ -54,12 +59,39 @@ function handleGoogleLogin() {
             console.error(error);
         });
 }
+// Função para logout
+function logout() {
+    auth.signOut().then(() => {
+        localStorage.removeItem('userData');
+        localStorage.removeItem('userType');
+    }).catch((error) => {
+        console.error('Erro ao fazer logout:', error);
+    });
+}
+
+// Event listener para ação de logout
+document.getElementById('logoutButton').addEventListener('click', logout);
 
 function saveUserData(userData) {
-    let users = JSON.parse(localStorage.getItem('usersData')) || [];
-    users.push(userData);
-    localStorage.setItem('usersData', JSON.stringify(users));
+    let usersData = JSON.parse(localStorage.getItem('usersData')) || [];
+    const existingUser = usersData.find(user => user.email === userData.email);
+    if (existingUser) {
+        // Se o user existir utiliza os dados do localStorage
+        userData = existingUser;
+    } else {
+        // Se o user não exitir utiliza os novos dados
+        userData = { ...userData, ...existingUser };
+    }
+
+    // Gravar em localStorage
+    localStorage.setItem('userData', JSON.stringify(userData));
     console.log('User data saved to localStorage:', userData);
+
+    const userType = localStorage.getItem('userType');
+    if (!userType) {
+        localStorage.setItem('userType', 'voluntario');
+        console.log('Tipo de usuário definido como voluntário por padrão.');
+    }
 }
 
 function loadUserData() {
@@ -116,15 +148,17 @@ function loadUserData() {
 
 function updateUserData(userData) {
     let users = JSON.parse(localStorage.getItem('usersData')) || [];
-    const existingUser = users.find(user => user.id === userData.id);
-    if (existingUser) {
-        userData.userType = existingUser.userType;  // Mantém o tipo existente
+    const existingUserIndex = users.findIndex(user => user.email === userData.email);
+    if (existingUserIndex === -1) {
+        // Se não existir index, pode criar novo user
+        users.push(userData);
+        localStorage.setItem('usersData', JSON.stringify(users));
+        console.log('New user added to localStorage:', userData);
+    } else {
+        // Se o user existir, mantém o mesmo userType
+        userData.userType = users[existingUserIndex].userType;
+        console.log('User already exists in localStorage. Not adding:', userData);
     }
-    // Atualiza ou adiciona o usuário
-    users = users.filter(user => user.id !== userData.id);  // Remove a entrada antiga, se houver
-    users.push(userData);  // Adiciona a nova entrada
-    localStorage.setItem('usersData', JSON.stringify(users));
-    console.log('User data saved to localStorage:', userData);
 }
 
 function redirectToPage(userType) {

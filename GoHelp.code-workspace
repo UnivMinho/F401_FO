@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "GoHelp",
+			"path": "."
+		},
+		{
+			"name": "PW_FrontOffice-main",
+			"path": "../PW_FrontOffice-main"
+		}
+	],
+	"settings": {}
+}

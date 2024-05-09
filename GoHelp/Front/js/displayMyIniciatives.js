@@ -29,6 +29,11 @@ function displayAndSetStatusUserInitiatives() {
     const proposedTableBody = document.querySelector('#propostas tbody');
     proposedTableBody.innerHTML = '';
 
+    const map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 39.540393319546496, lng: -8.307363083499494},
+        zoom: 7
+    });
+
     userInitiatives.forEach(initiative => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -49,7 +54,7 @@ function displayAndSetStatusUserInitiatives() {
             proposedTableBody.insertAdjacentHTML('beforeend', hiddenRowHtml);
         }
         
-        // Set status based on initiative's date
+        // Definir status com base na data
         const statusCell = row.querySelector('.status-button');
         const initiativeDate = new Date(initiative.date.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$3-$2-$1'));
         const today = new Date(getTodayDate());
@@ -69,6 +74,21 @@ function displayAndSetStatusUserInitiatives() {
                 statusCell.style.backgroundColor = '#FFD700'; // Darker yellow
             }
         }
+
+        const marker = new google.maps.Marker({
+            position: { lat: parseFloat(initiative.latitude), lng: parseFloat(initiative.longitude) },
+            map: map,
+            title: initiative.name
+        });
+
+        // Informação do marker
+        const infoWindow = new google.maps.InfoWindow({
+            content: `<p>${initiative.name}</p>`
+        });
+
+        marker.addListener('click', function() {
+            infoWindow.open(map, marker);
+        });
     });
 }
 
@@ -139,3 +159,14 @@ function getProponentName(email){
         
     return user ? `${user.name}` : 'Unknown User'; 
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const mainRows = document.querySelectorAll('.main-row');
+
+    mainRows.forEach(mainRow => {
+        mainRow.addEventListener('click', function() {
+            const detailsRow = this.nextElementSibling;
+            detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+        });
+    });
+});

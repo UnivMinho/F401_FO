@@ -29,6 +29,16 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
+        var lideresDropdownHTML = '';
+        var usersData = JSON.parse(localStorage.getItem('usersData'));
+        
+        // Verifica se o localStorage contém dados de usuários
+        if (Array.isArray(usersData)) {
+            usersData.forEach(user => {
+                lideresDropdownHTML += `<option>${user.name}</option>`;
+            });
+        }
+
         var novaLinha = `<tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">
                             <td>${initiative.description}</td>
                             <td>${initiative.type}</td>
@@ -54,12 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
                                                 <p>Líder</p>
                                                 <select id="liderDropdown" class="custom-select">
                                                     <option selected>Selecione</option>
-                                                    <!-- Adicionar mais opções aqui dinamicamente se necessário -->
+                                                    ${lideresDropdownHTML}
                                                 </select>
                                             </div>
                                             <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
                                                 <p>Id. Voluntário</p>
-                                                <h6 class="mt-3">${initiative.userEmail}</h6>
+                                                <h6 class="mt-3">${initiative.name}</h6>
                                             </div>
                                             <div class="min-width-cell" style="padding: 10px;">
                                                 <p>E-mail Voluntário</p>
@@ -116,6 +126,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         </tr>`;
         tabela.innerHTML += novaLinha;
     }
+
+    // Chamando a função adicionarLinha() quando o DOM estiver pronto
+    // Você deve ter o código que chama a função adicionarLinha() em algum lugar
+
+
 
     function getProponentName(email) {
         // Busca o nome do proponente no local storage de usuários
