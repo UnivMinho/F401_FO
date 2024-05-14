@@ -16,8 +16,8 @@
 .contact-image-team{
     border-radius: 30px;
     display: block;
-    width: 600px;
-    height: 500px;
+    width: 550px;
+    height: 450px;
     object-fit: cover;  
 }
 
@@ -1538,7 +1538,9 @@ blockquote::before {
   }
 
   .donate-form {
-    padding: 35px;
+    margin: 0 auto; /* Center the form horizontally */
+    padding: 25px;
+    border-radius: var(--border-radius-medium);
   }
 
   .navbar {
@@ -1762,7 +1764,9 @@ blockquote::before {
   }
 
   .donate-form {
+    margin: 0 auto; /* Center the form horizontally */
     padding: 25px;
+    border-radius: var(--border-radius-medium);
   }
 }
 
