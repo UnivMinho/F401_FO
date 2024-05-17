@@ -159,14 +159,3 @@ function getProponentName(email){
         
     return user ? `${user.name}` : 'Unknown User'; 
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    const mainRows = document.querySelectorAll('.main-row');
-
-    mainRows.forEach(mainRow => {
-        mainRow.addEventListener('click', function() {
-            const detailsRow = this.nextElementSibling;
-            detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
-        });
-    });
-});

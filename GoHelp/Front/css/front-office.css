@@ -2,6 +2,7 @@
 /*acrescentado*/
 
 #map {
+  min-height: 40em;
   height: 100%;
   width: 100%;
 }
@@ -241,6 +242,10 @@ strong {
   padding: 30px;
 }
 
+.custom-block-body .mb-3{
+  font-size: 22px;
+}
+
 .custom-block-image {
   display: block;
   width: 100%;
@@ -348,8 +353,8 @@ strong {
 
 .navbar-expand-lg .navbar-nav .nav-link.custom-btn {
   color: var(--custom-btn-bg-color);
-  margin-top: 8px;
-  padding: 12px 25px;
+  margin-top: 0.7em;
+  padding: 0.6em 0.8em;
 }
 
 .custom-btn:hover {
@@ -747,7 +752,6 @@ strong {
   margin-top: 10%;
   align-items: center;
   justify-content:center;
-
 }
 
 .about-section .counter-number {
