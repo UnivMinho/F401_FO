@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         materials.forEach((material, index) => {
             const cardHtml = document.createElement('div');
-            cardHtml.className = 'col-md-3 grid-margin stretch-card';
+            cardHtml.className = 'col-md-3 grid-margin stretch-card mt-50';
             cardHtml.innerHTML = `
             <div class="card" style="height: 400px;">
             <div class="card-body d-flex flex-column align-items-center justify-content-between">

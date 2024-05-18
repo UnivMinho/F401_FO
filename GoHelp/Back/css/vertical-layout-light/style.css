@@ -19781,7 +19781,6 @@ code {
   align-items: stretch;
   -webkit-justify-content: stretch;
   justify-content: stretch;
-  margin-top: 50px;
 }
 
 .stretch-card > .card {
