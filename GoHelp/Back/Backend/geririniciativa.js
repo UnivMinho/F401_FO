@@ -10,18 +10,25 @@ function adicionarLinha(initiative) {
     var tabela = document.querySelector('#example tbody');
     var novaLinha = createRowHTML(initiative); 
     tabela.innerHTML += novaLinha;
+    attachQuantityControlEvents(document);
 }
 
-// Função auxiliar para criar o HTML do input de quantidade
-function createQuantityHTML() {
-    return '<input type="number" class="form-control material-quantity" min="1" value="1" />';
+// Função auxiliar para criar o HTML do input de quantidade com botões de incrementar e decrementar
+function createQuantityControlHTML() {
+    return `
+        <div class="input-group" style="width: 80px;">
+            <input type="number" class="form-control material-quantity" min="1" value="1"/>
+            <div class="input-group-append justify-content-end">
+         
+            </div>
+        </div>`;
 }
 
 // Função para criar o HTML da linha usando funções modularizadas
 function createRowHTML(initiative) {
     var materiaisHTML = createMaterialsDropdown(initiative.id);
     var profissionaisHTML = createProfessionalsDropdown();
-    var quantidadeHTML = createQuantityHTML(); 
+    var quantidadeControlHTML = createQuantityControlHTML();
     var lideresDropdownHTML = createLeadersDropdown();
 
     return `
@@ -68,31 +75,6 @@ function createRowHTML(initiative) {
                     </div>
                 </div>
                 <div class="col-12">
-                    <form id="materials-form-${initiative.id}">
-                        <div class="materials-container" id="materials-container-${initiative.id}">
-                            <div class="form-row align-items-center material-row">
-                                <div class="col-sm-6 my-1">
-                                    <label class="sr-only" for="materialDropdown">Material</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"></div>
-                                        ${materiaisHTML}
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-1">
-                                    <label class="sr-only" for="quantityDropdown">Quantidade</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"></div>
-                                        ${quantidadeHTML}
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-link add-material-button" onclick="addMaterialFields(${initiative.id})">
-                                    <i class="mdi mdi-plus-circle-outline mr-2"></i> Adicionar Material
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-12">
                     <form id="profissional-form">
                         <div class="profissional-container">
                             <div class="form-row align-items-center profissional-row">
@@ -107,6 +89,33 @@ function createRowHTML(initiative) {
                         </div>
                     </form>
                 </div>
+                <div class="col-12">
+                    <form id="materials-form-${initiative.id}">
+                        <div class="materials-container" id="materials-container-${initiative.id}">
+                            <div class="form-row align-items-center material-row">
+                                <div class="col-sm-6 my-1">
+                                    <label class="sr-only" for="materialDropdown">Material</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"></div>
+                                        ${materiaisHTML}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-1">
+                                    <label class="sr-only" for="quantityDropdown">Quantidade</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"></div>
+                                        ${quantidadeControlHTML}
+                                        <button type="button" class="btn btn-link add-material-button" onclick="addMaterialFields(${initiative.id})">
+                                            <i class="mdi mdi-plus-circle-outline mr-2"></i> Adicionar Material
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            
                 <div class="cell-hilighted text-white">
                     <div class="d-flex mb-2">
                         <div class="mr-5 min-width-cell">
@@ -179,7 +188,6 @@ function createLeadersDropdown() {
 
 // Função para adicionar campos de material
 function addMaterialFields(initiativeId) {
-    var materiaisData = JSON.parse(localStorage.getItem('materials'));
     var materiaisContainer = document.getElementById(`materials-container-${initiativeId}`);
     var materialRowHTML = `
     <div class="form-row align-items-center material-row">
@@ -194,17 +202,25 @@ function addMaterialFields(initiativeId) {
             <label class="sr-only" for="quantityDropdown">Quantidade</label>
             <div class="input-group">
                 <div class="input-group-prepend"></div>
-                ${createQuantityHTML()}
-            </div>
-        </div>
-        <button type="button" class="btn btn-link remove-material-button" onclick="removeMaterialFields(this)">
+                ${createQuantityControlHTML()}
+                <button type="button" class="btn btn-link remove-material-button" onclick="removeMaterialFields(this)">
             <i class="mdi mdi-minus-circle-outline mr-2"></i> Remover Material
         </button>
+            </div>
+        </div>
     </div>`;
     materiaisContainer.insertAdjacentHTML('beforeend', materialRowHTML);
+    attachQuantityControlEvents(materiaisContainer);
+}
 
-    // Adiciona evento para validar quantidade
-    materiaisContainer.querySelectorAll('.material-dropdown').forEach(dropdown => {
+// Função para remover campos de material
+function removeMaterialFields(button) {
+    button.closest('.material-row').remove();
+}
+
+// Função para anexar eventos de controle de quantidade
+function attachQuantityControlEvents(container) {
+    container.querySelectorAll('.material-dropdown').forEach(dropdown => {
         dropdown.addEventListener('change', function() {
             var maxQuantity = this.options[this.selectedIndex].getAttribute('data-max-quantity');
             var quantityInput = this.closest('.material-row').querySelector('.material-quantity');
@@ -215,20 +231,24 @@ function addMaterialFields(initiativeId) {
         });
     });
 
-    // Adiciona evento para limitar a quantidade
-    materiaisContainer.querySelectorAll('.material-quantity').forEach(input => {
-        input.addEventListener('input', function() {
-            var maxQuantity = this.max;
-            if (this.value > maxQuantity) {
-                this.value = maxQuantity;
+    container.querySelectorAll('.increment-quantity').forEach(button => {
+        button.addEventListener('click', function() {
+            var quantityInput = this.closest('.input-group').querySelector('.material-quantity');
+            var maxQuantity = quantityInput.max;
+            if (parseInt(quantityInput.value) < parseInt(maxQuantity)) {
+                quantityInput.value = parseInt(quantityInput.value) + 1;
             }
         });
     });
-}
 
-// Função para remover campos de material
-function removeMaterialFields(button) {
-    button.closest('.material-row').remove();
+    container.querySelectorAll('.decrement-quantity').forEach(button => {
+        button.addEventListener('click', function() {
+            var quantityInput = this.closest('.input-group').querySelector('.material-quantity');
+            if (parseInt(quantityInput.value) > 1) {
+                quantityInput.value = parseInt(quantityInput.value) - 1;
+            }
+        });
+    });
 }
 
 // Evento para adicionar linhas ao carregar a página
