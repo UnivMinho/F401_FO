@@ -65,19 +65,23 @@ document.addEventListener("DOMContentLoaded", function () {
       const cardHtml = document.createElement("div");
       cardHtml.className = "col-md-3 grid-margin stretch-card mt-50";
       cardHtml.innerHTML = `
-            <div class="card" style="height: 400px;">
-            <div class="card-body d-flex flex-column align-items-center justify-content-between">
-                <h4 class="mb-auto">${material.nome}</h4>
-                <img src="${material.imagem}" style="max-width: 100%; max-height: 150px; margin-bottom: 15px;">
-            </div>
-            <div class="card-footer" style="border-top: 2px solid #000; border-radius: 10px 10px 10px 10px; border: 2px solid #E8F2E8; height: 150px; background:#ffffff">
-                <h5 class="text-center mt-3" id="quantidade-${index}">Quantidade: ${material.quantidade}</h5>
-                <div class="d-flex justify-content-between mt-4">
-                    <button type="button" class="btn btn-sm btn-danger mr-2" onclick="removeMaterial(${index})">Remover</button>
-                    <button type="button" class="btn btn-sm btn-success" onclick="addMaterial(${index})">Adicionar</button>
-                </div>
-            </div>
-        </div>
+      <div class="card" style="height: 400px;">
+      <div class="card-body d-flex flex-column align-items-center justify-content-between">
+          <div class="d-flex align-items-center justify-content-between w-100 position-relative">
+              <h4 class="mb-auto flex-grow-1 text-center">${material.nome}</h4>
+              <i class="mdi mdi-window-close" style="font-size: 24px; position: absolute; right: 0;" onclick="removeMaterialByIndex(${index})"></i>
+          </div>
+          <img src="${material.imagem}" style="max-width: 100%; max-height: 150px; margin-bottom: 15px;">
+      </div>
+      <div class="card-footer" style="border-top: 2px solid #000; border-radius: 10px 10px 10px 10px; border: 2px solid #E8F2E8; height: 150px; background:#ffffff">
+          <h5 class="text-center mt-3" id="quantidade-${index}">Quantidade: ${material.quantidade}</h5>
+          <div class="d-flex justify-content-between mt-4">
+              <button type="button" class="btn btn-sm btn-danger mr-2" onclick="removeMaterial(${index})">Remover</button>
+              <button type="button" class="btn btn-sm btn-success" onclick="addMaterial(${index})">Adicionar</button>
+          </div>
+      </div>
+  </div>
+  
         
             `;
 
@@ -129,6 +133,16 @@ function removeMaterial(index) {
   }
 }
 
+function removeMaterialByIndex(index) {
+    if (confirm("Tem certeza de que deseja remover este material?")) {
+      let materials = JSON.parse(localStorage.getItem("materials")) || [];
+      materials.splice(index, 1); // Remove o material do array
+      localStorage.setItem("materials", JSON.stringify(materials)); // Atualiza o localStorage
+      updateMaterialsDisplay(materials); // Atualiza a exibição dos materiais
+    }
+  }
+
+  
 function filterMaterials() {
   const searchText = document.getElementById("searchInput").value.toLowerCase();
   const materials = JSON.parse(localStorage.getItem("materials")) || [];
@@ -147,18 +161,22 @@ function updateMaterialsDisplay(materials) {
     const cardHtml = document.createElement("div");
     cardHtml.className = "col-md-3 grid-margin stretch-card";
     cardHtml.innerHTML = `
-        <div class="card" style="height: 400px;">
-        <div class="card-body d-flex flex-column align-items-center justify-content-between">
-            <h4 class="mb-auto">${material.nome}</h4>
-            <img src="${material.imagem}" style="max-width: 100%; max-height: 150px; margin-bottom: 15px;">
-        </div>
-        <div class="card-footer" style="border-top: 2px solid #000; border-radius: 10px 10px 10px 10px; border: 2px solid #E8F2E8; height: 150px; background:#ffffff">
-            <h5 class="text-center mt-3" id="quantidade-${index}">Quantidade: ${material.quantidade}</h5>
-            <div class="d-flex justify-content-between mt-4">
-                <button type="button" class="btn btn-sm btn-danger mr-2" onclick="removeMaterial(${index})">Remover</button>
-                <button type="button" class="btn btn-sm btn-success" onclick="addMaterial(${index})">Adicionar</button>
-            </div>
-        </div>
+    <div class="card" style="height: 400px;">
+      <div class="card-body d-flex flex-column align-items-center justify-content-between">
+          <div class="d-flex align-items-center justify-content-between w-100 position-relative">
+              <h4 class="mb-auto flex-grow-1 text-center">${material.nome}</h4>
+              <i class="mdi mdi-window-close" style="font-size: 24px; position: absolute; right: 0;" onclick="removeMaterialByIndex(${index})"></i>
+          </div>
+          <img src="${material.imagem}" style="max-width: 100%; max-height: 150px; margin-bottom: 15px;">
+      </div>
+      <div class="card-footer" style="border-top: 2px solid #000; border-radius: 10px 10px 10px 10px; border: 2px solid #E8F2E8; height: 150px; background:#ffffff">
+          <h5 class="text-center mt-3" id="quantidade-${index}">Quantidade: ${material.quantidade}</h5>
+          <div class="d-flex justify-content-between mt-4">
+              <button type="button" class="btn btn-sm btn-danger mr-2" onclick="removeMaterial(${index})">Remover</button>
+              <button type="button" class="btn btn-sm btn-success" onclick="addMaterial(${index})">Adicionar</button>
+          </div>
+      </div>
+  </div>
         `;
 
     materialsContainer.appendChild(cardHtml); // Adiciona o novo cartão ao contêiner

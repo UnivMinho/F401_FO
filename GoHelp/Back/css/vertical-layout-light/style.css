@@ -10188,6 +10188,15 @@ pre code {
   background-color: #eaeaf1;
 }
 
+.mdi-window-close {
+  transition: color 0.3s;
+  cursor: pointer;
+}
+.mdi-window-close:hover {
+  color: red;
+}
+
+
 .table-primary,
 .table-primary > th,
 .table-primary > td {
