@@ -31,16 +31,29 @@ function createTableRow(initiative) {
  return tr;
 }
 
-// Função para carregar as iniciativas do localStorage
+/* Função para carregar as iniciativas do localStorage
 function loadInitiatives() {
- const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
- const tbody = document.querySelector('.table tbody');
+  const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+  const tbody = document.querySelector('.table tbody');
+ 
+  initiatives.forEach(initiative => {
+    const tr = createTableRow(initiative);
+    tbody.appendChild(tr);
+  });
+ }*/
+ 
+// Função para carregar as iniciativas com estado "a decorrer" do localStorage
+function loadInitiatives() {
+  const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+  const tbody = document.querySelector('.table tbody');
+  const initiativesIniciadas = initiatives.filter(initiative => initiative.estado === 'a decorrer');
 
- initiatives.forEach(initiative => {
-   const tr = createTableRow(initiative);
-   tbody.appendChild(tr);
- });
+  initiativesIniciadas.forEach(initiative => {
+    const tr = createTableRow(initiative);
+    tbody.appendChild(tr);
+  });
 }
+
 
 // Carregar as iniciativas quando o DOM estiver completamente carregado
 loadInitiatives();
