@@ -56,8 +56,8 @@ loadInitiatives();
 //carregar iniciativas por decorrer
 document.addEventListener('DOMContentLoaded', function() {
   const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
-  const contagempordecorrer = initiatives.filter(initiative => initiative.status === 'aprovada').length;
-  document.getElementById('iniciativas-por-decorrer').innerText = contagempordecorrer;
+  const contagemporrealizar = initiatives.filter(initiative => initiative.status === 'aprovada').length;
+  document.getElementById('iniciativas-por-realizar').innerText = contagemporrealizar;
 });
 
 
