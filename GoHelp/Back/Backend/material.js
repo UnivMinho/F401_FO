@@ -1,70 +1,70 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector(".forms-sample");
+    const form = document.querySelector(".forms-sample");
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-    const nomeMaterial = document.getElementById("NomeMaterial").value.trim();
-    const quantidade = document.getElementById("Quantidade").value.trim();
-    const inputFile = document.querySelector(".file-upload-default").files[0];
+        const nomeMaterial = document.getElementById("NomeMaterial").value.trim();
+        const quantidade = document.getElementById("Quantidade").value.trim();
+        const inputFile = document.querySelector(".file-upload-default").files[0];
 
-    // Validar se todos os campos estão preenchidos
-    if (!nomeMaterial || !quantidade || !inputFile) {
-      alert("Por favor, preencha todos os campos e selecione uma imagem.");
-      return;
+        // Validar se todos os campos estão preenchidos
+        if (!nomeMaterial || !quantidade || !inputFile) {
+            alert("Por favor, preencha todos os campos e selecione uma imagem.");
+            return;
+        }
+
+        // Função para ler e salvar a imagem como base64 no localStorage
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const newMaterial = {
+                nome: nomeMaterial,
+                quantidade: quantidade,
+                imagem: e.target.result, // Imagem em base64
+            };
+
+            saveMaterial(newMaterial);
+        };
+        reader.readAsDataURL(inputFile);
+    });
+
+    function saveMaterial(material) {
+        let materials = JSON.parse(localStorage.getItem("materials")) || [];
+        materials.push(material);
+        localStorage.setItem("materials", JSON.stringify(materials));
+        alert("Material criado com sucesso!");
+        form.reset(); // Limpa o formulário após salvar
     }
 
-    // Função para ler e salvar a imagem como base64 no localStorage
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const newMaterial = {
-        nome: nomeMaterial,
-        quantidade: quantidade,
-        imagem: e.target.result, // Imagem em base64
-      };
+    // Configuração do botão de upload
+    document
+        .querySelector(".file-upload-browse")
+        .addEventListener("click", function () {
+            const fileInput = document.querySelector(".file-upload-default");
+            if (fileInput) {
+                fileInput.click(); // Abre a janela de seleção de arquivo
+            }
+        });
 
-      saveMaterial(newMaterial);
-    };
-    reader.readAsDataURL(inputFile);
-  });
-
-  function saveMaterial(material) {
-    let materials = JSON.parse(localStorage.getItem("materials")) || [];
-    materials.push(material);
-    localStorage.setItem("materials", JSON.stringify(materials));
-    alert("Material criado com sucesso!");
-    form.reset(); // Limpa o formulário após salvar
-  }
-
-  // Configuração do botão de upload
-  document
-    .querySelector(".file-upload-browse")
-    .addEventListener("click", function () {
-      const fileInput = document.querySelector(".file-upload-default");
-      if (fileInput) {
-        fileInput.click(); // Abre a janela de seleção de arquivo
-      }
-    });
-
-  document
-    .querySelector(".file-upload-default")
-    .addEventListener("change", function () {
-      const fileInput = document.querySelector(".file-upload-info");
-      if (fileInput) {
-        fileInput.value = this.files[0].name; // Atualiza o nome do arquivo no campo de texto
-      }
-    });
+    document
+        .querySelector(".file-upload-default")
+        .addEventListener("change", function () {
+            const fileInput = document.querySelector(".file-upload-info");
+            if (fileInput) {
+                fileInput.value = this.files[0].name; // Atualiza o nome do arquivo no campo de texto
+            }
+        });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  const materialsContainer = document.querySelector(".row.materials-list");
-  if (materialsContainer) {
-    const materials = JSON.parse(localStorage.getItem("materials")) || [];
+    const materialsContainer = document.querySelector(".row.materials-list");
+    if (materialsContainer) {
+        const materials = JSON.parse(localStorage.getItem("materials")) || [];
 
-    materials.forEach((material, index) => {
-      const cardHtml = document.createElement("div");
-      cardHtml.className = "col-md-3 grid-margin stretch-card mt-50";
-      cardHtml.innerHTML = `
+        materials.forEach((material, index) => {
+            const cardHtml = document.createElement("div");
+            cardHtml.className = "col-md-3 grid-margin stretch-card mt-50";
+            cardHtml.innerHTML = `
       <div class="card" style="height: 400px;">
       <div class="card-body d-flex flex-column align-items-center justify-content-between">
           <div class="d-flex align-items-center justify-content-between w-100 position-relative">
@@ -85,82 +85,81 @@ document.addEventListener("DOMContentLoaded", function () {
         
             `;
 
-      materialsContainer.appendChild(cardHtml);
-    });
-  }
+            materialsContainer.appendChild(cardHtml);
+        });
+    }
 });
 
 function addMaterial(index) {
-  const quantityToAdd = parseInt(
-    prompt("Insira a quantidade a adicionar:", "1"),
-    10
-  );
-  if (Number.isInteger(quantityToAdd) && quantityToAdd > 0) {
-    const materials = JSON.parse(localStorage.getItem("materials"));
-    materials[index].quantidade =
-      parseInt(materials[index].quantidade, 10) + quantityToAdd;
-    localStorage.setItem("materials", JSON.stringify(materials));
-    document.getElementById(
-      `quantidade-${index}`
-    ).textContent = `Quantidade: ${materials[index].quantidade}`;
-  } else {
-    alert("Por favor, insira um número válido.");
-  }
+    const quantityToAdd = parseInt(
+        prompt("Insira a quantidade a adicionar:", "1"),
+        10
+    );
+    if (Number.isInteger(quantityToAdd) && quantityToAdd > 0) {
+        const materials = JSON.parse(localStorage.getItem("materials"));
+        materials[index].quantidade =
+            parseInt(materials[index].quantidade, 10) + quantityToAdd;
+        localStorage.setItem("materials", JSON.stringify(materials));
+        document.getElementById(
+            `quantidade-${index}`
+        ).textContent = `Quantidade: ${materials[index].quantidade}`;
+    } else {
+        alert("Por favor, insira um número válido.");
+    }
 }
 
 function removeMaterial(index) {
-  const quantityToRemove = parseInt(
-    prompt("Insira a quantidade a remover:", "1"),
-    10
-  );
-  if (Number.isInteger(quantityToRemove) && quantityToRemove > 0) {
-    const materials = JSON.parse(localStorage.getItem("materials"));
-    const currentQuantity = materials[index].quantidade;
+    const quantityToRemove = parseInt(
+        prompt("Insira a quantidade a remover:", "1"),
+        10
+    );
+    if (Number.isInteger(quantityToRemove) && quantityToRemove > 0) {
+        const materials = JSON.parse(localStorage.getItem("materials"));
+        const currentQuantity = materials[index].quantidade;
 
-    if (quantityToRemove > currentQuantity) {
-      alert("A quantidade a remover é maior que a quantidade disponível.");
-      return;
+        if (quantityToRemove > currentQuantity) {
+            alert("A quantidade a remover é maior que a quantidade disponível.");
+            return;
+        }
+
+        materials[index].quantidade -= quantityToRemove;
+
+        localStorage.setItem("materials", JSON.stringify(materials));
+        document.getElementById(
+            `quantidade-${index}`
+        ).textContent = `Quantidade: ${materials[index].quantidade}`;
+    } else {
+        alert("Por favor, insira um número válido.");
     }
-
-    materials[index].quantidade -= quantityToRemove;
-
-    localStorage.setItem("materials", JSON.stringify(materials));
-    document.getElementById(
-      `quantidade-${index}`
-    ).textContent = `Quantidade: ${materials[index].quantidade}`;
-  } else {
-    alert("Por favor, insira um número válido.");
-  }
 }
 
 function removeMaterialByIndex(index) {
     if (confirm("Tem certeza de que deseja remover este material?")) {
-      let materials = JSON.parse(localStorage.getItem("materials")) || [];
-      materials.splice(index, 1); // Remove o material do array
-      localStorage.setItem("materials", JSON.stringify(materials)); // Atualiza o localStorage
-      updateMaterialsDisplay(materials); // Atualiza a exibição dos materiais
+        let materials = JSON.parse(localStorage.getItem("materials")) || [];
+        materials.splice(index, 1); // Remove o material do array
+        localStorage.setItem("materials", JSON.stringify(materials)); // Atualiza o localStorage
+        updateMaterialsDisplay(materials); // Atualiza a exibição dos materiais
     }
-  }
+}
 
-  
 function filterMaterials() {
-  const searchText = document.getElementById("searchInput").value.toLowerCase();
-  const materials = JSON.parse(localStorage.getItem("materials")) || [];
-  const filteredMaterials = materials.filter((material) =>
-    material.nome.toLowerCase().startsWith(searchText)
-  );
+    const searchText = document.getElementById("searchInput").value.toLowerCase();
+    const materials = JSON.parse(localStorage.getItem("materials")) || [];
+    const filteredMaterials = materials.filter((material) =>
+        material.nome.toLowerCase().startsWith(searchText)
+    );
 
-  updateMaterialsDisplay(filteredMaterials);
+    updateMaterialsDisplay(filteredMaterials);
 }
 
 function updateMaterialsDisplay(materials) {
-  const materialsContainer = document.querySelector(".row.materials-list");
-  materialsContainer.innerHTML = ""; // Limpa o contêiner atual
+    const materialsContainer = document.querySelector(".row.materials-list");
+    materialsContainer.innerHTML = ""; // Limpa o contêiner atual
 
-  materials.forEach((material, index) => {
-    const cardHtml = document.createElement("div");
-    cardHtml.className = "col-md-3 grid-margin stretch-card";
-    cardHtml.innerHTML = `
+    materials.forEach((material, index) => {
+        const cardHtml = document.createElement("div");
+        cardHtml.className = "col-md-3 grid-margin stretch-card";
+        cardHtml.innerHTML = `
     <div class="card" style="height: 400px;">
       <div class="card-body d-flex flex-column align-items-center justify-content-between">
           <div class="d-flex align-items-center justify-content-between w-100 position-relative">
@@ -179,6 +178,6 @@ function updateMaterialsDisplay(materials) {
   </div>
         `;
 
-    materialsContainer.appendChild(cardHtml); // Adiciona o novo cartão ao contêiner
-  });
+        materialsContainer.appendChild(cardHtml); // Adiciona o novo cartão ao contêiner
+    });
 }
