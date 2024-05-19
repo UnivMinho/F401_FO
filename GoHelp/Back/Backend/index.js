@@ -46,6 +46,20 @@ function loadInitiatives() {
 loadInitiatives();
 });
 
+//caregar iniciativas pendentes
+  document.addEventListener('DOMContentLoaded', function() {
+    const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+    const contagempendentes = initiatives.filter(initiative => initiative.status === 'pendente').length;
+    document.getElementById('iniciativas-pendentes').innerText = contagempendentes;
+  });
+
+//carregar iniciativas por decorrer
+document.addEventListener('DOMContentLoaded', function() {
+  const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+  const contagempordecorrer = initiatives.filter(initiative => initiative.status === 'aprovada').length;
+  document.getElementById('iniciativas-por-decorrer').innerText = contagempordecorrer;
+});
+
 
 function loadMaterials() {
    const materialsData = localStorage.getItem('materials');
