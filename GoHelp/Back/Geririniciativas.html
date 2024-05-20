@@ -146,53 +146,35 @@
 
 
             <div class="row">
-                <div class="col-md-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-title">Lista de Iniciativas</p>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table id="example" class="display expandable-table pd-3" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nome iniciativa</th>
-                                                    <th>Tipo de iniciativa</th>
-                                                    <th>Proponente</th>
-                                                    <th>Estado</th>
-                                                    <th>Ultima Atualização</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                              
-                                            
-                                            </tbody>
+              <div class="col-md-12 grid-margin stretch-card">
+                  <div class="card">
+                      <div class="card-body">
+                          <p class="card-title">Lista de Iniciativas</p>
+                          <div class="row">
+                              <div class="col-12">
+                                  <div class="table-responsive">
+                                      <table id="example" class=" expandable-table pd-3" style="width:100%">
+                                          <thead>
+                                              <tr>
+                                                  <th>Nome iniciativa</th>
+                                                  <th>Tipo de iniciativa</th>
+                                                  <th>Proponente</th>
+                                                  <th>Estado</th>
+                                                  <th>Ultima Atualização</th>
+                                                  <th></th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                          </tbody>
                                         </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                        </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             </div>
 
-            <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const table = document.getElementById('example');
-              
-                // Adding event listener to the table
-                table.addEventListener('click', function (e) {
-                  // Check if the clicked element is a cell in the last column
-                  const target = e.target;
-                  if (target.tagName === 'TD' && target.cellIndex === 5) {
-                    const detailsRow = target.parentElement.nextElementSibling; // Get the next sibling row which holds the details
-                    // Toggle the display of the details row
-                    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
-                  }
-                });
-              });
-              </script>
 
           <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
