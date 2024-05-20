@@ -6,20 +6,24 @@ function populateFormFields(userData) {
     document.getElementById('phone').value = userData.phone || '';
     document.getElementById('google-name').readOnly = true;
     document.getElementById('google-email').readOnly = true;
+    document.getElementById('user-profile-image').src = userData.profileImage || 'images/faces/face28.jpg';
 }
 
 // Função que faz update em userData e em usersData
-function updateUserInfo(phone) {
+function updateUserInfo(phone, profileImage) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     if (userData) {
         userData.phone = phone;
+        if (profileImage) {
+            userData.profileImage = profileImage;
+        }
         localStorage.setItem('userData', JSON.stringify(userData));
 
         // Update the corresponding user's information in usersData
         const usersData = JSON.parse(localStorage.getItem('usersData')) || [];
         const updatedUsersData = usersData.map(user => {
             if (user.email === userData.email) {
-                return { ...user, phone: phone };
+                return { ...user, phone: phone, profileImage: profileImage || user.profileImage };
             }
             return user;
         });
@@ -34,7 +38,19 @@ function updateUserInfo(phone) {
 // Função que redireciona para a função de guardar
 function saveUpdatedUserInfo() {
     const phone = document.getElementById('phone').value;
-    updateUserInfo(phone);
+    const profileImage = document.getElementById('user-profile-image').src;
+    updateUserInfo(phone, profileImage);
+}
+
+// Função para ler a imagem selecionada
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('user-profile-image').src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 
 // Função que começa assim que a página é carregada
@@ -52,5 +68,20 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault(); 
         saveUpdatedUserInfo(); 
+    });
+
+    document.querySelector(".file-upload-browse").addEventListener("click", function () {
+        const fileInput = document.querySelector(".file-upload-default");
+        if (fileInput) {
+            fileInput.click(); // Abre a janela de seleção de arquivo
+        }
+    });
+
+    document.querySelector(".file-upload-default").addEventListener("change", function () {
+        readURL(this);
+        const fileInput = document.querySelector(".file-upload-info");
+        if (fileInput) {
+            fileInput.value = this.files[0].name; // Atualiza o nome do arquivo no campo de texto
+        }
     });
 });
