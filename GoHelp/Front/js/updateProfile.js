@@ -16,7 +16,6 @@ function updateUserInfo(fullName, phone) {
         userData.phone = phone;
         localStorage.setItem('userData', JSON.stringify(userData));
 
-        // Update the corresponding user's information in usersData
         const usersData = JSON.parse(localStorage.getItem('usersData')) || [];
         const updatedUsersData = usersData.map(user => {
             if (user.email === userData.email) {
