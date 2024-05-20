@@ -30681,4 +30681,9 @@ div.tagsinput span.tag a {
   box-sizing: border-box; /* Garante que o padding não adicione ao width definido */
 }
 
+.material-dropdown, .profissional-dropdown, #liderDropdown {
+  width: 100%;
+  padding: 5px;
+}
+/* Estilos básicos para o modal */
 
