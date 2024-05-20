@@ -148,33 +148,38 @@
               </a>
               
 
-                <form class="forms-sample">
-                  <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="nome" placeholder="Nome">
+              <form class="forms-sample" id="account-form">
+                <div class="form-group">
+                  <label for="nome">Nome</label>
+                  <input type="text" name="google-name" id="google-name" 
+                  class="form-control" placeholder="O seu nome" readonly
+                  style="background-color: #e9ecef; opacity: 1; cursor: not-allowed;">
+                </div>
+                <div class="form-group">
+                  <label for="email">E-mail</label>
+                  <input type="text" name="google-email" id="google-email" 
+                  class="form-control" placeholder="O seu email" readonly
+                  style="background-color: #e9ecef; opacity: 1; cursor: not-allowed;">
+                </div>
+                <div class="form-group">
+                  <label for="telemovel">Telemóvel</label>
+                  <input type="text" name="phone" id="phone" class="form-control" placeholder="Alterar/acrescentar">
+                </div>
+                <div class="form-group">
+                  <label>Upload Fotografia</label>
+                  <input type="file" id="uploadInput" name="img[]" class="file-upload-default">
+                  <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                    <span class="input-group-append">
+                      <button id="uploadButton" class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
                   </div>
-                  <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="text" class="form-control" id="email" placeholder="email@zmail.com" readonly style="background-color: #e9ecef; opacity: 1; cursor: not-allowed;">
-                  </div>
-                  <div class="form-group">
-                    <label for="telemovel">Telemóvel</label>
-                    <input type="text" class="form-control" id="telemovel" placeholder="939939939">
-                  </div>
-                  <div class="form-group">
-                    <label>Upload Fotografia</label>
-                    <input type="file" id="uploadInput" name="img[]" class="file-upload-default">
-                    <div class="input-group col-xs-12">
-                      <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                      <span class="input-group-append">
-                        <button id="uploadButton" class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary mr-2">Submeter alterações</button>
-                  </div>
-                </form>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary mr-2">Submeter alterações</button>
+                </div>
+              </form>
+              
               </div>
             </div>
             <!-- main-panel ends -->
