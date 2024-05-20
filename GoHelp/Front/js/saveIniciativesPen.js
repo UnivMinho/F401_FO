@@ -15,7 +15,8 @@ function saveDataToLocalStorage(data) {
                     latitude: coordinates.lat,
                     longitude: coordinates.lng,
                     date: data['iniciativa-date'], 
-                    start_hour: data['iniciativa-hour'], 
+                    start_hour: data['start-hour'], 
+                    end_hour: data['end-hour'], 
                     name: data['iniciativa-title'], 
                     description: data['iniciativa-description'], 
                     comments: data['iniciativa-comments'],
@@ -23,27 +24,6 @@ function saveDataToLocalStorage(data) {
                     userEmail: userEmail,
                     associatedVolunteers: [userEmail]
                 };
-
-                const startHour = parseInt(data['iniciativa-hour'].split(':')[0]);
-                const startMinutes = parseInt(data['iniciativa-hour'].split(':')[1]);
-
-                if (data['TipoIniciativa'] === 'Limpeza') {
-                    const endHour = (startHour + 4) % 24;
-                    const endMinutes = startMinutes;
-                    newInitiative.end_hour = `${endHour}:${endMinutes < 10 ? '0' + endMinutes : endMinutes}`;
-                } else if (data['TipoIniciativa'] === 'Reflorestação') {
-                    const endHour = (startHour + 4) % 24;
-                    const endMinutes = startMinutes; 
-                    newInitiative.end_hour = `${endHour}:${endMinutes < 10 ? '0' + endMinutes : endMinutes}`;
-                } else if (data['TipoIniciativa'] === 'Campanhas') {
-                    const endHour = (startHour + 1) % 24; 
-                    const endMinutes = startMinutes; 
-                    newInitiative.end_hour = `${endHour}:${endMinutes < 10 ? '0' + endMinutes : endMinutes}`;
-                } else {
-                    const endHour = (startHour + 4) % 24; 
-                    const endMinutes = startMinutes;
-                    newInitiative.end_hour = `${endHour}:${endMinutes < 10 ? '0' + endMinutes : endMinutes}`;
-                }
 
                 existingInitiatives.push(newInitiative);
                 
@@ -56,6 +36,7 @@ function saveDataToLocalStorage(data) {
         console.error('localStorage não é suportada neste browser');
     }
 }
+
 //gerar longitude e latitude para por o pin no mapa
 function geocodeLocation(location, callback) {
     var geocoder = new google.maps.Geocoder();
@@ -95,6 +76,10 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("iniciativa-date").addEventListener("input", function() {
         validateDate();
     });
+
+    document.getElementById("end-hour").addEventListener("input", function(){
+        validateHour();
+    });
 });
 
 function validateDate() {
@@ -115,9 +100,48 @@ function validateDate() {
     return true; 
 }
 
+function validateHour() {
+    const tipoIniciativa = document.querySelector('input[name="TipoIniciativa"]:checked').value;
+    const startHour = parseInt(document.getElementById("start-hour").value.split(':')[0]);
+    const startMinute = parseInt(document.getElementById("start-hour").value.split(':')[1]);
+    const endHour = parseInt(document.getElementById("end-hour").value.split(':')[0]);
+    const endMinute = parseInt(document.getElementById("end-hour").value.split(':')[1]);
+
+    const durationHours = endHour - startHour;
+    const durationMinutes = endMinute - startMinute;
+
+    let timeError = document.getElementById("timeError");
+
+    switch (tipoIniciativa) {
+        case 'Limpeza':
+        case 'Reflorestação':
+            if (durationHours > 4 || (durationHours === 4 && durationMinutes > 0)) {
+                timeError.innerText = "A duração execede o tempo limite para este tipo de iniciativa"
+                return false;
+            }else{
+                timeError.innerText = "";
+            }
+            break;
+        case 'Campanhas':
+            if (durationHours > 1 || (durationHours === 1 && durationMinutes > 0)) {
+                timeError.innerText = "A duração execede o tempo limite para este tipo de iniciativa"
+                return false;
+            }else{
+                timeError.innerText = "";
+            }
+            break;
+        default:
+            timeError.innerText = "";
+            break;
+        }
+
+    return true; 
+}
+
+
 function submitForm() {
-    if (!validateDate()) {
-        alert("Por favor selecione uma data e hora no futuro.");
+    if (!validateDate() && !validateHour()) {
+        alert("Por favor selecione uma data e/ou hora no futuro.");
     }
 }
 

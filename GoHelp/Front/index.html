@@ -217,9 +217,9 @@
                                 </p>
                             </div>
                             
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="custom-text-box mb-lg-0">
+                            <div class="row custom-row">
+                                <div class="col-lg-6 col-md-6 col-12 custom-flex-column">
+                                    <div class="custom-text-box mb-lg-0" id="mission">
                                         <h5 class="mb-3">A nossa missão</h5>
 
                                         <ul class="custom-list mt-2">
@@ -241,8 +241,8 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="custom-text-box mb-lg-0 flex-grow-1 d-flex flex-column justify-content-between">
+                                <div class="col-lg-6 col-md-6 col-12 custom-flex-column">
+                                    <div class="custom-text-box mb-lg-0 d-flex flex-column justify-content-between" id="numbers">
                                         <div class="counter-thumb"> 
                                             <div class="d-flex">
                                                 <span class="counter-number" data-from="1" data-to="2024" data-speed="1000"></span>
@@ -276,21 +276,19 @@
 
                         <div class="col-lg-3 col-md-6 col-12">
                             <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
-                                <div class="counter-thumb"> 
+                                <div class="counter-thumb" id="number-iniciatives"> 
                                     <span class="counter-text">Número de iniciativas <strong>realizadas</strong></span>
-                                    
                                     <div class="d-flex">
                                         <span class="counter-number" data-from="1" data-to="20" data-speed="1000"></span>
                                         <span class="counter-number-text"></span>
                                     </div>
- 
                                 </div> 
                             </div>
                         </div>
 
                         <div class="col-lg-3 col-md-6 col-12">
                             <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
-                                <div class="counter-thumb"> 
+                                <div class="counter-thumb" id="number-volunteers"> 
                                     <span class="counter-text">Número de <br> <strong>voluntários</strong></span>
                                     <div class="d-flex">
                                         <span class="counter-number" data-from="1" data-to="36" data-speed="1000"></span>
@@ -302,7 +300,7 @@
 
                         <div class="col-lg-3 col-md-6 col-12">
                             <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
-                                <div class="counter-thumb"> 
+                                <div class="counter-thumb" id="number-professionals"> 
                                     <span class="counter-text">Número de <strong>profissionais</strong> connosco</span>
                                     <div class="d-flex">
                                         <span class="counter-number" data-from="1" data-to="100" data-speed="1000"></span>
@@ -314,7 +312,7 @@
 
                         <div class="col-lg-3 col-md-6 col-12">
                             <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
-                                <div class="counter-thumb"> 
+                                <div class="counter-thumb" id="number-future-iniciatives"> 
                                     <span class="counter-text">Número de <strong>futuras</strong> iniciativas</span>
                                     <div class="d-flex">
                                         <span class="counter-number" data-from="1" data-to="100" data-speed="1000"></span>
@@ -607,20 +605,6 @@
         <script src=".//js/google.js" type="module"></script>
         <script src="js/displayIndex.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7M3JveIeVQP579NFgw4nG_uGR8dp1XI&libraries=places&callback=initMap" async defer></script>
-        <!--mostrar detalhes da seta-->
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const table = document.getElementById('iniciativasIndex');
-            
-                table.addEventListener('click', function (e) {
-                const target = e.target;
-                if (target.tagName === 'TD' && target.cellIndex === 3) {
-                    const detailsRow = target.parentElement.nextElementSibling;
-                    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
-                }
-                });
-            });
-        </script>
-
+        <script src="js/setPredefinedIniciatives.js"></script>
     </body>
 </html>
