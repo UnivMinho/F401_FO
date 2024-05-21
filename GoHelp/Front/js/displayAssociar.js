@@ -1,3 +1,5 @@
+let currentOpenDetailsRow = null;
+
 // Função para ir buscar as iniciativas ao localStorage
 function getUserInitiatives() {
     const initiativesString = localStorage.getItem('initiatives');
@@ -17,24 +19,36 @@ function displayAndSetStatusUserInitiatives() {
 
     userInitiatives.forEach((initiative, index) => {
         if (initiative.status === 'aprovada') { // Check if initiative is approved
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${initiative.name}</td>
-                <td>${initiative.type}</td>
-                <td>${getProponentName(initiative.userEmail)}</td>
-                <td>${initiative.date}</td>
-                <td class="status-column"><button class="btn-associar text-white" data-index="${index}"><strong>Associar</strong></button></td>
-                <td style="cursor: pointer;"> ↓</td>
-            `;
-        
-        const hiddenRowHtml = generateHiddenRow(initiative);
-
-        if (initiative.userEmail !== userData.email && !initiative.associatedVolunteers.includes(userData.email)) {
-            associateTableBody.appendChild(row);
-            associateTableBody.insertAdjacentHTML('beforeend', hiddenRowHtml);
-        }
+            const currentVolunteersCount = initiative.associatedVolunteers.length;
+            
+            if (currentVolunteersCount < initiative.volunteers) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">                        
+                        <td>${initiative.name}</td>
+                        <td>${initiative.type}</td>
+                        <td>${getProponentName(initiative.userEmail)}</td>
+                        <td>${initiative.date}</td>
+                        <td class="status-column"><button class="btn-associar text-white" data-index="${index}"><strong>Associar</strong></button></td>
+                        <td class="toggle-details" style="cursor: pointer;"> ↓</td>
+                    </tr>
+                    `;
+                
+                const hiddenRowHtml = generateHiddenRow(initiative);
+                
+                if (initiative.userEmail !== userData.email && !initiative.associatedVolunteers.includes(userData.email)) {
+                    associateTableBody.appendChild(row);
+                    associateTableBody.insertAdjacentHTML('beforeend', hiddenRowHtml);
+                }
+            }
         }
     });
+
+    if (associateTableBody.children.length === 0) {
+        const noAssociateInitiativesRow = document.createElement('tr');
+        noAssociateInitiativesRow.innerHTML = `<td colspan="5" style="text-align: center;">Atualmente não existem iniciativas disponíveis.</td>`;
+        associateTableBody.appendChild(noAssociateInitiativesRow);
+    }
 }
 
 //Chama a função displayAndSetStatusUserInitiatives() e faz a lógica de associar email a iniciativa
@@ -66,13 +80,28 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    const table = document.getElementById('example');
+    table.addEventListener('click', function(e) {
+        const target = e.target;
+        if (target.classList.contains('toggle-details')) {
+            const clickedRow = target.parentElement;
+            const detailsRow = clickedRow.nextElementSibling;
+
+            if (currentOpenDetailsRow && currentOpenDetailsRow !== detailsRow) {
+                currentOpenDetailsRow.style.display = 'none';
+            }
+
+            detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+            currentOpenDetailsRow = detailsRow;
+        }
+    });    
 });
 
 function generateHiddenRow(initiative) {
     const currentVolunteersCount = initiative.associatedVolunteers.length;
 
     const proposerName = getProponentName(initiative.userEmail);
-    console.log("Proponent Name:", proposerName);
 
     return `
             <tr style="display:none;">

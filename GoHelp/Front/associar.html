@@ -107,12 +107,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">
-                                                                
-                                                            </tr>
-                                                            <tr>
-                                                                
-                                                            </tr>
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -121,23 +116,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                       
-                        <!--mostrar detalhes da seta-->
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                const table = document.getElementById('example');
-                            
-                                table.addEventListener('click', function (e) {
-                                  const target = e.target;
-                                  if (target.tagName === 'TD' && target.cellIndex === 5) {
-                                    const detailsRow = target.parentElement.nextElementSibling;
-                                    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
-                                  }
-                                });
-                              });
-                        </script>
-          
+                        </div>          
                     </div>
                     </div>
                 </div>
@@ -206,9 +185,8 @@
       <script src=".//js/google.js" type="module"></script>
 
       <!--FILES 'BACKOFFICE'-->
-      <script src="..//Back/vendors/datatables.net/jquery.dataTables.js"></script>
-      <script src="..//Back/js/dataTables.select.min.js"></script>
-
+      <!--<script src="..//Back/vendors/datatables.net/jquery.dataTables.js"></script>
+      <script src="..//Back/js/dataTables.select.min.js"></script>-->
 
 </body>
 </html>

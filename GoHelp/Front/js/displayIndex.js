@@ -1,3 +1,5 @@
+let currentOpenDetailsRow = null;
+
 // Função para ir buscar as iniciativas ao localStorage
 function getUserInitiatives() {
     const initiativesString = localStorage.getItem('initiatives');
@@ -7,27 +9,30 @@ function getUserInitiatives() {
     return initiatives || [];
 }
 
-//Função para mostrar as iniciativas approvadas
-function displayInitiativesApproved() {
-    const userInitiatives = getUserInitiatives();
-    
-    const alliniciativesTableBody = document.querySelector('#iniciativasIndex tbody');
-    alliniciativesTableBody.innerHTML = ''; 
-
+function initMap() {
     const map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 39.540393319546496, lng: -8.307363083499494},
         zoom: 7
     });
 
+    displayInitiativesApproved(map);
+}
+
+//Função para mostrar as iniciativas approvadas
+function displayInitiativesApproved(map) {
+    const userInitiatives = getUserInitiatives();
+    const alliniciativesTableBody = document.querySelector('#iniciativasIndex tbody');
+    alliniciativesTableBody.innerHTML = ''; 
+
     userInitiatives.forEach((initiative) => {
-        if (initiative.status === 'aprovada') { // Check if initiative is approved
+        if (initiative.status === 'aprovada') {
             const row = document.createElement('tr');
             row.innerHTML = `
             <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">
                 <td>${initiative.name}</td>
                 <td>${initiative.type}</td>
                 <td>${initiative.date}</td>
-                <td style="cursor: pointer;"> ↓</td>
+                <td class="toggle-details" style="cursor: pointer;"> ↓</td>
             </tr>
             `;
         
@@ -54,18 +59,41 @@ function displayInitiativesApproved() {
         }
 
     });
+    
+    if (alliniciativesTableBody.children.length === 0) {
+        const allInitiativesRow = document.createElement('tr');
+        allInitiativesRow.innerHTML = `<td colspan="5" style="text-align: center;">Atualmente não existem iniciativas disponíveis.</td>`;
+        alliniciativesTableBody.appendChild(allInitiativesRow);
+    }
 }
 
 //Chama a função displayInitiativesApproved
 document.addEventListener('DOMContentLoaded', function() {
-    displayInitiativesApproved();
+    initMap();
+
+    const table = document.getElementById('iniciativasIndex');
+    table.addEventListener('click', function (e) {
+        const target = e.target;
+        if (target.classList.contains('toggle-details')) {
+            const clickedRow = target.parentElement;
+            const detailsRow = clickedRow.nextElementSibling;
+    
+            if (currentOpenDetailsRow && currentOpenDetailsRow !== detailsRow) {
+                currentOpenDetailsRow.style.display = 'none';
+            }
+    
+            detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+    
+            currentOpenDetailsRow = detailsRow;
+        }
+    });
+
 });
 
 function generateHiddenRow(initiative) {
     const currentVolunteersCount = initiative.associatedVolunteers.length;
 
     const proposerName = getProponentName(initiative.userEmail);
-    console.log("Proponent Name:", proposerName);
 
     return `
             <tr style="display:none;">
