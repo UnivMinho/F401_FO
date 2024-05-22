@@ -19737,6 +19737,7 @@ code {
 /* Utilities */
 .grid-margin {
   margin-bottom: 2.5rem;
+  margin-top: 40px;
 }
 
 @media (min-width: 576px) {

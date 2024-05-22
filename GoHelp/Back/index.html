@@ -139,7 +139,7 @@
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 class="font-weight-bold">Bem-Vindo, Pedro</h3>
+                  <h3 id="mensagem" class="font-weight-bold"></h3>
                   <h6 class="font-weight-normal mb-0">Página Inicial</span></h6>
                 </div>
                 <div class="col-12 col-xl-4">
@@ -177,8 +177,8 @@
                 <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-tale">
                     <div class="card-body">
-                      <p class="mt-2">Número de profissionais disponíveis</p>
-                      <p class="fs-30">34</p>
+                      <p class="mt-2">Número de profissionais connosco</p>
+                      <p class="fs-30"><span id="numero-profissionais"></span></p>
                       <p class="mt-4"><a href="gerirprofisisonais.html" class="link-hover"><span>Ver Profissionais</span> <i class="mdi mdi-trending-neutral"></i></a></p>
                   </div>
                   </div>
@@ -210,7 +210,7 @@
                               <th>Progresso</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody id="initiatives-tbody">
                             
                           </tbody>
                         </table>
@@ -220,10 +220,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6 grid-margin stretch-card">
-              <div class="card" style="background-color: #5AC0AB;   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra mais notável*/ ">
-                <!-- Removendo a div card-body para que o mapa possa se estender completamente -->
-                <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1571551.3909899206!2d-8.4132181!3d39.7073763!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-PT!2spt!4v1713396069034!5m2!1spt-PT!2spt" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="col-md-4 grid-margin stretch-card">
+              <div class="card" style="background-color: #5AC0AB;   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); ">
+                <div id="map" style="height: 100%"></div>
               </div>
             </div>
             
@@ -352,6 +351,9 @@
   <script src="js/dashboard.js"></script>
   <script src="js/Chart.roundedBarCharts.js"></script>
   <script src="../Front/js/google.js"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7M3JveIeVQP579NFgw4nG_uGR8dp1XI&libraries=places&callback=initMap" async defer></script>
+
 
   <!-- End custom js for this page-->
 </body>

@@ -59,6 +59,7 @@ function handleGoogleLogin() {
             console.error(error);
         });
 }
+
 // Função para logout
 function logout() {
     auth.signOut().then(() => {

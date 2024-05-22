@@ -92,8 +92,7 @@
             </div>
         </nav>
 
-        <main>
-
+        <main id="app">
             <section class="hero-section hero-section-full-height">
                 <div class="container-fluid">
                     <div class="row">
@@ -241,27 +240,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6 col-12 custom-flex-column">
-                                    <div class="custom-text-box mb-lg-0 d-flex flex-column justify-content-between" id="numbers">
-                                        <div class="counter-thumb"> 
-                                            <div class="d-flex">
-                                                <span class="counter-number" data-from="1" data-to="2024" data-speed="1000"></span>
-                                                <span class="counter-number-text"></span>
-                                            </div>
-
-                                            <span class="counter-text">Fundada</span>
-                                        </div> 
-
-                                        <div class="counter-thumb mt-4"> 
-                                            <div class="d-flex">
-                                                <span class="counter-number" data-from="1" data-to="20" data-speed="1000"></span>
-                                                <span class="counter-number-text"></span>
-                                            </div>
-
-                                            <span class="counter-text">Iniciativas</span>
-                                        </div> 
-                                    </div>
-                                </div>
+                                <sobre-nos></sobre-nos>
                             </div>
                         </div>
 
@@ -269,60 +248,10 @@
                 </div>
             </section>
 
-
             <section class="about-section section-padding">
                 <div class="container">
-                    <div class="row">
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
-                                <div class="counter-thumb" id="number-iniciatives"> 
-                                    <span class="counter-text">Número de iniciativas <strong>realizadas</strong></span>
-                                    <div class="d-flex">
-                                        <span class="counter-number" data-from="1" data-to="20" data-speed="1000"></span>
-                                        <span class="counter-number-text"></span>
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
-                                <div class="counter-thumb" id="number-volunteers"> 
-                                    <span class="counter-text">Número de <br> <strong>voluntários</strong></span>
-                                    <div class="d-flex">
-                                        <span class="counter-number" data-from="1" data-to="36" data-speed="1000"></span>
-                                        <span class="counter-number-text"></span>
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
-                                <div class="counter-thumb" id="number-professionals"> 
-                                    <span class="counter-text">Número de <strong>profissionais</strong> connosco</span>
-                                    <div class="d-flex">
-                                        <span class="counter-number" data-from="1" data-to="100" data-speed="1000"></span>
-                                        <span class="counter-number-text"></span>
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
-                                <div class="counter-thumb" id="number-future-iniciatives"> 
-                                    <span class="counter-text">Número de <strong>futuras</strong> iniciativas</span>
-                                    <div class="d-flex">
-                                        <span class="counter-number" data-from="1" data-to="100" data-speed="1000"></span>
-                                        <span class="counter-number-text"></span>
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-
-
+                    <div class="row" id="counter-app">
+                        <app-counter></app-counter>
                     </div>
                 </div>
             </section>
@@ -595,6 +524,150 @@
             </div>
         </footer>
 
+        <template id="app-counter">
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
+                    <div class="counter-thumb" id="number-iniciatives"> 
+                        <span class="counter-text">Número de iniciativas <strong>realizadas</strong></span>
+                        <div class="d-flex">
+                            <span class="counter-number" :data-from="1" :data-to="initiatives" data-speed="1000"></span>
+                            <span class="counter-number-text"></span>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
+                    <div class="counter-thumb" id="number-volunteers"> 
+                        <span class="counter-text">Número de <br> <strong>voluntários</strong></span>
+                        <div class="d-flex">
+                            <span class="counter-number" :data-from="1" :data-to="volunteers" data-speed="1000"></span>
+                            <span class="counter-number-text"></span>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
+                    <div class="counter-thumb" id="number-professionals"> 
+                        <span class="counter-text">Número de <strong>profissionais</strong> connosco</span>
+                        <div class="d-flex">
+                            <span class="counter-number" :data-from="1" :data-to="professionals" data-speed="1000"></span>
+                            <span class="counter-number-text"></span>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="custom-text-box d-flex flex-wrap d-lg-block mb-lg-0">
+                    <div class="counter-thumb" id="number-future-iniciatives"> 
+                        <span class="counter-text">Número de <strong>futuras</strong> iniciativas</span>
+                        <div class="d-flex">
+                            <span class="counter-number" :data-from="1" :data-to="futureInitiatives" data-speed="1000"></span>
+                            <span class="counter-number-text"></span>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </template>
+
+        <template id="sobre-nos">
+            <div class="col-lg-6 col-md-6 col-12 custom-flex-column">
+                <div class="custom-text-box mb-lg-0 d-flex flex-column justify-content-between" id="numbers">
+                    <div class="counter-thumb"> 
+                        <div class="d-flex">
+                            <span class="counter-number" data-from="1" data-to="2024" data-speed="1000"></span>
+                            <span class="counter-number-text"></span>
+                        </div>
+
+                        <span class="counter-text">Fundada</span>
+                    </div> 
+
+                    <div class="counter-thumb mt-4"> 
+                        <div class="d-flex">
+                            <span class="counter-number" :data-from="1" :data-to="allInitiatives" data-speed="1000"></span>
+                            <span class="counter-number-text"></span>
+                        </div>
+
+                        <span class="counter-text">Iniciativas</span>
+                    </div> 
+                </div>
+            </div>
+        </template>
+
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+        <script defer>
+            const AppCounter = {
+                template: '#app-counter',
+                data() {
+                    return {
+                        initiatives: 0,
+                        volunteers: 0,
+                        professionals: 0,
+                        futureInitiatives: 0
+                    }
+                },
+                created() {
+                    try {
+                        const pastinitiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+                        const contagemrealizadas = pastinitiatives.filter(initiative => initiative.status === 'aprovada').length;
+                        const usersData = JSON.parse(localStorage.getItem('usersData')) || [];          
+                        const contagemvoluntarios = usersData.filter(user => user.userType === 'Voluntário').length;
+                        const professionals = JSON.parse(localStorage.getItem('profissionais')) || [];
+                        const contagemprofissionais = professionals.length;
+                        const futinitiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+                        const contagemporrealizar = pastinitiatives.filter(initiative => initiative.status === 'aprovada').length;
+
+                        this.initiatives = contagemrealizadas || 0;
+                        this.volunteers = contagemvoluntarios || 0;
+                        this.professionals = contagemprofissionais || 0;
+                        this.futureInitiatives =contagemporrealizar || 0;
+
+                        console.log("initiatives:", this.initiatives);
+                        console.log("volunteers:", this.volunteers);
+                        console.log("professionals:", this.professionals);
+                        console.log("futureInitiatives:", this.futureInitiatives);
+                    } catch (error) {
+                        console.error("Erro a recolher dados do localStorage:", error);
+                    }
+                }
+            }
+
+            const SobreNos = {
+                template: '#sobre-nos',
+                data(){
+                    return{
+                        allInitiatives: 0
+                    }
+                },
+                created(){
+                    try {
+                        const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+                        const contagemtodas = initiatives.filter(initiative => initiative.status === 'aprovada').length;
+                    
+                        this.allInitiatives = contagemtodas || 0;
+                    
+                        console.log("initiatives:", this.allInitiatives);
+                    } catch (error) {
+                        console.error("Erro a recolher dados do localStorage:", error);
+                    }
+                }
+            }
+
+            const app = Vue.createApp({
+                components: {
+                    'app-counter': AppCounter,
+                    'sobre-nos': SobreNos
+                }
+            });
+
+            app.mount('#app');
+        </script>
+
         <!-- JAVASCRIPT FILES -->
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -606,5 +679,6 @@
         <script src="js/displayIndex.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7M3JveIeVQP579NFgw4nG_uGR8dp1XI&libraries=places&callback=initMap" async defer></script>
         <script src="js/setPredefinedIniciatives.js"></script>
+
     </body>
 </html>
