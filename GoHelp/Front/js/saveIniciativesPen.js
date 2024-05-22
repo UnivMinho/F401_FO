@@ -10,9 +10,12 @@ function saveDataToLocalStorage(data) {
             const existingInitiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
             const userData = JSON.parse(localStorage.getItem('userData'));
             const userEmail = userData.email;
+            const locationError = document.getElementById("locationError");
             
             // Longitude e latitude para a iniciativa
-            geocodeLocation(data['iniciativa-location'], function(coordinates) {
+            geocodeLocation(data['iniciativa-location'], function(coordinates, status) {
+                if (status === 'OK') {
+
                 const newInitiative = {
                     id: generateUniqueId(),
                     type: data['TipoIniciativa'],
@@ -34,6 +37,15 @@ function saveDataToLocalStorage(data) {
                 existingInitiatives.push(newInitiative);
                 
                 localStorage.setItem('initiatives', JSON.stringify(existingInitiatives));
+
+                alert("Iniciativa guardada e a aguardar aprovação!");
+                document.querySelector('.donate-form').reset();
+                clearAndRestoreFormInputs(document.querySelector('.donate-form'));
+                locationError.innerText = ""; // Clear any previous error message
+                } else {
+                    //alert('Localização inválida. Por favor insira outra localização e submeta novamente.');
+                    locationError.innerText = "Localização inválida. Por favor insira outra localização e submeta novamente.";
+                }
             });
         } catch (error) {
             console.error('Error saving data to localStorage:', error);
@@ -52,9 +64,10 @@ function geocodeLocation(location, callback) {
                 lat: results[0].geometry.location.lat(),
                 lng: results[0].geometry.location.lng()
             };
-            callback(coordinates);
+            callback(coordinates, 'OK');
         } else {
             console.error('Geocode was not successful for the following reason:', status);
+            callback(null, status);
         }
     });
 }
@@ -72,9 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }        
           // Salvar dados em localStorage
           saveDataToLocalStorage(serializedData);
-          form.reset();
-          clearAndRestoreFormInputs(form);
-          alert("Iniciativa guardada e a aguardar aprovação!");
     });
 });
 
