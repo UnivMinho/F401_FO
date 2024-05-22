@@ -247,12 +247,8 @@ strong {
 }
 
 .custom-block-body .mb-3{
-  font-size: 20px;
-}
-
-.custom-block-body .cb-p{
-  font-size: 1em;
-}
+  font-size: 25px;
+} 
 
 .custom-block-image {
   display: block;
