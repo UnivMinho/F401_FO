@@ -59,7 +59,7 @@ function loadInitiatives() {
 loadInitiatives();
 });
 
-//caregar iniciativas pendentes
+//carregar iniciativas pendentes
   document.addEventListener('DOMContentLoaded', function() {
     const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
     const contagempendentes = initiatives.filter(initiative => initiative.status === 'pendente').length;
@@ -71,6 +71,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
   const contagemporrealizar = initiatives.filter(initiative => initiative.status === 'aprovada').length;
   document.getElementById('iniciativas-por-realizar').innerText = contagemporrealizar;
+});
+
+//carregar voluntarios connosco
+document.addEventListener('DOMContentLoaded', function() {
+  const usersData = JSON.parse(localStorage.getItem('usersData')) || [];
+  const contagemvoluntarios = usersData.filter(usersData => usersData.userType === 'Voluntário').length;
+  document.getElementById('numero-voluntarios').innerText = contagemvoluntarios;
 });
 
 
