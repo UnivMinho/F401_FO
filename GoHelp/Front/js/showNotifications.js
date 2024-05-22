@@ -1,5 +1,22 @@
 //Para já não está funcional! Ver quando as iniciativas no back-office estiverem a funcionar corretamente.
 
+/*meter back-office
+function sendNotification(userId, message) {
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+    notifications.push({ userId, message, timestamp: new Date().getTime() });
+    localStorage.setItem('notifications', JSON.stringify(notifications));
+
+    // Trigger a storage event manually (for cross-tab synchronization)
+    localStorage.setItem('trigger', JSON.stringify({ action: 'new_notification' }));
+}
+
+sendNotification(initiative.userId, `A iniciativa '${initiativeDescription}' foi aprovada.`);
+sendNotification(initiative.userId, `A iniciativa '${initiative.description}' foi recusada. Motivo: ${reason}`);
+*/
+
+const currentUser = JSON.parse(localStorage.getItem('userData')) || [];
+const currentUserId = currentUser.id;
+
 
 // Function to load notifications
 function loadNotifications() {
@@ -9,7 +26,9 @@ function loadNotifications() {
     
     notificationList.innerHTML = '';
     
-    notifications.forEach(notification => {
+    const userNotifications = notifications.filter(notification => notification.userId === currentUserId);
+
+    userNotifications.forEach(notification => {
         const li = document.createElement('li');
         li.innerHTML = `
             <div class="notification-item d-flex justify-content-between align-items-center">
@@ -20,7 +39,7 @@ function loadNotifications() {
         notificationList.appendChild(li);
     });
     
-    notificationCount.innerText = notifications.length;
+    notificationCount.innerText = userNotifications.length;
 
     // Attach event listeners to remove icons
     document.querySelectorAll('.remove-icon').forEach(icon => {

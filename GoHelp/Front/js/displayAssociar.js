@@ -17,7 +17,7 @@ function displayAndSetStatusUserInitiatives() {
     const associateTableBody = document.querySelector('#example tbody');
     associateTableBody.innerHTML = ''; 
 
-    userInitiatives.forEach((initiative, index) => {
+    userInitiatives.forEach(initiative => {
         if (initiative.status === 'aprovada') { // Check if initiative is approved
             const currentVolunteersCount = initiative.associatedVolunteers.length;
             
@@ -29,7 +29,7 @@ function displayAndSetStatusUserInitiatives() {
                         <td>${initiative.type}</td>
                         <td>${getProponentName(initiative.userEmail)}</td>
                         <td>${initiative.date}</td>
-                        <td class="status-column"><button class="btn-associar text-white" data-index="${index}"><strong>Associar</strong></button></td>
+                        <td class="status-column"><button class="btn-associar text-white" data-id="${initiative.id}"><strong>Associar</strong></button></td>
                         <td class="toggle-details" style="cursor: pointer;"> ↓</td>
                     </tr>
                     `;
@@ -58,14 +58,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const associateButtons = document.querySelectorAll('.btn-associar');
     associateButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const index = this.dataset.index; 
+            const id = this.dataset.id; 
             const email = JSON.parse(localStorage.getItem('userData')).email; 
             
             const initiatives = getUserInitiatives();
+            const initiative = initiatives.find(initiative => initiative.id === id);
             
-            if (index >= 0 && index < initiatives.length) {
-                const initiative = initiatives[index];
-                
+            if (initiative) {                
                 if (!initiative.associatedVolunteers.includes(email)) {
                     initiative.associatedVolunteers.push(email);
                     
@@ -76,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('Utilizador já está associado à iniciativa.');
                 }
             } else {
-                console.log('Invalid index.');
+                console.log('Invalid ID.');
             }
         });
     });

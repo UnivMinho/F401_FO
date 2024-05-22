@@ -1,3 +1,8 @@
+// Function to generate a unique ID
+function generateUniqueId() {
+    return 'id-' + new Date().getTime() + '-' + Math.floor(Math.random() * 10000);
+}
+
 //Função que guarda as informações das incicativas pendentes
 function saveDataToLocalStorage(data) {
     if (typeof localStorage !== 'undefined') {
@@ -9,6 +14,7 @@ function saveDataToLocalStorage(data) {
             // Longitude e latitude para a iniciativa
             geocodeLocation(data['iniciativa-location'], function(coordinates) {
                 const newInitiative = {
+                    id: generateUniqueId(),
                     type: data['TipoIniciativa'],
                     volunteers: data['volunteers'],
                     location: data['iniciativa-location'], 
