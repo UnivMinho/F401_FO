@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+const userData = JSON.parse(localStorage.getItem('userData'));
+const userProfileImage = userData.profileImage || userData.imageUrl;
+document.getElementById('user-profile-image-navbar').src = userProfileImage;
+
 // Função para calcular o progresso baseado na data atual e na data de início da iniciativa
 function calculateProgress(endDate) {
  const currentDate = new Date();
