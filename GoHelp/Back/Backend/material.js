@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 id: Date.now(), // Adiciona um ID único
                 nome: nomeMaterial,
                 quantidade: quantidade,
+                quantidadeTerreno: 0, // Define a quantidade no terreno como 0 por padrão
                 imagem: e.target.result, // Imagem em base64
             };
 
@@ -80,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
       <div class="card-footer" style="border-top: 2px solid #000; border-radius: 10px 10px 10px 10px; border: 2px solid #E8F2E8; height: 150px; background:#ffffff">
           <h5 class="text-center mt-3" id="quantidade-${material.id}">Quantidade: ${material.quantidade}</h5>
+          <h6 class="text-center mt-1" id="quantidade-terreno-${material.id}">Quantidade no Terreno: ${material.quantidadeTerreno}</h6>
           <div class="d-flex justify-content-between mt-4">
               <button type="button" class="btn btn-sm btn-danger mr-2" onclick="removeMaterial(${material.id})">Remover</button>
               <button type="button" class="btn btn-sm btn-success" onclick="addMaterial(${material.id})">Adicionar</button>
@@ -174,6 +176,7 @@ function updateMaterialsDisplay(materials) {
       </div>
       <div class="card-footer" style="border-top: 2px solid #000; border-radius: 10px 10px 10px 10px; border: 2px solid #E8F2E8; height: 150px; background:#ffffff">
           <h5 class="text-center mt-3" id="quantidade-${material.id}">Quantidade: ${material.quantidade}</h5>
+          <h6 class="text-center mt-1" id="quantidade-terreno-${material.id}">Quantidade no Terreno: ${material.quantidadeTerreno}</h6>
           <div class="d-flex justify-content-between mt-4">
               <button type="button" class="btn btn-sm btn-danger mr-2" onclick="removeMaterial(${material.id})">Remover</button>
               <button type="button" class="btn btn-sm btn-success" onclick="addMaterial(${material.id})">Adicionar</button>

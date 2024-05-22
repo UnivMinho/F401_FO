@@ -46,11 +46,11 @@ function createMaterialRowHTML(initiativeId, selectedMaterials = []) {
 }
 
 
-// Função para criar o HTML da linha usando funções modularizadas
+// Função para criar uma linha de iniciativa com IDs únicos para dropdowns
 function createRowHTML(initiative) {
     const materiaisHTML = createMaterialsContainerHTML(initiative.id, initiative.materiais || []);
-    const profissionaisHTML = createProfessionalsDropdown();
-    const lideresDropdownHTML = createLeadersDropdown(initiative.lider);
+    const profissionaisHTML = createProfessionalsDropdown(initiative.id);
+    const lideresDropdownHTML = createLeadersDropdown(initiative.id, initiative.lider);
 
     return `
     <tr>
@@ -76,10 +76,7 @@ function createRowHTML(initiative) {
                         </div>
                         <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
                             <p>Líder</p>
-                            <select id="liderDropdown-${initiative.id}" class="custom-select" onchange="saveLeader(${initiative.id}, this.value)">
-                                <option selected>Selecione</option>
-                                ${lideresDropdownHTML}
-                            </select>
+                            ${lideresDropdownHTML}
                         </div>
                         <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
                             <p>Id. Voluntário</p>
@@ -147,6 +144,7 @@ function createRowHTML(initiative) {
     </tr>`;
 }
 
+
 // Função para salvar o líder selecionado no localStorage
 function saveLeader(initiativeId, leaderName) {
     const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
@@ -174,10 +172,10 @@ function createMaterialsDropdown(initiativeId, selectedMaterials = [], materialI
     return materiaisHTML;
 }
 
-// Função auxiliar para criar o dropdown de profissionais
-function createProfessionalsDropdown() {
+// Função auxiliar para criar o dropdown de profissionais com ID único
+function createProfessionalsDropdown(initiativeId) {
     const profissionaisData = JSON.parse(localStorage.getItem('profissionais'));
-    let profissionaisHTML = '<select class="profissional-dropdown form-control">';
+    let profissionaisHTML = `<select id="profissionalDropdown-${initiativeId}" class="profissional-dropdown form-control">`;
     if (Array.isArray(profissionaisData)) {
         profissionaisData.forEach(profissional => {
             profissionaisHTML += `<option value="${profissional.nome}">${profissional.nome}</option>`;
@@ -187,15 +185,17 @@ function createProfessionalsDropdown() {
     return profissionaisHTML;
 }
 
-// Função auxiliar para criar o dropdown de líderes
-function createLeadersDropdown(selectedLeader) {
+// Função auxiliar para criar o dropdown de líderes com ID único
+function createLeadersDropdown(initiativeId, selectedLeader) {
     const usersData = JSON.parse(localStorage.getItem('usersData'));
-    let lideresDropdownHTML = '';
+    let lideresDropdownHTML = `<select id="liderDropdown-${initiativeId}" class="custom-select">`;
+    lideresDropdownHTML += '<option selected>Selecione</option>';
     if (Array.isArray(usersData)) {
         usersData.forEach(user => {
             lideresDropdownHTML += `<option value="${user.name}" ${user.name === selectedLeader ? 'selected' : ''}>${user.name}</option>`;
         });
     }
+    lideresDropdownHTML += '</select>';
     return lideresDropdownHTML;
 }
 
@@ -378,13 +378,19 @@ function aprovarIniciativa(button) {
         }
 
         const liderDropdown = detailsRow.querySelector(`#liderDropdown-${initiative.id}`);
-        const profissionalDropdown = detailsRow.querySelector('.profissional-dropdown');
+        const profissionalDropdown = detailsRow.querySelector(`#profissionalDropdown-${initiative.id}`);
 
-        if (!liderDropdown || !profissionalDropdown) {
-            console.error("Não foi possível encontrar os elementos de dropdown.");
+        if (!liderDropdown) {
+            console.error(`Elemento liderDropdown com ID #liderDropdown-${initiative.id} não encontrado.`);
+            return;
+        }
+        
+        if (!profissionalDropdown) {
+            console.error(`Elemento profissionalDropdown com ID #profissionalDropdown-${initiative.id} não encontrado.`);
             return;
         }
 
+      
         initiative.status = 'aprovada';
         initiative.lider = liderDropdown.value;
         initiative.profissional = profissionalDropdown.value;
@@ -410,6 +416,7 @@ function aprovarIniciativa(button) {
     }
 }
 
+
 // Função para recusar uma iniciativa com motivo
 function recusarIniciativa(initiativeId) {
     const reason = prompt("Por favor, escreva o motivo da recusa:");
@@ -429,36 +436,107 @@ function recusarIniciativa(initiativeId) {
     }
 }
 
-// Verificar e bloquear materiais diariamente
-document.addEventListener('DOMContentLoaded', function() {
-    bloquearMateriais();
-    setInterval(bloquearMateriais, 86400000); // Verificar diariamente
-});
 
-// Função para bloquear materiais no dia de início da iniciativa
-function bloquearMateriais() {
-    const iniciativas = JSON.parse(localStorage.getItem('initiatives')) || [];
-    const hoje = new Date().toLocaleDateString();
 
-    iniciativas.forEach(initiative => {
-        if (initiative.status === 'aprovada' && initiative.date === hoje) {
-            initiative.materiais.forEach(material => {
-                const materialData = JSON.parse(localStorage.getItem('materials')) || [];
-                const materialItem = materialData.find(m => m.nome === material.nome);
-                if (materialItem) {
-                    materialItem.quantidade -= material.quantidade;
-                }
-                localStorage.setItem('materials', JSON.stringify(materialData));
-            });
-        }
-    });
-};
 
 // Função para alternar a exibição da linha de detalhes
 function toggleDetailsRow(button) {
     const detailsRow = button.parentElement.nextElementSibling;
     detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
 }
+ 
+// Função para atualizar as quantidades de materiais para iniciativas aprovadas no dia de hoje
+function atualizarQuantidadesMateriaisHoje() {
+    const hoje = new Date().toLocaleDateString();
+    const iniciativas = JSON.parse(localStorage.getItem('initiatives')) || [];
+    const materiaisData = JSON.parse(localStorage.getItem('materials')) || [];
+
+    iniciativas.forEach(initiative => {
+        if (initiative.status === 'aprovada' && initiative.date === hoje) {
+            initiative.materiais.forEach(materialUtilizado => {
+                const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
+                if (material) {
+                    material.quantidadeTerreno = (material.quantidadeTerreno || 0) + parseInt(materialUtilizado.quantidade);
+                    material.quantidade -= parseInt(materialUtilizado.quantidade);
+                }
+            });
+        }
+    });
+
+    localStorage.setItem('materials', JSON.stringify(materiaisData));
+}
+
+// Função para reverter as quantidades de materiais para o dia seguinte
+function reverterQuantidadesMateriaisDiaSeguinte() {
+    const materiaisData = JSON.parse(localStorage.getItem('materials')) || [];
+
+    materiaisData.forEach(material => {
+        if (material.quantidadeTerreno) {
+            material.quantidade += material.quantidadeTerreno;
+            material.quantidadeTerreno = 0;
+        }
+    });
+
+    localStorage.setItem('materials', JSON.stringify(materiaisData));
+}
+
+// Função para verificar e atualizar quantidades ao carregar a página
+function verificarAtualizacaoDiaria() {
+    const hoje = new Date().toLocaleDateString();
+    const ultimaAtualizacao = localStorage.getItem('ultimaAtualizacao');
+
+    if (ultimaAtualizacao !== hoje) {
+        atualizarQuantidadesMateriaisHoje();
+        localStorage.setItem('ultimaAtualizacao', hoje);
+    }
+}
+
+// Agendar a execução das funções ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+    verificarAtualizacaoDiaria();
+
+    // Agendar a reversão das quantidades de materiais ao final do dia
+    const agora = new Date();
+    const proximaMeiaNoite = new Date(agora);
+    proximaMeiaNoite.setHours(24, 0, 0, 0); // Próxima meia-noite
+    const tempoAteMeiaNoite = proximaMeiaNoite - agora;
+
+    setTimeout(function() {
+        reverterQuantidadesMateriaisDiaSeguinte();
+        verificarAtualizacaoDiaria(); // Para garantir que as quantidades sejam atualizadas novamente após a reversão
+    }, tempoAteMeiaNoite);
+});
 
 
 
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const novaIniciativa = {
+        id: Date.now(), // Gera um ID único com base na data atual
+        description: 'Nova Iniciativa de Teste',
+        type: 'Tipo de Teste',
+        userEmail: 'teste@exemplo.com',
+        status: 'pendente',
+        location: 'Localização de Teste',
+        lider: '',
+        comments: 'Comentários de Teste',
+        volunteers: 5,
+        date: new Date().toLocaleDateString(),
+        start_hour: '09:00',
+        end_hour: '17:00',
+        restrictions: 'Sem restrições',
+        materiais: [],
+        profissional: ''
+    };
+
+    // Adiciona a nova iniciativa ao localStorage
+    const iniciativas = JSON.parse(localStorage.getItem('initiatives')) || [];
+    iniciativas.push(novaIniciativa);
+    localStorage.setItem('initiatives', JSON.stringify(iniciativas));
+
+    // Adiciona a nova linha na tabela
+    adicionarLinha(novaIniciativa);
+});
