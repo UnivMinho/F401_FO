@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userProfileImage = userData.profileImage || userData.imageUrl;
+    document.getElementById('user-profile-image-navbar').src = userProfileImage;
     const form = document.querySelector(".forms-sample");
 
     form.addEventListener("submit", function (event) {
@@ -182,3 +185,4 @@ function updateMaterialsDisplay(materials) {
         materialsContainer.appendChild(cardHtml); // Adiciona o novo cartão ao contêiner
     });
 }
+document.getElementById('user-profile-image-navbar').src = userProfileImage;

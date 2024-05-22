@@ -232,6 +232,10 @@ strong {
   position: relative;
   overflow: hidden;
   transition: all 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 350px;
 }
 
 .custom-block-wrap:hover {
@@ -243,8 +247,8 @@ strong {
 }
 
 .custom-block-body .mb-3{
-  font-size: 22px;
-}
+  font-size: 25px;
+} 
 
 .custom-block-image {
   display: block;
@@ -517,7 +521,7 @@ strong {
   .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0;
-  }
+  }  
 }
 
 .navbar-toggler {
@@ -1534,12 +1538,39 @@ blockquote::before {
     width: 350px;
     height: 350px;
   }
+
 }
 
-@media screen and (max-width: 1170px) {
+@media screen and (min-width: 1170px) {
   #hero-slide .carousel-image {
     height: 100%;
     object-fit: cover;
+  }
+
+  .custom-block-wrap {
+    min-height: 350px; 
+  }
+
+  .custom-block-body {
+    padding: 20px; 
+  }
+
+  .custom-block-body .mb-3 {
+    font-size: 18px; 
+  }
+}
+
+@media screen and (max-width: 1170px) {
+  .custom-block-wrap {
+    min-height: 350px; 
+  }
+
+  .custom-block-body {
+    padding: 20px; 
+  }
+
+  .custom-block-body .mb-3 {
+    font-size: 18px; 
   }
 }
 
@@ -1689,9 +1720,14 @@ blockquote::before {
   }
 
   .volunteer-image {
-    width: 250px;
+    display: block;
+    margin: 0 auto;
+    width: 250px; 
     height: 250px;
-    margin: 0;
+  }
+
+  .col-lg-6 col-12 img {
+    text-align: center;
   }
 
   .custom-text-block {
@@ -1729,6 +1765,7 @@ blockquote::before {
     margin-top: 10px;
     margin-bottom: 10px;
   }
+
 }
 
 @media screen and (max-width: 580px) {
@@ -1781,6 +1818,7 @@ blockquote::before {
   .volunteer-image {
     width: 150px;
     height: 150px;
+
   }
 
   .volunteer-section::after {

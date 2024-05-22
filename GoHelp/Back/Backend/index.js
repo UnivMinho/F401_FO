@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+const userData = JSON.parse(localStorage.getItem('userData'));
+const userProfileImage = userData.profileImage || userData.imageUrl;
+document.getElementById('user-profile-image-navbar').src = userProfileImage;
+
 // Função para calcular o progresso baseado na data atual e na data de início da iniciativa
 function calculateProgress(endDate) {
  const currentDate = new Date();
@@ -59,7 +63,7 @@ function loadInitiatives() {
 loadInitiatives();
 });
 
-//caregar iniciativas pendentes
+//carregar iniciativas pendentes
   document.addEventListener('DOMContentLoaded', function() {
     const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
     const contagempendentes = initiatives.filter(initiative => initiative.status === 'pendente').length;
@@ -71,6 +75,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
   const contagemporrealizar = initiatives.filter(initiative => initiative.status === 'aprovada').length;
   document.getElementById('iniciativas-por-realizar').innerText = contagemporrealizar;
+});
+
+//carregar voluntarios connosco
+document.addEventListener('DOMContentLoaded', function() {
+  const usersData = JSON.parse(localStorage.getItem('usersData')) || [];
+  const contagemvoluntarios = usersData.filter(usersData => usersData.userType === 'Voluntário').length;
+  document.getElementById('numero-voluntarios').innerText = contagemvoluntarios;
 });
 
 

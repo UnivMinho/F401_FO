@@ -6,7 +6,9 @@ function populateFormFields(userData) {
     document.getElementById('phone').value = userData.phone || '';
     document.getElementById('google-name').readOnly = true;
     document.getElementById('google-email').readOnly = true;
-    document.getElementById('user-profile-image').src = userData.profileImage || 'images/faces/face28.jpg';
+    const userProfileImage = userData.profileImage || userData.imageUrl;
+    document.getElementById('user-profile-image').src = userProfileImage;
+    document.getElementById('user-profile-image-navbar').src = userProfileImage;
 }
 
 // Função que faz update em userData e em usersData

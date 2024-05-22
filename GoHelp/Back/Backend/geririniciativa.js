@@ -459,3 +459,6 @@ function toggleDetailsRow(button) {
     const detailsRow = button.parentElement.nextElementSibling;
     detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
 }
+
+
+

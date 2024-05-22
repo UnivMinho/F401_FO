@@ -1,9 +1,15 @@
+// Function to generate a unique ID
+function generateUniqueId() {
+    return 'id-' + new Date().getTime() + '-' + Math.floor(Math.random() * 10000);
+}
+
 function setPredefinedInitiatives() {
     const existingInitiatives = JSON.parse(localStorage.getItem('initiatives'));
     
     if (!existingInitiatives || existingInitiatives.length === 0) {
         const predefinedInitiatives = [
             {
+                id: generateUniqueId(),
                 type: 'Limpeza',
                 volunteers: 20,
                 location: 'Praia de Ofir',
@@ -20,6 +26,7 @@ function setPredefinedInitiatives() {
                 associatedVolunteers: ['pwtrabalho1@gmail.com']
             },
             {
+                id: generateUniqueId(),
                 type: 'Reflorestação',
                 volunteers: 15,
                 location: 'Picoto',
@@ -36,6 +43,7 @@ function setPredefinedInitiatives() {
                 associatedVolunteers: ['pwtrabalho1@gmail.com']
             },
             {
+                id: generateUniqueId(),
                 type: 'Campanhas',
                 volunteers: 30,
                 location: 'Altice Fórum Braga',
