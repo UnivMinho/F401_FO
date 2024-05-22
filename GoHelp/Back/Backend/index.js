@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Carregar materiais
   loadMaterials();
-
 });
 
 function initMap() {
@@ -23,8 +22,9 @@ function loadInitiatives(map) {
   const initiatives = JSON.parse(localStorage.getItem("initiatives")) || [];
   const tbody = document.getElementById("initiatives-tbody");
   const initiativesIniciadas = initiatives.filter(
-    (initiative) => initiative.status === "aprovada"
-  );
+    (initiative) => initiative.status === "aprovada" //para testes enquanto nao esta a funcionar, será a decorrer
+  )
+  tbody.innerHTML = '';
 
   initiativesIniciadas.forEach((initiative) => {
     const tr = createInitiativeTableRow(initiative);
@@ -120,6 +120,13 @@ document.addEventListener("DOMContentLoaded", function () {
     contagemporrealizar;
 });
 
+// carregar profissionais connosco
+document.addEventListener("DOMContentLoaded", function () {
+  const profissionais = JSON.parse(localStorage.getItem("profissionais")) || [];
+  const contagemProfissionais = profissionais.length;
+  document.getElementById("numero-profissionais").innerText = contagemProfissionais;
+});
+
 // carregar voluntários connosco
 document.addEventListener("DOMContentLoaded", function () {
   const usersData = JSON.parse(localStorage.getItem("usersData")) || [];
@@ -127,4 +134,14 @@ document.addEventListener("DOMContentLoaded", function () {
     (usersData) => usersData.userType === "Voluntário"
   ).length;
   document.getElementById("numero-voluntarios").innerText = contagemvoluntarios;
+});
+
+//nome mensagem inicial
+document.addEventListener("DOMContentLoaded", function() {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  if (userData) {
+    const name = userData.name; 
+    const mensagem = document.getElementById("mensagem");
+    mensagem.textContent = `Bem-Vindo, ${name}`;
+  }
 });
