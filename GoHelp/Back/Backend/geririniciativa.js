@@ -46,13 +46,14 @@ function createMaterialRowHTML(initiativeId, selectedMaterials = []) {
 }
 
 
+// Função para criar o HTML da linha usando funções modularizadas
 function createRowHTML(initiative) {
-    const profissionaisHTML = createProfessionalsDropdown(initiative.professional);
+    const materiaisHTML = createMaterialsContainerHTML(initiative.id, initiative.materiais || []);
+    const profissionaisHTML = createProfessionalsDropdown();
     const lideresDropdownHTML = createLeadersDropdown(initiative.lider);
-    const restricoesHTML = initiative.status === 'recusada' ? initiative.rejectReason : initiative.restrictions;
 
     return `
-    <tr data-id="${initiative.id}">
+    <tr>
         <td>${initiative.description}</td>
         <td>${initiative.type}</td>
         <td>${getProponentName(initiative.userEmail)}</td>
@@ -82,7 +83,7 @@ function createRowHTML(initiative) {
                         </div>
                         <div class="min-width-cell" style="margin-right: 20px; padding: 10px;">
                             <p>Id. Voluntário</p>
-                            <h6 class="mt-3">${initiative.name}</h6>
+                            <h6 class="mt-3">${getProponentName(initiative.userEmail)}</h6>
                         </div>
                         <div class="min-width-cell" style="padding: 10px;">
                             <p>E-mail Voluntário</p>
@@ -111,7 +112,7 @@ function createRowHTML(initiative) {
                 <div class="col-12">
                     <form id="materials-form-${initiative.id}">
                         <div class="materials-container" id="materials-container-${initiative.id}">
-                            <!-- Materiais serão carregados dinamicamente -->
+                            ${materiaisHTML}
                         </div>
                     </form>
                 </div>
@@ -133,9 +134,7 @@ function createRowHTML(initiative) {
                     <div class="d-flex">
                         <div class="min-width-cell">
                             <p>Restrições</p>
-                            <div class="restrictions">
-                                <h6>${restricoesHTML}</h6>
-                            </div>
+                            <h6>${initiative.restrictions}</h6>
                         </div>
                         <div class="action-buttons ml-auto">
                             <button class="btn btn-danger" onclick="recusarIniciativa(${initiative.id})">Recusar</button>
@@ -147,39 +146,6 @@ function createRowHTML(initiative) {
         </td>
     </tr>`;
 }
-
-
-// Função para gerar dropdowns de materiais e quantidade dinamicamente
-function loadMaterialsFields(initiativeId) {
-    const materialsContainer = document.getElementById(`materials-container-${initiativeId}`);
-    if (!materialsContainer) return;
-
-    const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
-    const initiative = initiatives.find(i => i.id === parseInt(initiativeId, 10));
-    if (!initiative) return;
-
-    const materiaisHTML = createMaterialsContainerHTML(initiative.id, initiative.materiais || []);
-    materialsContainer.innerHTML = materiaisHTML;
-
-    // Adicionar eventos de controle de quantidade aos novos elementos
-    attachQuantityControlEvents(materialsContainer);
-}
-
-
-
-// Ajustar a função `toggleDetailsRow` para chamar `loadMaterialsFields`
-function toggleDetailsRow(button) {
-    const detailsRow = button.parentElement.nextElementSibling;
-    const initiativeId = button.parentElement.getAttribute('data-id');
-
-    if (detailsRow.style.display === 'none' || detailsRow.style.display === '') {
-        detailsRow.style.display = 'table-row';
-        loadMaterialsFields(initiativeId); // Carregar campos de materiais quando a linha de detalhes for expandida
-    } else {
-        detailsRow.style.display = 'none';
-    }
-}
-
 
 // Função para salvar o líder selecionado no localStorage
 function saveLeader(initiativeId, leaderName) {
@@ -208,34 +174,18 @@ function createMaterialsDropdown(initiativeId, selectedMaterials = [], materialI
     return materiaisHTML;
 }
 
-
 // Função auxiliar para criar o dropdown de profissionais
-function createProfessionalsDropdown(selectedProfessional = '') {
+function createProfessionalsDropdown() {
     const profissionaisData = JSON.parse(localStorage.getItem('profissionais'));
-    let profissionaisHTML = '<select class="profissional-dropdown form-control" onchange="saveProfessional(this)">';
-    profissionaisHTML += '<option value="">Selecione</option>';
+    let profissionaisHTML = '<select class="profissional-dropdown form-control">';
     if (Array.isArray(profissionaisData)) {
         profissionaisData.forEach(profissional => {
-            profissionaisHTML += `<option value="${profissional.nome}" ${profissional.nome === selectedProfessional ? 'selected' : ''}>${profissional.nome}</option>`;
+            profissionaisHTML += `<option value="${profissional.nome}">${profissional.nome}</option>`;
         });
     }
     profissionaisHTML += '</select>';
     return profissionaisHTML;
 }
-
-// Função para salvar o profissional selecionado no localStorage
-function saveProfessional(selectElement) {
-    const initiativeId = selectElement.closest('.row-bg').previousElementSibling.dataset.id;
-    const selectedProfessional = selectElement.value;
-    const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
-    const initiative = initiatives.find(i => i.id === parseInt(initiativeId, 10));
-
-    if (initiative) {
-        initiative.professional = selectedProfessional;
-        localStorage.setItem('initiatives', JSON.stringify(initiatives));
-    }
-}
-
 
 // Função auxiliar para criar o dropdown de líderes
 function createLeadersDropdown(selectedLeader) {
@@ -282,8 +232,6 @@ function createMaterialsContainerHTML(initiativeId, materiais) {
     return containerHTML;
 }
 
-
-// Função para adicionar campos de material
 // Função para adicionar campos de material
 function addMaterialFields(initiativeId, button) {
     const materialRow = button.closest('.material-row');
@@ -327,6 +275,7 @@ function addMaterialFields(initiativeId, button) {
         alert('Por favor, selecione um material e insira uma quantidade válida.');
     }
 }
+
 // Função para remover campos de material
 function removeMaterialFields(initiativeId, button) {
     const materialRow = button.closest('.material-row');
@@ -390,6 +339,12 @@ function attachQuantityControlEvents(container) {
     });
 }
 
+// Função para alternar a exibição da linha de detalhes
+function toggleDetailsRow(button) {
+    const detailsRow = button.parentElement.nextElementSibling;
+    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+}
+
 // Evento para adicionar linhas ao carregar a página
 document.addEventListener('DOMContentLoaded', function() {
     const dadosIniciativas = JSON.parse(localStorage.getItem('initiatives'));
@@ -430,38 +385,21 @@ function aprovarIniciativa(button) {
             return;
         }
 
-        const selectedLeader = liderDropdown.value;
-        const selectedProfessional = profissionalDropdown.value;
-
-        if (selectedLeader === "Selecione" || selectedProfessional === "Selecione") {
-            alert("Por favor, selecione um líder e um profissional.");
-            return;
-        }
-
-        initiative.status = 'Aprovada';
-        initiative.lider = selectedLeader;
-        initiative.professional = selectedProfessional;
+        initiative.status = 'aprovada';
+        initiative.lider = liderDropdown.value;
+        initiative.profissional = profissionalDropdown.value;
 
         const materiais = [];
-        let allMaterialsValid = true;
         detailsRow.querySelectorAll('.material-row').forEach(materialRow => {
             const materialDropdown = materialRow.querySelector('.material-dropdown');
             const quantidadeInput = materialRow.querySelector('.material-quantity');
-            if (materialDropdown && quantidadeInput && materialDropdown.value && quantidadeInput.value > 0) {
+            if (materialDropdown && quantidadeInput && materialDropdown.value) {
                 materiais.push({
                     nome: materialDropdown.value,
                     quantidade: quantidadeInput.value
                 });
-            } else {
-                allMaterialsValid = false;
             }
         });
-
-        if (!allMaterialsValid) {
-            alert("Por favor, preencha todos os campos de materiais.");
-            return;
-        }
-
         initiative.materiais = materiais;
 
         localStorage.setItem('initiatives', JSON.stringify(initiatives));
@@ -471,7 +409,6 @@ function aprovarIniciativa(button) {
         console.error("Iniciativa não encontrada.");
     }
 }
-
 
 // Função para recusar uma iniciativa com motivo
 function recusarIniciativa(initiativeId) {
@@ -485,25 +422,12 @@ function recusarIniciativa(initiativeId) {
             initiative.rejectReason = reason;
 
             localStorage.setItem('initiatives', JSON.stringify(initiatives));
-
-            // Atualizar a linha na tabela sem recarregar a página
-            const row = document.querySelector(`tr[data-id='${initiativeId}']`);
-            if (row) {
-                const detailsRow = row.nextElementSibling;
-                row.cells[3].innerText = 'recusada';
-
-                const restricoesCell = detailsRow.querySelector('.restrictions');
-                if (restricoesCell) {
-                    restricoesCell.innerHTML = `<h6>${reason}</h6>`;
-                }
-            }
+            location.reload(); // Atualizar a página para refletir as mudanças
         }
     } else {
         alert('Por favor, escreva o motivo da recusa.');
     }
 }
-
-
 
 // Verificar e bloquear materiais diariamente
 document.addEventListener('DOMContentLoaded', function() {
@@ -530,4 +454,8 @@ function bloquearMateriais() {
     });
 };
 
-
+// Função para alternar a exibição da linha de detalhes
+function toggleDetailsRow(button) {
+    const detailsRow = button.parentElement.nextElementSibling;
+    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+}
