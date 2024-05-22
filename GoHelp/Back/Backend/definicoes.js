@@ -9,7 +9,6 @@ function populateFormFields(userData) {
     const userProfileImage = userData.profileImage || userData.imageUrl;
     document.getElementById('user-profile-image').src = userProfileImage;
     document.getElementById('user-profile-image-navbar').src = userProfileImage;
-
 }
 
 // Função que faz update em userData e em usersData

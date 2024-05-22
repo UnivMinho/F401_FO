@@ -4,4 +4,8 @@ function updateButtonText(element, text) {
     var button = element.closest('.dropdown').querySelector('.dropdown-toggle');
     button.textContent = text;
 }
-
+document.addEventListener('DOMContentLoaded', function() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userProfileImage = userData.profileImage || userData.imageUrl;
+    document.getElementById('user-profile-image-navbar').src = userProfileImage;
+});
