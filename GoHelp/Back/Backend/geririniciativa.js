@@ -445,14 +445,14 @@ function toggleDetailsRow(button) {
     detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
 }
  
-// Função para atualizar as quantidades de materiais para iniciativas aprovadas no dia de hoje
+// Função para atualizar as quantidades de materiais para iniciativas com estado "A decorrer"
 function atualizarQuantidadesMateriaisHoje() {
     const hoje = new Date().toLocaleDateString();
     const iniciativas = JSON.parse(localStorage.getItem('initiatives')) || [];
     const materiaisData = JSON.parse(localStorage.getItem('materials')) || [];
 
     iniciativas.forEach(initiative => {
-        if (initiative.status === 'aprovada' && initiative.date === hoje) {
+        if (initiative.status === 'A decorrer' && initiative.date === hoje) {
             initiative.materiais.forEach(materialUtilizado => {
                 const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
                 if (material) {
@@ -465,6 +465,11 @@ function atualizarQuantidadesMateriaisHoje() {
 
     localStorage.setItem('materials', JSON.stringify(materiaisData));
 }
+
+// Evento para atualizar as quantidades de materiais ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+    atualizarQuantidadesMateriaisHoje();
+});
 
 // Função para reverter as quantidades de materiais para o dia seguinte
 function reverterQuantidadesMateriaisDiaSeguinte() {
@@ -507,7 +512,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }, tempoAteMeiaNoite);
 });
 
+// Função para atualizar o estado das iniciativas para "A decorrer" se a data atual corresponder à data da iniciativa
+function atualizarEstadoIniciativasHoje() {
+    const hoje = new Date().toLocaleDateString();
+    const iniciativas = JSON.parse(localStorage.getItem('initiatives')) || [];
 
+    iniciativas.forEach(initiative => {
+        if (initiative.date === hoje) {
+            initiative.status = 'A decorrer';
+        }
+    });
+
+    localStorage.setItem('initiatives', JSON.stringify(iniciativas));
+}
+
+// Evento para atualizar o estado das iniciativas ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+    atualizarEstadoIniciativasHoje();
+});
 
 
 
