@@ -25,7 +25,9 @@ function updateUserInfo(fullName, phone) {
         });
         localStorage.setItem('usersData', JSON.stringify(updatedUsersData));
         
-        alert('Perfil atualizado com sucesso!');
+        //alert('Perfil atualizado com sucesso!');
+        const successModal = new bootstrap.Modal(document.getElementById('successUserModal'));
+        successModal.show();
     } else {
         console.log('Dados do utilizador não encontrados em localStorage.');
     }
