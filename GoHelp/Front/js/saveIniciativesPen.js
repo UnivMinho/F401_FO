@@ -38,11 +38,16 @@ function saveDataToLocalStorage(data) {
                 
                 localStorage.setItem('initiatives', JSON.stringify(existingInitiatives));
 
-                alert("Iniciativa guardada e a aguardar aprovação!");
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+
                 document.querySelector('.donate-form').reset();
                 clearAndRestoreFormInputs(document.querySelector('.donate-form'));
                 locationError.innerText = ""; // Clear any previous error message
                 } else {
+                    const unsuccessModal = new bootstrap.Modal(document.getElementById('unsuccessModal'));
+                    unsuccessModal.show();
+                    
                     //alert('Localização inválida. Por favor insira outra localização e submeta novamente.');
                     locationError.innerText = "Localização inválida. Por favor insira outra localização e submeta novamente.";
                 }

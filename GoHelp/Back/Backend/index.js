@@ -145,3 +145,76 @@ document.addEventListener("DOMContentLoaded", function() {
     mensagem.textContent = `Bem-Vindo, ${name}`;
   }
 });
+
+function addTask() {
+  const taskInput = document.getElementById('taskInput');
+  const taskList = document.getElementById('taskList');
+  const taskText = taskInput.value.trim();
+
+  if (taskText === '') {
+      alert('Por favor, escreva uma tarefa.');
+      return;
+  }
+
+  const listItem = document.createElement('li');
+  const taskSpan = document.createElement('span');
+  taskSpan.textContent = taskText;
+  taskSpan.onclick = toggleTaskCompleted;
+
+  const botaoRemover = document.createElement('button');
+  botaoRemover.innerHTML = '<i class="mdi mdi-close-circle-outline"></i>';
+  botaoRemover.onclick = removeTask;
+
+  listItem.appendChild(taskSpan);
+  listItem.appendChild(botaoRemover);
+  taskList.appendChild(listItem);
+
+  saveTaskList();
+
+  taskInput.value = '';
+}
+
+function saveTaskList() {
+  const taskList = document.getElementById('taskList');
+  const tasks = [];
+  for (let i = 0; i < taskList.children.length; i++) {
+    const taskText = taskList.children[i].querySelector('span').textContent;
+    tasks.push(taskText);
+  }
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+
+window.onload = function() {
+  const storedTasks = localStorage.getItem('tasks');
+  if (storedTasks) {
+    const tasks = JSON.parse(storedTasks);
+    const taskList = document.getElementById('taskList');
+    tasks.forEach(taskText => {
+      const listItem = document.createElement('li');
+      const taskSpan = document.createElement('span');
+      taskSpan.textContent = taskText;
+      taskSpan.onclick = toggleTaskCompleted;
+
+      const botaoRemover = document.createElement('button');
+      botaoRemover.innerHTML = '<i class="mdi mdi-close-circle-outline"></i>';
+      botaoRemover.onclick = removeTask;
+
+      listItem.appendChild(taskSpan);
+      listItem.appendChild(botaoRemover);
+      taskList.appendChild(listItem);
+    });
+  }
+}
+
+function toggleTaskCompleted() {
+  this.classList.toggle('completed');
+  saveTaskList();
+}
+
+function removeTask() {
+  const listItem = this.parentNode;
+  listItem.parentNode.removeChild(listItem);
+  saveTaskList();
+}
+

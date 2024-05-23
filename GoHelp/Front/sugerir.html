@@ -255,5 +255,39 @@
       <script src=".//js/google.js" type="module"></script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7M3JveIeVQP579NFgw4nG_uGR8dp1XI&libraries=places&callback=initMap" async defer></script>
 
+      <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="successModalLabel">Iniciativa Guardada</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Iniciativa guardada e a aguardar aprovação!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="unsuccessModal" tabindex="-1" aria-labelledby="unsuccessModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="unsuccessModalLabel">Erro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Localização inválida. Por favor insira outra localização e submeta novamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
