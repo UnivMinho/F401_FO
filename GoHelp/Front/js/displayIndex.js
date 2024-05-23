@@ -110,7 +110,7 @@ function generateHiddenRow(initiative) {
                                 </div>
                             </div>
                             <!-- "Localização" -->
-                            <div class="mr-2 min-width-cell" style="margin-right: 20px; padding: 10px; margin-bottom: 30px;">
+                            <div class="mr-2 min-width-cell" style="margin-right: 20px; padding: 10px; margin-bottom: 1em;">
                                 <p>Localização</p>
                                 <h6 style="font-size: 15px;">${initiative.location}</h6>
                             </div>
