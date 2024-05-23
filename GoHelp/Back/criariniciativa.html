@@ -19,16 +19,17 @@
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
-   <link rel="stylesheet" href="./vendors/mdi/css/materialdesignicons.min.css">
-   
+  <link rel="stylesheet" href="./vendors/mdi/css/materialdesignicons.min.css">
 </head>
+
 <body>
-    <div class="container-scroller">
+  <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="images/favicon.png" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/favicon.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="images/favicon.png" class="mr-2"
+            alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/favicon.png" alt="logo" /></a>
         <span>GoHelp</span>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
@@ -41,20 +42,16 @@
               <img id="user-profile-image-navbar" alt="profile" />
             </a>
           </li>
-
         </ul>
-        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+          data-toggle="offcanvas">
           <span class="icon-menu"></span>
         </button>
       </div>
     </nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-
-      
       <!-- partial -->
-      <!-- partial:partials/_sidebar.html -->
-            <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar" style="  box-shadow: 0px 5px 11px -5px #CDD1E1;">
         <ul class="nav">
@@ -79,7 +76,8 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
+              aria-controls="form-elements">
               <i class="icon-columns menu-icon"></i>
               <span class="menu-title">Colaboradores</span>
               <i class="menu-arrow"></i>
@@ -88,7 +86,6 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="gerirprofisisonais.html">Profissionais</a></li>
                 <li class="nav-item"><a class="nav-link" href="gerircontas.html">Contas</a></li>
-
               </ul>
             </div>
           </li>
@@ -102,7 +99,6 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="listamaterial.html">Lista Materiais</a></li>
                 <li class="nav-item"> <a class="nav-link" href="criarmaterial.html">Criar Material</a></li>
-
               </ul>
             </div>
           </li>
@@ -139,173 +135,135 @@
             </div>
           </div>
 
-            <!-- CRIAR INICIATIVAS -->
+          <!-- CRIAR INICIATIVAS -->
 
-            <div class="col-12 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <p class="card-description">
-                      Para criar uma iniciativa, insira os seguintes dados:
-                    </p>
-                    <form class="forms-sample">
-                      <div class="form-group">
-                            <label for="exampleInputName1">Tipo de iniciativa</label>
-                            <div class="d-flex justify-content-center">
-                              <div class="btn-group" role="group" aria-label="Basic example">
-                                  <button type="button" class="btn">Limpeza</button>
-                                  <button type="button" class="btn">Reflorestação</button>
-                                  <button type="button" class="btn">Campanha</button>
-                              </div>
-                          </div>
-                          </script>                                                                            
-                      <div class="form-group">
-                    <br>
-                        <label for="exampleInputName1">Número máximo de participantes</label>
-                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Nome">
+          <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-description">
+                  Para criar uma iniciativa, insira os seguintes dados:
+                </p>
+                <form class="forms-sample">
+                  <div class="form-group">
+                    <label for="exampleInputName1">Tipo de iniciativa</label>
+                    <div class="d-flex justify-content-center">
+                      <div class="btn-group" role="group" aria-label="Basic example">
+                        <button id="limpeza" type="button" class="btn">Limpeza</button>
+                        <button id="Reflorestação" type="button" class="btn">Reflorestação</button>
+                        <button id="campanha" type="button" class="btn">Campanha</button>
                       </div>
-                      <div class="form-group">
-                        <label for="localizacaoPretendida">Localização pretendida</label>
-                        <input type="text" class="form-control" id="localizacaoPretendida" placeholder="Praia do Senhor da Pedra">
-                      </div>
-                      <div class="form-group">
-                        <label for="descricao">Breve Descrição</label>
-                        <input type="text" class="form-control" id="desc" placeholder="Vamos querer limpar a praia com vassouras e meter em saco do lixo. Há 3 elementos que já vão levar vassouras de casa, mas nenhum elemento vai levar sacos do lixo. Até já!                        ">
-                      </div>
-                      
-                      <div class="form-group">
-                        <label for="horaInicio">De</label>
-                        <div class="input-group">
-                          <input type="time" class="form-control mr-3" id="horaInicio">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1" style="border-right: 0; background-color: white;"></span>
-                          </div>
-                          <input type="date" class="form-control" id="dataInicio" style="border-left: 0;">
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label for="horaFim">Até</label>
-                        <div class="input-group">
-                          <input type="time" class="form-control mr-3" id="horaFim">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon2" style="border-right: 0; background-color: white;"></span>
-                          </div>
-                          <input type="date" class="form-control" id="dataFim" style="border-left: 0;">
-                        </div>
-                      </div>
+                    </div>
+                    </script>
+                    <div class="form-group">
+                      <br>
+                      <label for="localizacaoPretendida">Nome da Iniciativa</label>
+                      <input type="text" class="form-control" id="nome" placeholder="Praia!!">
+                    </div>
+                    <label for="exampleInputName1">Número máximo de participantes</label>
+                    <input type="number" class="form-control" id="quantityInput" value="1" min="1">
+                  </div>
+                  <div class="form-group">
+                    <label for="localizacaoPretendida">Localização pretendida</label>
+                    <input type="text" class="form-control" id="localizacaoPretendida"
+                      placeholder="Praia do Senhor da Pedra">
+                  </div>
+                  <div class="form-group">
+                    <label for="descricao">Breve Descrição</label>
+                    <input type="text" class="form-control" id="desc"
+                      placeholder="Vamos querer limpar a praia com vassouras e meter em saco do lixo. Há 3 elementos que já vão levar vassouras de casa, mas nenhum elemento vai levar sacos do lixo. Até já!">
+                  </div>
+                  <div class="form-group">
+                    <label for="Observacoes">Observações</label>
+                    <input type="text" class="form-control" id="obs"
+                      placeholder="Vamos querer limpar a praia com vassouras e meter em saco do lixo. Há 3 elementos que já vão levar vassouras de casa, mas nenhum elemento vai levar sacos do lixo. Até já!">
+                  </div>
 
-                                    <!-- FORMULÁRIO INTERVALOS -->
-                    <label for="exampleInputName1">Materiais a utilizar</label>
-                      <form id="materials-form">
-                        <div class="materials-container">
-                            <div class="form-row align-items-center material-row">
-                                <div class="col-sm-6 my-1">
-                                    <label class="sr-only" for="materialDropdown">Material</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            
-                                        </div>
-                                        <select class="custom-select material-dropdown mr-3">
-                                            <option selected>Selecionar Material...</option>
-                                            <option value="1">Luvas</option>
-                                            <option value="2">Balde</option>
-                                            <option value="3">Pá</option>
-                                            <!-- Mais opções aqui -->
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 my-1">
-                                    <label class="sr-only" for="quantityDropdown">Quantidade</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            
-                                        </div>
-                                        <select class="custom-select quantity-dropdown">
-                                            <option selected>Escolher...</option>
-                                            <option value="12">12</option>
-                                            <option value="13">13</option>
-                                            <option value="14">14</option>
-                                            <!-- Mais opções aqui -->
-                                        </select>
-                                    </div>
-                                </div>
+                  <div class="form-group">
+                    <label for="horaInicio">Dia</label>
+                    <div class="input-group">
+                      <input type="date" class="form-control" id="dataInicio" style="border-left: 1;">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="horaInicio">Hora Inicio</label>
+                    <div class="input-group">
+                      <input type="time" class="form-control mr-3" id="horaInicio">
+                      <label style="margin-top: -99px;" for="horaFim">Hora Fim</label>
+                      <input type="time" class="form-control" id="horaFim" style="border-left: -99;">
+                    </div>
+                  </div>
+
+                  <!-- FORMULÁRIO INTERVALOS -->
+                  <label for="exampleInputName1">Materiais a utilizar</label>
+                  <form id="materials-form">
+                    <div class="materials-container">
+                      <div class="form-row align-items-center material-row">
+                        <div class="col-sm-6 my-1">
+                          <label class="sr-only" for="materialDropdown">Material</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
                             </div>
-                        </div>
-                        <div class="col-md-5 mt-2">
-                          <button type="button" class="btn btn-link add-material-button" style="margin-left: -38px;">
-                              <i class="mdi mdi-plus-circle-outline"></i> Adicionar Material
-                          </button>
-                      </div>
-                                       
-                    </form>
-                </div>
-             
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    document.querySelector('.add-material-button').addEventListener('click', function() {
-                        var materialsContainer = document.querySelector('.materials-container');
-                        var materialRow = document.querySelector('.material-row');
-                        var clonedMaterialRow = materialRow.cloneNode(true);
-                        materialsContainer.appendChild(clonedMaterialRow);
-                        materialsContainer.appendChild(document.querySelector('.add-material-button').parentNode);
-                    });
-                });
-            </script> 
-
-                  
-            <div class="col-12">
-              <form id="materials-form">
-                  <div class="profissional-container">
-                      <div class="form-row align-items-center profissional-row">
-                          <div class="col-sm-6 my-1">
-                              <label class="sr-only" for="materialDropdown">Associar Profissional</label>
-                              <div class="input-group">
-                                  <div class="input-group-prepend">
-                                      
-                                  </div>
-                                  <select class="custom-select material-dropdown mr-3">
-                                      <option selected>Profissional</option>
-                                      <option value="1">Jose Costa - Biologo</option>
-                                      <option value="2">Joao Martins - Guarda Florestal</option>
-                                      <!-- Mais opções aqui -->
-                                  </select>
-                              </div>
+                            <select class="custom-select material-dropdown mr-3">
+                              <option selected>Selecionar Material...</option>
+                              <!-- Mais opções aqui -->
+                            </select>
                           </div>
+                        </div>
+                        <div class="col-sm-6 my-1">
+                          <label class="sr-only" for="quantityInput">Quantidade</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                            </div>
+                            <input type="number" class="form-control" id="quantityInput" value="1" min="1">
+                            <div class="input-group-append">
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                  </div>
-                  <div class="col-md-2 mt-2">
-                      <button type="button" class="btn btn-link add-profissional-button" style="margin-left: -54px;">
-                          <i class="mdi mdi-account-plus"></i> Adicionar Profissional
+                    </div>
+                    <div class="col-sm-6 my-1">
+                      <button type="button" class="btn btn-link add-material-button" style="margin-left: -38px;">
+                        <i class="mdi mdi-plus-circle-outline"></i> Adicionar Material
                       </button>
+                    </div>
+                  </form>
+
+                
+
+                  <!-- FORMULÁRIO PROFISSIONAIS -->
+                  <label for="exampleInputName1">Associar Profissional</label>
+                  <form id="profissionais-form">
+                    <div class="profissional-container">
+                      <div class="form-row align-items-center profissional-row">
+                        <div class="col-sm-6 my-1">
+                          <label class="sr-only" for="profissionalDropdown">Profissional</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                            </div>
+                            <select class="custom-select profissional-dropdown mr-3 mb-5">
+                              <option selected>Selecionar Profissional...</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    
+
+                      </div>
+                    </div>
+                  </form>
+
+                  <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary mr-2">Criar Iniciativa</button>
                   </div>
-              </form>
+                </form>
+              </div>
             </div>
-            <div class="d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary mr-2">Criar Iniciativa</button>
-            </div>  
-            </div>
-
-            <script>
-              document.addEventListener('DOMContentLoaded', function() {
-                  document.querySelector('.add-profissional-button').addEventListener('click', function() {
-                      var materialsContainer = document.querySelector('.profissional-container');
-                      var materialRow = document.querySelector('.profissional-row');
-                      var clonedMaterialRow = materialRow.cloneNode(true);
-                      materialsContainer.appendChild(clonedMaterialRow);
-                      materialsContainer.appendChild(document.querySelector('.add-profissional-button').parentNode);
-                  });
-              });
-            </script>
-  </div>   
-
-
-
-            
-            
+          </div>
 
           <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        
+          <!-- partial:partials/_footer.html -->
+
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
@@ -317,29 +275,31 @@
       </footer>
       <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-  
-    <!-- plugins:js -->
-    <script src="vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="vendors/chart.js/Chart.min.js"></script>
-    <script src="vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-    <script src="js/dataTables.select.min.js"></script>
-  
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="js/off-canvas.js"></script>
-    <script src="js/hoverable-collapse.js"></script>
-    <script src="js/template.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/todolist.js"></script>
-    <script src="./Backend/criariniciativa.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="js/Chart.roundedBarCharts.js"></script>
-    <!-- End custom js for this page-->
-  </body>
-  
-  </html>
+  </div>
+  <!-- container-scroller -->
+
+  <!-- plugins:js -->
+  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="vendors/chart.js/Chart.min.js"></script>
+  <script src="vendors/datatables.net/jquery.dataTables.js"></script>
+  <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+  <script src="js/dataTables.select.min.js"></script>
+
+
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/template.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/todolist.js"></script>
+  <script src="./Backend/criariniciativa.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="js/Chart.roundedBarCharts.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>
