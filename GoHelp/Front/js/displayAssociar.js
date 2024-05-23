@@ -3,36 +3,36 @@ let currentOpenDetailsRow = null;
 // Função para ir buscar as iniciativas ao localStorage
 function getUserInitiatives() {
     const initiativesString = localStorage.getItem('initiatives');
-    
     const initiatives = JSON.parse(initiativesString);
-    
     return initiatives || [];
 }
 
-//Função para mostrar as iniciativas a que o utilizador não está associado
+// Função para mostrar as iniciativas a que o utilizador não está associado
 function displayAndSetStatusUserInitiatives() {
     const userInitiatives = getUserInitiatives();
     const userData = JSON.parse(localStorage.getItem('userData'));
     
     const associateTableBody = document.querySelector('#example tbody');
-    associateTableBody.innerHTML = ''; 
+    associateTableBody.innerHTML = '';
 
     userInitiatives.forEach(initiative => {
-        if (initiative.status === 'aprovada') { // Check if initiative is approved
+        initiative.associatedVolunteers = initiative.associatedVolunteers || []; // Garantir que é sempre um array
+
+        if (initiative.status === 'aprovada') { // Verificar se a iniciativa está aprovada
             const currentVolunteersCount = initiative.associatedVolunteers.length;
             
             if (currentVolunteersCount < initiative.volunteers) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                 <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">                        
-                        <td>${initiative.name}</td>
-                        <td>${initiative.type}</td>
-                        <td>${getProponentName(initiative.userEmail)}</td>
-                        <td>${initiative.date}</td>
-                        <td class="status-column"><button class="btn-associar text-white" data-id="${initiative.id}"><strong>Associar</strong></button></td>
-                        <td class="toggle-details" style="cursor: pointer;"> ↓</td>
-                    </tr>
-                    `;
+                    <td>${initiative.name}</td>
+                    <td>${initiative.type}</td>
+                    <td>${getProponentName(initiative.userEmail)}</td>
+                    <td>${initiative.date}</td>
+                    <td class="status-column"><button class="btn-associar text-white" data-id="${initiative.id}"><strong>Associar</strong></button></td>
+                    <td class="toggle-details" style="cursor: pointer;"> ↓</td>
+                </tr>
+                `;
                 
                 const hiddenRowHtml = generateHiddenRow(initiative);
                 
@@ -49,11 +49,6 @@ function displayAndSetStatusUserInitiatives() {
         noAssociateInitiativesRow.innerHTML = `<td colspan="5" style="text-align: center;">Atualmente não existem iniciativas disponíveis.</td>`;
         associateTableBody.appendChild(noAssociateInitiativesRow);
     }
-}
-
-//Chama a função displayAndSetStatusUserInitiatives() e faz a lógica de associar email a iniciativa
-document.addEventListener('DOMContentLoaded', function() {
-    displayAndSetStatusUserInitiatives();
 
     const associateButtons = document.querySelectorAll('.btn-associar');
     associateButtons.forEach(button => {
@@ -67,9 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (initiative) {                
                 if (!initiative.associatedVolunteers.includes(email)) {
                     initiative.associatedVolunteers.push(email);
-                    
                     localStorage.setItem('initiatives', JSON.stringify(initiatives));
-                    
                     displayAndSetStatusUserInitiatives();
                 } else {
                     console.log('Utilizador já está associado à iniciativa.');
@@ -79,6 +72,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+}
+
+// Chama a função displayAndSetStatusUserInitiatives() assim que a página é carregada
+document.addEventListener('DOMContentLoaded', function() {
+    displayAndSetStatusUserInitiatives();
 
     const table = document.getElementById('example');
     table.addEventListener('click', function(e) {
@@ -94,16 +92,15 @@ document.addEventListener('DOMContentLoaded', function() {
             detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
             currentOpenDetailsRow = detailsRow;
         }
-    });    
+    });
 });
 
 function generateHiddenRow(initiative) {
     const currentVolunteersCount = initiative.associatedVolunteers.length;
-
     const proposerName = getProponentName(initiative.userEmail);
 
     return `
-            <tr style="display:none;">
+        <tr style="display:none;">
             <td colspan="8" class="row-bg">
                 <div style="padding:5px;">
                     <div class="d-flex justify-content-between">
@@ -144,21 +141,19 @@ function generateHiddenRow(initiative) {
                                 </div>
                                 <div class="min-width-cell mr-3">
                                     <p style="font-size: 15px;">Fim</p>
-                                    <h6>${initiative.date}- ${initiative.end_hour}</h6>
+                                    <h6>${initiative.date} - ${initiative.end_hour}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>                      
+                </div>
             </td>
         </tr>
     `;
 }
 
-function getProponentName(email){
+function getProponentName(email) {
     const users = JSON.parse(localStorage.getItem('usersData'));
-
     const user = users.find(user => user.email === email);
-        
-    return user ? `${user.name}` : 'Unknown User'; 
+    return user ? `${user.name}` : 'Unknown User';
 }

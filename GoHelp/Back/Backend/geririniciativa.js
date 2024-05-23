@@ -172,23 +172,10 @@ function createMaterialsDropdown(initiativeId, selectedMaterials = [], materialI
     return materiaisHTML;
 }
 
-// Função auxiliar para criar o dropdown de profissionais com ID único
-function createProfessionalsDropdown(initiativeId) {
-    const profissionaisData = JSON.parse(localStorage.getItem('profissionais'));
-    let profissionaisHTML = `<select id="profissionalDropdown-${initiativeId}" class="profissional-dropdown form-control">`;
-    if (Array.isArray(profissionaisData)) {
-        profissionaisData.forEach(profissional => {
-            profissionaisHTML += `<option value="${profissional.nome}">${profissional.nome}</option>`;
-        });
-    }
-    profissionaisHTML += '</select>';
-    return profissionaisHTML;
-}
-
-// Função auxiliar para criar o dropdown de líderes com ID único
+// Função auxiliar para criar o dropdown de líderes com ID único e adicionar evento de mudança
 function createLeadersDropdown(initiativeId, selectedLeader) {
     const usersData = JSON.parse(localStorage.getItem('usersData'));
-    let lideresDropdownHTML = `<select id="liderDropdown-${initiativeId}" class="custom-select">`;
+    let lideresDropdownHTML = `<select id="liderDropdown-${initiativeId}" class="custom-select" onchange="saveLeaderImmediately(event, ${initiativeId})">`;
     lideresDropdownHTML += '<option selected>Selecione</option>';
     if (Array.isArray(usersData)) {
         usersData.forEach(user => {
@@ -198,6 +185,22 @@ function createLeadersDropdown(initiativeId, selectedLeader) {
     lideresDropdownHTML += '</select>';
     return lideresDropdownHTML;
 }
+
+// Função auxiliar para criar o dropdown de profissionais com ID único e adicionar evento de mudança
+function createProfessionalsDropdown(initiativeId) {
+    const profissionaisData = JSON.parse(localStorage.getItem('profissionais'));
+    let profissionaisHTML = `<select id="profissionalDropdown-${initiativeId}" class="profissional-dropdown form-control" onchange="saveProfessionalImmediately(event, ${initiativeId})">`;
+    profissionaisHTML += '<option value="">Selecione um profissional</option>';
+    if (Array.isArray(profissionaisData)) {
+        profissionaisData.forEach(profissional => {
+            const value = `${profissional.nome} - ${profissional.cargo}`;
+            profissionaisHTML += `<option value="${value}">${profissional.nome} - ${profissional.cargo}</option>`;
+        });
+    }
+    profissionaisHTML += '</select>';
+    return profissionaisHTML;
+}
+
 
 // Função auxiliar para criar o container de materiais com os materiais já adicionados
 function createMaterialsContainerHTML(initiativeId, materiais) {
@@ -370,7 +373,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Função para aprovar uma iniciativa
 function aprovarIniciativa(button) {
     const row = button.closest('tr').previousElementSibling;
 
@@ -405,10 +407,29 @@ function aprovarIniciativa(button) {
             return;
         }
 
-      
+        const profissionalSelecionado = profissionalDropdown.value;
+        console.log(`Profissional selecionado: ${profissionalSelecionado}`);
+        
+        const [nomeProfissional, cargoProfissional] = profissionalSelecionado.split(' - ').map(s => s.trim());
+        console.log(`Nome: ${nomeProfissional}, Cargo: ${cargoProfissional}`);
+
+        const profissionaisData = JSON.parse(localStorage.getItem('profissionais'));
+        console.log(`Profissionais Data: ${JSON.stringify(profissionaisData)}`);
+
+        const profissional = profissionaisData.find(p => p.nome === nomeProfissional && p.cargo === cargoProfissional);
+
+        if (!profissional) {
+            console.error("Profissional não encontrado.");
+            console.log(`Procurando por Nome: ${nomeProfissional}, Cargo: ${cargoProfissional}`);
+            return;
+        }
+
         initiative.status = 'aprovada';
         initiative.lider = liderDropdown.value;
-        initiative.profissional = profissionalDropdown.value;
+        initiative.profissional = {
+            nome: profissional.nome,
+            cargo: profissional.cargo
+        };
 
         const materiais = [];
         detailsRow.querySelectorAll('.material-row').forEach(materialRow => {
@@ -430,6 +451,12 @@ function aprovarIniciativa(button) {
         console.error("Iniciativa não encontrada.");
     }
 }
+
+
+
+
+
+
 
 
 // Função para recusar uma iniciativa com motivo
@@ -520,6 +547,9 @@ function atualizarEstadoIniciativasEQuantidades() {
                     material.quantidadeTerreno = 0;
                 }
             });
+
+            // Salvar a iniciativa concluída
+            salvarIniciativaConcluida(initiative);
         }
     });
 
@@ -551,6 +581,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+// Função para salvar iniciativas concluídas
+function salvarIniciativaConcluida(initiative) {
+    const iniciativasConcluidas = JSON.parse(localStorage.getItem('iniciativasConcluidas')) || [];
+    iniciativasConcluidas.push(initiative);
+    localStorage.setItem('iniciativasConcluidas', JSON.stringify(iniciativasConcluidas));
+}
+
+function saveLeaderImmediately(event, initiativeId) {
+    const leaderName = event.target.value;
+    const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+    const initiative = initiatives.find(i => i.id === initiativeId);
+
+    if (initiative) {
+        initiative.lider = leaderName;
+        localStorage.setItem('initiatives', JSON.stringify(initiatives));
+        console.log(`Líder ${leaderName} salvo para a iniciativa ${initiativeId}`);
+    } else {
+        console.error("Iniciativa não encontrada.");
+    }
+}
+function saveProfessionalImmediately(event, initiativeId) {
+    const profissionalSelecionado = event.target.value;
+    const [nomeProfissional, cargoProfissional] = profissionalSelecionado.split(' - ').map(s => s.trim());
+    const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+    const initiative = initiatives.find(i => i.id === initiativeId);
+
+    if (initiative) {
+        initiative.profissional = {
+            nome: nomeProfissional,
+            cargo: cargoProfissional
+        };
+        localStorage.setItem('initiatives', JSON.stringify(initiatives));
+        console.log(`Profissional ${nomeProfissional} (${cargoProfissional}) salvo para a iniciativa ${initiativeId}`);
+    } else {
+        console.error("Iniciativa não encontrada.");
+    }
+}
+
+
 
 
 /*document.addEventListener('DOMContentLoaded', function() {
@@ -570,7 +639,7 @@ document.addEventListener('DOMContentLoaded', function() {
         volunteers: 5,
         date: new Date().toLocaleDateString(),
         start_hour: '09:00',
-        end_hour: '12:16',
+        end_hour: '13:33',
         restrictions: 'Sem restrições',
         materiais: [],
         profissional: ''
@@ -584,3 +653,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Adiciona a nova linha na tabela
     adicionarLinha(novaIniciativa);
 });*/
+

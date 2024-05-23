@@ -1,10 +1,10 @@
 let currentOpenDetailsRow = null;
 
-// Função para ir buscara a data de hoje neste formato "yyyy-mm-dd" format
+// Função para ir buscar a data de hoje neste formato "yyyy-mm-dd" 
 function getTodayDate() {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
     var yyyy = today.getFullYear();
 
     return yyyy + '-' + mm + '-' + dd;
@@ -53,7 +53,7 @@ function displayAndSetStatusUserInitiatives(map) {
         
         const hiddenRowHtml = generateHiddenRow(initiative);
 
-        if (initiative.userEmail !== userData.email && initiative.associatedVolunteers.includes(userData.email)) {
+        if (initiative.userEmail !== userData.email && initiative.associatedVolunteers && initiative.associatedVolunteers.includes(userData.email)) {
             associatedTableBody.appendChild(row);
             associatedTableBody.insertAdjacentHTML('beforeend', hiddenRowHtml);
 
@@ -72,7 +72,7 @@ function displayAndSetStatusUserInitiatives(map) {
                 infoWindow.open(map, marker);
             });
 
-        } else if(initiative.userEmail === userData.email) {
+        } else if (initiative.userEmail === userData.email) {
             proposedTableBody.appendChild(row);
             proposedTableBody.insertAdjacentHTML('beforeend', hiddenRowHtml);
 
@@ -99,17 +99,17 @@ function displayAndSetStatusUserInitiatives(map) {
 
         if (initiative.status === 'pendente') {
             statusCell.textContent = 'Pendente';
-            statusCell.style.backgroundColor = '#D75413'; // Orange
+            statusCell.style.backgroundColor = '#D75413'; // Laranja
         } else if (initiative.status === 'aprovada') {
             if (today < initiativeDate) {
                 statusCell.textContent = 'A realizar';
-                statusCell.style.backgroundColor = '#008000'; // Green
+                statusCell.style.backgroundColor = '#008000'; // Verde
             } else if (today > initiativeDate) {
                 statusCell.textContent = 'Concluída';
-                statusCell.style.backgroundColor = '#FF0000'; // Red
+                statusCell.style.backgroundColor = '#FF0000'; // Vermelho
             } else {
                 statusCell.textContent = 'A decorrer';
-                statusCell.style.backgroundColor = '#FFD700'; // Darker yellow
+                statusCell.style.backgroundColor = '#FFD700'; // Amarelo Escuro
             }
         }
     });
@@ -131,9 +131,6 @@ function displayAndSetStatusUserInitiatives(map) {
 document.addEventListener('DOMContentLoaded', function() {
     initMap();
 
-    
-    
-
     const table = document.getElementById('associadas');
     table.addEventListener('click', function(e) {
         const target = e.target;
@@ -148,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
             detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
             currentOpenDetailsRow = detailsRow;
         }
-    }); 
+    });
 
     const table1 = document.getElementById('propostas');
     table1.addEventListener('click', function(e) {
@@ -164,12 +161,11 @@ document.addEventListener('DOMContentLoaded', function() {
             detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
             currentOpenDetailsRow = detailsRow;
         }
-    }); 
+    });
 });
 
-
 function generateHiddenRow(initiative) {
-    const currentVolunteersCount = initiative.associatedVolunteers.length;
+    const currentVolunteersCount = initiative.associatedVolunteers ? initiative.associatedVolunteers.length : 0;
 
     const proposerName = getProponentName(initiative.userEmail);
     
@@ -221,7 +217,7 @@ function generateHiddenRow(initiative) {
     `;
 }
 
-function getProponentName(email){
+function getProponentName(email) {
     const users = JSON.parse(localStorage.getItem('usersData'));
 
     const user = users.find(user => user.email === email);
