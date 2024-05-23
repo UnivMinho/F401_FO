@@ -152,20 +152,24 @@ function addTask() {
   const taskText = taskInput.value.trim();
 
   if (taskText === '') {
-      alert('Por favor, escreva uma tarefa.');
-      return;
+    alert('Por favor, escreva uma tarefa.');
+    return;
   }
 
   const listItem = document.createElement('li');
+  const Containertarefa = document.createElement('div');
+  Containertarefa.className = 'container-tarefa';
   const taskSpan = document.createElement('span');
   taskSpan.textContent = taskText;
   taskSpan.onclick = toggleTaskCompleted;
 
   const botaoRemover = document.createElement('button');
+  botaoRemover.className='botao-remover';
   botaoRemover.innerHTML = '<i class="mdi mdi-close-circle-outline"></i>';
   botaoRemover.onclick = removeTask;
 
-  listItem.appendChild(taskSpan);
+  Containertarefa.appendChild(taskSpan);
+  listItem.appendChild(Containertarefa);
   listItem.appendChild(botaoRemover);
   taskList.appendChild(listItem);
 
@@ -178,29 +182,37 @@ function saveTaskList() {
   const taskList = document.getElementById('taskList');
   const tasks = [];
   for (let i = 0; i < taskList.children.length; i++) {
-    const taskText = taskList.children[i].querySelector('span').textContent;
-    tasks.push(taskText);
+    const taskSpan = taskList.children[i].querySelector('.container-tarefa span');
+    const taskText = taskSpan.textContent;
+    const taskCompleted = taskSpan.classList.contains('completed');
+    tasks.push({ text: taskText, completed: taskCompleted });
   }
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
-
 
 window.onload = function() {
   const storedTasks = localStorage.getItem('tasks');
   if (storedTasks) {
     const tasks = JSON.parse(storedTasks);
     const taskList = document.getElementById('taskList');
-    tasks.forEach(taskText => {
+    tasks.forEach(task => {
       const listItem = document.createElement('li');
+      const Containertarefa = document.createElement('div');
+      Containertarefa.className = 'container-tarefa';
       const taskSpan = document.createElement('span');
-      taskSpan.textContent = taskText;
+      taskSpan.textContent = task.text;
+      if (task.completed) {
+        taskSpan.classList.add('completed');
+      }
       taskSpan.onclick = toggleTaskCompleted;
 
       const botaoRemover = document.createElement('button');
+      botaoRemover.className='botao-remover';
       botaoRemover.innerHTML = '<i class="mdi mdi-close-circle-outline"></i>';
       botaoRemover.onclick = removeTask;
 
-      listItem.appendChild(taskSpan);
+      Containertarefa.appendChild(taskSpan);
+      listItem.appendChild(Containertarefa);
       listItem.appendChild(botaoRemover);
       taskList.appendChild(listItem);
     });
@@ -217,3 +229,4 @@ function removeTask() {
   listItem.parentNode.removeChild(listItem);
   saveTaskList();
 }
+
