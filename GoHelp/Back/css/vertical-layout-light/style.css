@@ -19457,7 +19457,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 p {
-  font-size: 0.875rem;
+  font-size: 1rem;
   margin-bottom: .5rem;
   line-height: 1.3rem;
 }
@@ -22020,6 +22020,14 @@ code {
   font-weight: 600;
 }
 
+.card .card-title1 {
+  color: #010101;
+  margin-bottom: 1.2rem;
+  text-transform: capitalize;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 .card .card-subtitle {
   font-weight: 400;
   margin-top: 0.625rem;
@@ -22092,7 +22100,7 @@ code {
 .card.card-tale {
   background: #5BC2AC;
   color: #ffffff;
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra mais notável */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); 
   
 }
 
