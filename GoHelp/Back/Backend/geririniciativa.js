@@ -131,7 +131,7 @@ function createRowHTML(initiative) {
                     <div class="d-flex">
                         <div class="min-width-cell">
                             <p>Restrições</p>
-                            <h6>${initiative.restrictions}</h6>
+                            <h6>${initiative.rejectReason}</h6>
                         </div>
                         <div class="action-buttons ml-auto">
                             <button class="btn btn-danger" onclick="recusarIniciativa(${initiative.id})">Recusar</button>
@@ -242,6 +242,20 @@ function addMaterialFields(initiativeId, button) {
     const materialId = materialRow.id.split('-').pop(); // Extrai o ID do material
 
     if (selectedMaterial && quantidadeInput.value > 0) {
+        const quantidadeUtilizada = parseInt(quantidadeInput.value);
+        const materiaisData = JSON.parse(localStorage.getItem('materials'));
+        const material = materiaisData.find(m => m.nome === selectedMaterial);
+
+        if (material && material.quantidade < quantidadeUtilizada) {
+            const unidadesNecessarias = quantidadeUtilizada - material.quantidade;
+            alert(`Deve adicionar ${unidadesNecessarias} unidades de ---> ${selectedMaterial} <---`);
+            return;
+        }
+
+        // Atualiza a quantidade no localStorage
+        material.quantidade -= quantidadeUtilizada;
+        localStorage.setItem('materials', JSON.stringify(materiaisData));
+
         materialDropdown.disabled = true;
         quantidadeInput.disabled = true;
         button.outerHTML = `
@@ -260,7 +274,7 @@ function addMaterialFields(initiativeId, button) {
             initiative.materiais = initiative.materiais || [];
             initiative.materiais.push({
                 nome: selectedMaterial,
-                quantidade: quantidadeInput.value
+                quantidade: quantidadeUtilizada
             });
             localStorage.setItem('initiatives', JSON.stringify(initiatives));
         }
@@ -275,6 +289,7 @@ function addMaterialFields(initiativeId, button) {
         alert('Por favor, selecione um material e insira uma quantidade válida.');
     }
 }
+
 
 // Função para remover campos de material
 function removeMaterialFields(initiativeId, button) {
@@ -445,110 +460,117 @@ function toggleDetailsRow(button) {
     detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
 }
  
-// Função para atualizar as quantidades de materiais para iniciativas com estado "A decorrer"
-function atualizarQuantidadesMateriaisHoje() {
-    const hoje = new Date().toLocaleDateString();
+function atualizarEstadoIniciativasEQuantidades() {
+    const agora = new Date();
+    const hoje = agora.toLocaleDateString();
     const iniciativas = JSON.parse(localStorage.getItem('initiatives')) || [];
     const materiaisData = JSON.parse(localStorage.getItem('materials')) || [];
 
     iniciativas.forEach(initiative => {
-        if (initiative.status === 'A decorrer' && initiative.date === hoje) {
+        const [dia, mes, ano] = initiative.date.split('/');
+        const [horas, minutos] = initiative.end_hour.split(':');
+        const endDate = new Date(ano, mes - 1, dia, horas, minutos);
+
+        console.log(`Verificando iniciativa: ${initiative.description}`);
+        console.log(`Status atual: ${initiative.status}`);
+        console.log(`End Date: ${endDate}`);
+        console.log(`Data e hora atual: ${agora}`);
+
+        if (initiative.status === 'A decorrer') {
+            // Atualizar quantidades de materiais para iniciativas em curso hoje
+            if (initiative.date === hoje) {
+                initiative.materiais.forEach(materialUtilizado => {
+                    const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
+                    if (material) {
+                        material.quantidadeTerreno = (material.quantidadeTerreno || 0) + parseInt(materialUtilizado.quantidade);
+                        material.quantidade -= parseInt(materialUtilizado.quantidade);
+
+                        // Verificação se a quantidade fica abaixo de 0
+                        if (material.quantidade < 0) {
+                            const unidadesNecessarias = Math.abs(material.quantidade);
+                            alert(`Deve adicionar ${unidadesNecessarias} unidades do material ${material.nome}`);
+                            material.quantidade = 0; // Ajusta a quantidade para 0 para evitar valores negativos
+                        }
+                    }
+                });
+            }
+
+            // Verificar se a iniciativa já passou do end_hour e atualizar o estado
+            if (agora > endDate) {
+                console.log(`Mudando status para concluída: ${initiative.description}`);
+                initiative.status = 'concluída';
+
+                // Transferir quantidadeTerreno para quantidade
+                initiative.materiais.forEach(materialUtilizado => {
+                    const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
+                    if (material && material.quantidadeTerreno) {
+                        material.quantidade += material.quantidadeTerreno;
+                        material.quantidadeTerreno = 0;
+                    }
+                });
+            }
+        }
+
+        // Transferir quantidadeTerreno para quantidade para iniciativas concluídas
+        if (initiative.status === 'concluída') {
             initiative.materiais.forEach(materialUtilizado => {
                 const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
-                if (material) {
-                    material.quantidadeTerreno = (material.quantidadeTerreno || 0) + parseInt(materialUtilizado.quantidade);
-                    material.quantidade -= parseInt(materialUtilizado.quantidade);
+                if (material && material.quantidadeTerreno) {
+                    material.quantidade += material.quantidadeTerreno;
+                    material.quantidadeTerreno = 0;
                 }
             });
         }
     });
 
+    localStorage.setItem('initiatives', JSON.stringify(iniciativas));
     localStorage.setItem('materials', JSON.stringify(materiaisData));
 }
 
-// Evento para atualizar as quantidades de materiais ao carregar a página
-document.addEventListener('DOMContentLoaded', function() {
-    atualizarQuantidadesMateriaisHoje();
-});
-
-// Função para reverter as quantidades de materiais para o dia seguinte
-function reverterQuantidadesMateriaisDiaSeguinte() {
-    const materiaisData = JSON.parse(localStorage.getItem('materials')) || [];
-
-    materiaisData.forEach(material => {
-        if (material.quantidadeTerreno) {
-            material.quantidade += material.quantidadeTerreno;
-            material.quantidadeTerreno = 0;
-        }
-    });
-
-    localStorage.setItem('materials', JSON.stringify(materiaisData));
-}
-
-// Função para verificar e atualizar quantidades ao carregar a página
 function verificarAtualizacaoDiaria() {
     const hoje = new Date().toLocaleDateString();
     const ultimaAtualizacao = localStorage.getItem('ultimaAtualizacao');
 
     if (ultimaAtualizacao !== hoje) {
-        atualizarQuantidadesMateriaisHoje();
+        atualizarEstadoIniciativasEQuantidades();
         localStorage.setItem('ultimaAtualizacao', hoje);
     }
 }
 
-// Agendar a execução das funções ao carregar a página
 document.addEventListener('DOMContentLoaded', function() {
+    // Verificar e atualizar estado das iniciativas e quantidades de materiais
     verificarAtualizacaoDiaria();
 
     // Agendar a reversão das quantidades de materiais ao final do dia
-    const agora = new Date();
-    const proximaMeiaNoite = new Date(agora);
-    proximaMeiaNoite.setHours(24, 0, 0, 0); // Próxima meia-noite
-    const tempoAteMeiaNoite = proximaMeiaNoite - agora;
 
-    setTimeout(function() {
-        reverterQuantidadesMateriaisDiaSeguinte();
+        atualizarEstadoIniciativasEQuantidades(); // Reverter novamente no final do dia para garantir a atualização
         verificarAtualizacaoDiaria(); // Para garantir que as quantidades sejam atualizadas novamente após a reversão
-    }, tempoAteMeiaNoite);
-});
 
-// Função para atualizar o estado das iniciativas para "A decorrer" se a data atual corresponder à data da iniciativa
-function atualizarEstadoIniciativasHoje() {
-    const hoje = new Date().toLocaleDateString();
-    const iniciativas = JSON.parse(localStorage.getItem('initiatives')) || [];
-
-    iniciativas.forEach(initiative => {
-        if (initiative.date === hoje) {
-            initiative.status = 'A decorrer';
-        }
-    });
-
-    localStorage.setItem('initiatives', JSON.stringify(iniciativas));
-}
-
-// Evento para atualizar o estado das iniciativas ao carregar a página
-document.addEventListener('DOMContentLoaded', function() {
-    atualizarEstadoIniciativasHoje();
 });
 
 
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+
+/*document.addEventListener('DOMContentLoaded', function() {
+    function gerarIdUnico() {
+        return Math.floor(Math.random() * 1000000) + Date.now();
+    }
+
     const novaIniciativa = {
-        id: Date.now(), // Gera um ID único com base na data atual
+        id: gerarIdUnico(), // Gera um ID único com base em Math.random() e Date.now()
         description: 'Nova Iniciativa de Teste',
         type: 'Tipo de Teste',
         userEmail: 'teste@exemplo.com',
-        status: 'pendente',
+        status: 'A decorrer',
         location: 'Localização de Teste',
         lider: '',
         comments: 'Comentários de Teste',
         volunteers: 5,
         date: new Date().toLocaleDateString(),
         start_hour: '09:00',
-        end_hour: '17:00',
+        end_hour: '12:16',
         restrictions: 'Sem restrições',
         materiais: [],
         profissional: ''
@@ -561,4 +583,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Adiciona a nova linha na tabela
     adicionarLinha(novaIniciativa);
-});
+});*/
