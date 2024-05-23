@@ -30686,5 +30686,55 @@ div.tagsinput span.tag a {
   width: 100%;
   padding: 5px;
 }
-/* Estilos básicos para o modal */
 
+.completed {
+  text-decoration: line-through;
+}
+.add-button {
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: none;
+}
+
+.mdi-close-circle-outline{
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: none;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+#taskInput {
+  background-color: transparent;
+  border: 2px solid #00A877;
+  color: white;
+  padding: 5px;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+#taskList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+#taskList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
