@@ -1,15 +1,5 @@
 let currentOpenDetailsRow = null;
 
-// Função para ir buscar a data de hoje neste formato "yyyy-mm-dd" 
-function getTodayDate() {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
-    var yyyy = today.getFullYear();
-
-    return yyyy + '-' + mm + '-' + dd;
-}
-
 // Função para ir buscar as iniciativas ao localStorage
 function getUserInitiatives() {
     const initiativesString = localStorage.getItem('initiatives');
@@ -94,25 +84,22 @@ function displayAndSetStatusUserInitiatives(map) {
         
         // Definir status com base na data
         const statusCell = row.querySelector('.status-button');
-        const initiativeDate = new Date(initiative.date.replace(/(\d{2})\/(\d{2})\/(\d{4})/, '$3-$2-$1'));
-        const today = new Date(getTodayDate());
 
         if (initiative.status === 'pendente') {
             statusCell.textContent = 'Pendente';
-            statusCell.style.backgroundColor = '#D75413'; // Laranja
-        } else if (initiative.status === 'aprovada') {
-            if (today < initiativeDate) {
-                statusCell.textContent = 'A realizar';
-                statusCell.style.backgroundColor = '#008000'; // Verde
-            } else if (today > initiativeDate) {
-                statusCell.textContent = 'Concluída';
-                statusCell.style.backgroundColor = '#FF0000'; // Vermelho
-            } else {
-                statusCell.textContent = 'A decorrer';
-                statusCell.style.backgroundColor = '#FFD700'; // Amarelo Escuro
-            }
-        }
-    });
+            statusCell.style.backgroundColor = '#D75413';
+        } else if (initiative.status === 'Por realizar') {
+            statusCell.textContent = 'Por realizar';
+            statusCell.style.backgroundColor = '#008000';
+        } else if (initiative.status === 'A decorrer') {
+            statusCell.textContent = 'A decorrer';
+            statusCell.style.backgroundColor = '#FFD700'; 
+        } else if(initiative.status === 'concluída') {
+            statusCell.textContent = 'Concluída';
+            statusCell.style.backgroundColor = '#FF0000'; 
+        };
+
+        });
 
     if (proposedTableBody.children.length === 0) {
         const noProposedInitiativesRow = document.createElement('tr');
@@ -166,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function generateHiddenRow(initiative) {
     const currentVolunteersCount = initiative.associatedVolunteers ? initiative.associatedVolunteers.length : 0;
-
     const proposerName = getProponentName(initiative.userEmail);
     
     return `

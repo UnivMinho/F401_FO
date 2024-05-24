@@ -18,7 +18,7 @@ function displayAndSetStatusUserInitiatives() {
     userInitiatives.forEach(initiative => {
         initiative.associatedVolunteers = initiative.associatedVolunteers || []; // Garantir que é sempre um array
 
-        if (initiative.status === 'aprovada') { // Verificar se a iniciativa está aprovada
+        if (initiative.status === 'Por realizar') { // Verificar se a iniciativa está aprovada
             const currentVolunteersCount = initiative.associatedVolunteers.length;
             
             if (currentVolunteersCount < initiative.volunteers) {

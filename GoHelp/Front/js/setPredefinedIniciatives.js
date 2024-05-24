@@ -21,7 +21,7 @@ function setPredefinedInitiatives() {
                 name: 'Limpar a praia juntos!',
                 description: 'Junte-se a nós por um ambiente melhor!',
                 comments: 'Materiais: luvas, sacos do lixo. Profissionais: Engenheiro Ambiental',
-                status: 'aprovada',
+                status: 'Por realizar',
                 userEmail: 'pwtrabalho1@gmail.com',
                 associatedVolunteers: ['pwtrabalho1@gmail.com']
             },
@@ -38,7 +38,7 @@ function setPredefinedInitiatives() {
                 name: 'Reflorestar o planeta!',
                 description: 'Juntos plantamos o amanhã!',
                 comments: 'Materiais: sementes, regadores, pás. Profissionais: Engenheiro Florestal',
-                status: 'aprovada',
+                status: 'Por realizar',
                 userEmail: 'pwtrabalho1@gmail.com',
                 associatedVolunteers: ['pwtrabalho1@gmail.com']
             },
@@ -55,7 +55,24 @@ function setPredefinedInitiatives() {
                 name: 'Sensibilização Ambiental',
                 description: 'Venha apreender mais sobre o ambiente!',
                 comments: 'Materiais: panfletos, apresentação. Profissionais: Orador',
-                status: 'aprovada',
+                status: 'Por realizar',
+                userEmail: 'pwtrabalho1@gmail.com',
+                associatedVolunteers: ['pwtrabalho1@gmail.com']
+            },
+            {
+                id: generateUniqueId(),
+                type: 'Limpeza',
+                volunteers: 30,
+                location: 'Praia de Ofir',
+                latitude: 41.517198,
+                longitude: -8.787593,
+                date: '2024-08-20',
+                start_hour: '09:00',
+                end_hour: '12:00',
+                name: 'Limpar a praia!',
+                description: 'Junte-se a nós por um ambiente melhor!',
+                comments: 'Materiais: luvas, sacos do lixo. Profissionais: Engenheiro Ambiental',
+                status: 'concluída',
                 userEmail: 'pwtrabalho1@gmail.com',
                 associatedVolunteers: ['pwtrabalho1@gmail.com']
             }

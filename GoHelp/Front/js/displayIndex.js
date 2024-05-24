@@ -25,7 +25,7 @@ function displayInitiativesApproved(map) {
     alliniciativesTableBody.innerHTML = ''; 
 
     userInitiatives.forEach((initiative) => {
-        if (initiative.status === 'aprovada') {
+        if (initiative.status === 'Por realizar') {
             const row = document.createElement('tr');
             row.innerHTML = `
             <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">
