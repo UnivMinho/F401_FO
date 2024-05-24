@@ -58,15 +58,16 @@ function setPredefinedInitiatives() {
                 status: 'Por realizar',
                 userEmail: 'pwtrabalho1@gmail.com',
                 associatedVolunteers: ['pwtrabalho1@gmail.com']
-            },
+            }
+            /*,
             {
                 id: generateUniqueId(),
                 type: 'Limpeza',
-                volunteers: 30,
+                volunteers: 5,
                 location: 'Praia de Ofir',
                 latitude: 41.517198,
                 longitude: -8.787593,
-                date: '2024-08-20',
+                date: '2024-05-20',
                 start_hour: '09:00',
                 end_hour: '12:00',
                 name: 'Limpar a praia!',
@@ -75,7 +76,7 @@ function setPredefinedInitiatives() {
                 status: 'concluída',
                 userEmail: 'pwtrabalho1@gmail.com',
                 associatedVolunteers: ['pwtrabalho1@gmail.com']
-            }
+            }*/
         ];
 
         localStorage.setItem('initiatives', JSON.stringify(predefinedInitiatives));

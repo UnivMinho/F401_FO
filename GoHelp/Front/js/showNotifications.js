@@ -1,22 +1,6 @@
 //Para já não está funcional! Ver quando as iniciativas no back-office estiverem a funcionar corretamente.
-
-/*meter back-office
-function sendNotification(userId, message) {
-    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
-    notifications.push({ userId, message, timestamp: new Date().getTime() });
-    localStorage.setItem('notifications', JSON.stringify(notifications));
-
-    // Trigger a storage event manually (for cross-tab synchronization)
-    localStorage.setItem('trigger', JSON.stringify({ action: 'new_notification' }));
-}
-
-sendNotification(initiative.userId, `A iniciativa '${initiativeDescription}' foi aprovada.`);
-sendNotification(initiative.userId, `A iniciativa '${initiative.description}' foi recusada. Motivo: ${reason}`);
-*/
-
-const currentUser = JSON.parse(localStorage.getItem('userData')) || [];
-const currentUserId = currentUser.id;
-
+const currentUser = JSON.parse(localStorage.getItem('userData')) || {};
+const currentUserEmail = currentUser.email;
 
 // Function to load notifications
 function loadNotifications() {
@@ -24,9 +8,14 @@ function loadNotifications() {
     const notificationList = document.getElementById('notificationList');
     const notificationCount = document.getElementById('notificationCount');
     
+    if (!notificationList || !notificationCount) {
+        console.error("Notification list or count element not found.");
+        return;
+    }
+
     notificationList.innerHTML = '';
-    
-    const userNotifications = notifications.filter(notification => notification.userId === currentUserId);
+
+    const userNotifications = notifications.filter(notification => notification.email === currentUserEmail);
 
     userNotifications.forEach(notification => {
         const li = document.createElement('li');
@@ -38,7 +27,7 @@ function loadNotifications() {
         `;
         notificationList.appendChild(li);
     });
-    
+
     notificationCount.innerText = userNotifications.length;
 
     // Attach event listeners to remove icons

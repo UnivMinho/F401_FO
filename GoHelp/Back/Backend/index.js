@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   const initiatives = JSON.parse(localStorage.getItem("initiatives")) || [];
   const contagemporrealizar = initiatives.filter(
-    (initiative) => initiative.status === "por realizar"
+    (initiative) => initiative.status === "Por realizar"
   ).length;
   document.getElementById("iniciativas-por-realizar").innerText =
     contagemporrealizar;
