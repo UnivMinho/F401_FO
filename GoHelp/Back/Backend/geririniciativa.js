@@ -90,6 +90,8 @@ function createRowHTML(initiative) {
                     <div class="expanded-table-normal-cell">
                         <p>Observação</p>
                         <h6>${initiative.comments}</h6>
+                        <p>Descrição</p>
+                        <h6>${initiative.description}</h6>
                     </div>
                 </div>
                 <div class="col-12">
@@ -132,6 +134,7 @@ function createRowHTML(initiative) {
                         <div class="min-width-cell">
                             <p>Restrições</p>
                             <h6>${initiative.rejectReason}</h6>
+                            <h8>${initiative.restrictions}</h8>
                         </div>
                         <div class="action-buttons ml-auto">
                             <button class="btn btn-danger" onclick="recusarIniciativa(${initiative.id})">Recusar</button>
@@ -365,6 +368,13 @@ function toggleDetailsRow(button) {
 
 // Evento para adicionar linhas ao carregar a página
 document.addEventListener('DOMContentLoaded', function() {
+
+      // Verificar e atualizar estado das iniciativas e quantidades de materiais
+      verificarAtualizacaoDiaria();
+
+      // Verificar restrições das iniciativas pendentes
+      verificarRestricoesIniciativasPendentes();
+
     const dadosIniciativas = JSON.parse(localStorage.getItem('initiatives'));
     if (dadosIniciativas) {
         dadosIniciativas.forEach(initiative => {
@@ -408,23 +418,18 @@ function aprovarIniciativa(button) {
         }
 
         const profissionalSelecionado = profissionalDropdown.value;
-        console.log(`Profissional selecionado: ${profissionalSelecionado}`);
-        
         const [nomeProfissional, cargoProfissional] = profissionalSelecionado.split(' - ').map(s => s.trim());
-        console.log(`Nome: ${nomeProfissional}, Cargo: ${cargoProfissional}`);
 
         const profissionaisData = JSON.parse(localStorage.getItem('profissionais'));
-        console.log(`Profissionais Data: ${JSON.stringify(profissionaisData)}`);
 
         const profissional = profissionaisData.find(p => p.nome === nomeProfissional && p.cargo === cargoProfissional);
 
         if (!profissional) {
-            console.error("Profissional não encontrado.");
-            console.log(`Procurando por Nome: ${nomeProfissional}, Cargo: ${cargoProfissional}`);
+            alert("Escolha um profissional");
             return;
         }
 
-        initiative.status = 'aprovada';
+        initiative.status = 'Aprovada';
         initiative.lider = liderDropdown.value;
         initiative.profissional = {
             nome: profissional.nome,
@@ -446,11 +451,42 @@ function aprovarIniciativa(button) {
 
         localStorage.setItem('initiatives', JSON.stringify(initiatives));
 
-        row.cells[3].innerText = 'aprovada';
+        // Atualiza o status da iniciativa na tabela principal
+        row.cells[3].innerText = 'Aprovada';
+
+        // Remove o botão de aprovar e altera o botão de recusar para cancelar
+        const actionButtons = detailsRow.querySelector('.action-buttons');
+        const approveButton = actionButtons.querySelector('.btn.btn-success');
+        const rejectButton = actionButtons.querySelector('.btn.btn-danger');
+
+        if (approveButton) {
+            approveButton.remove();
+        }
+
+        if (rejectButton) {
+            rejectButton.classList.remove('btn-danger');
+            rejectButton.classList.add('btn-warning');
+            rejectButton.innerText = 'Cancelar';
+            rejectButton.onclick = () => cancelarIniciativa(initiative.id);
+        }
     } else {
         console.error("Iniciativa não encontrada.");
     }
 }
+
+function cancelarIniciativa(initiativeId) {
+    const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+    const initiative = initiatives.find(i => i.id === initiativeId);
+
+    if (initiative) {
+        initiative.status = 'cancelada';
+        localStorage.setItem('initiatives', JSON.stringify(initiatives));
+        location.reload(); // Atualizar a página para refletir as mudanças
+    } else {
+        console.error("Iniciativa não encontrada.");
+    }
+}
+
 
 
 
@@ -624,38 +660,63 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('user-profile-image-navbar').src = userProfileImage;
 });
 
+function verificarRestricoesIniciativasPendentes() {
+    const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+    const pendentes = initiatives.filter(i => i.status === 'pendente');
+    const avisoPorTipo = "Aviso: Existem múltiplas iniciativas do mesmo tipo neste dia.";
+    const avisoPorQuantidade = "Aviso: Existem mais de 3 iniciativas neste dia.";
+
+    const iniciativasPorDia = pendentes.reduce((acc, initiative) => {
+        const date = initiative.date;
+        if (!acc[date]) {
+            acc[date] = [];
+        }
+        acc[date].push(initiative);
+        return acc;
+    }, {});
+
+    Object.keys(iniciativasPorDia).forEach(date => {
+        const iniciativasDia = iniciativasPorDia[date];
+        const tiposIniciativas = iniciativasDia.reduce((acc, initiative) => {
+            const type = initiative.type;
+            if (!acc[type]) {
+                acc[type] = [];
+            }
+            acc[type].push(initiative);
+            return acc;
+        }, {});
+
+        // Verificar múltiplas iniciativas do mesmo tipo no mesmo dia
+        Object.keys(tiposIniciativas).forEach(type => {
+            if (tiposIniciativas[type].length > 1) {
+                tiposIniciativas[type].forEach(initiative => {
+                    if (!initiative.restrictions.includes(avisoPorTipo)) {
+                        initiative.restrictions = initiative.restrictions ? initiative.restrictions + ` ${avisoPorTipo}` : avisoPorTipo;
+                    }
+                });
+            }
+        });
+
+        // Verificar se há mais de 3 iniciativas no mesmo dia
+        if (iniciativasDia.length > 3) {
+            iniciativasDia.forEach(initiative => {
+                if (!initiative.restrictions.includes(avisoPorQuantidade)) {
+                    initiative.restrictions = initiative.restrictions ? initiative.restrictions + ` ${avisoPorQuantidade}` : avisoPorQuantidade;
+                }
+            });
+        }
+    });
+
+    localStorage.setItem('initiatives', JSON.stringify(initiatives));
+}
 
 
 
-/*document.addEventListener('DOMContentLoaded', function() {
-    function gerarIdUnico() {
-        return Math.floor(Math.random() * 1000000) + Date.now();
-    }
 
-    const novaIniciativa = {
-        id: gerarIdUnico(), // Gera um ID único com base em Math.random() e Date.now()
-        description: 'Nova Iniciativa de Teste',
-        type: 'Tipo de Teste',
-        userEmail: 'teste@exemplo.com',
-        status: 'A decorrer',
-        location: 'Localização de Teste',
-        lider: '',
-        comments: 'Comentários de Teste',
-        volunteers: 5,
-        date: new Date().toLocaleDateString(),
-        start_hour: '09:00',
-        end_hour: '13:33',
-        restrictions: 'Sem restrições',
-        materiais: [],
-        profissional: ''
-    };
 
-    // Adiciona a nova iniciativa ao localStorage
-    const iniciativas = JSON.parse(localStorage.getItem('initiatives')) || [];
-    iniciativas.push(novaIniciativa);
-    localStorage.setItem('initiatives', JSON.stringify(iniciativas));
 
-    // Adiciona a nova linha na tabela
-    adicionarLinha(novaIniciativa);
-});*/
+
+
+
+
 
