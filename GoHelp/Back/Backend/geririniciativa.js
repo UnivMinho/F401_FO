@@ -556,6 +556,11 @@ function recusarIniciativa(initiativeId) {
 
             localStorage.setItem('initiatives', JSON.stringify(initiatives));
             location.reload(); // Atualizar a página para refletir as mudanças
+
+            // Enviar notificação ao utilizador - NOVA 
+            const userEmail = initiative.userEmail;
+            const notificationMessage = `A sua iniciativa "${initiative.name}" foi recusada pelo seguinte motivo: ${reason}.`;
+            sendNotification(userEmail, notificationMessage);
         }
     } else {
         alert('Por favor, escreva o motivo da recusa.');
