@@ -46,19 +46,27 @@ function createMaterialRowHTML(initiativeId, selectedMaterials = []) {
 }
 
 
-// Função para criar uma linha de iniciativa com IDs únicos para dropdowns
 function createRowHTML(initiative) {
     const materiaisHTML = createMaterialsContainerHTML(initiative.id, initiative.materiais || []);
     const profissionaisHTML = createProfessionalsDropdown(initiative.id);
     const lideresDropdownHTML = createLeadersDropdown(initiative.id, initiative.lider);
 
+    let actionButtonsHTML = `
+        <button class="btn btn-danger" onclick="recusarIniciativa(${initiative.id})">Recusar</button>`;
+    
+    // Se a iniciativa não tiver restrições, adicionar o botão de Aprovar
+    if (!initiative.restrictions || initiative.restrictions.trim() === "") {
+        actionButtonsHTML += `
+            <button class="btn btn-success" onclick="aprovarIniciativa(this)">Aprovar</button>`;
+    }
+
     return `
-    <tr>
+    <tr style="background-color: green;">
         <td>${initiative.description}</td>
         <td>${initiative.type}</td>
         <td>${getProponentName(initiative.userEmail)}</td>
         <td>${initiative.status}</td>
-        <td>${new Date().toLocaleDateString()}</td>
+        <td>${initiative.date}</td>
         <td style="cursor: pointer;" onclick="toggleDetailsRow(this)">↓</td>
     </tr>
     <tr style="display:none;">
@@ -133,12 +141,11 @@ function createRowHTML(initiative) {
                     <div class="d-flex">
                         <div class="min-width-cell">
                             <p>Restrições</p>
-                            <h6>${initiative.rejectReason}</h6>
-                            <h8>${initiative.restrictions}</h8>
+                            <h5 style="color: red">${initiative.restrictions}</h5>
+                            <h8>${initiative.rejectReason}</h8>
                         </div>
                         <div class="action-buttons ml-auto">
-                            <button class="btn btn-danger" onclick="recusarIniciativa(${initiative.id})">Recusar</button>
-                            <button class="btn btn-success" onclick="aprovarIniciativa(this)">Aprovar</button>
+                            ${actionButtonsHTML}
                         </div>
                     </div>
                 </div>
@@ -146,6 +153,23 @@ function createRowHTML(initiative) {
         </td>
     </tr>`;
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Verificar e atualizar estado das iniciativas e quantidades de materiais
+    verificarAtualizacaoDiaria();
+
+    // Verificar restrições das iniciativas pendentes
+    verificarRestricoesIniciativasPendentes();
+
+    const dadosIniciativas = JSON.parse(localStorage.getItem('initiatives'));
+    if (dadosIniciativas) {
+        dadosIniciativas.forEach(initiative => {
+            adicionarLinha(initiative);
+        });
+    }
+});
+
 
 
 // Função para salvar o líder selecionado no localStorage
@@ -361,19 +385,26 @@ function attachQuantityControlEvents(container) {
 }
 
 // Função para alternar a exibição da linha de detalhes
+// Função para alternar a exibição da linha de detalhes
 function toggleDetailsRow(button) {
     const detailsRow = button.parentElement.nextElementSibling;
-    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+    const mainRow = button.parentElement;
+
+    if (detailsRow.style.display === 'none') {
+        detailsRow.style.display = 'table-row';
+        mainRow.classList.add('expanded-row-bg');
+    } else {
+        detailsRow.style.display = 'none';
+        mainRow.classList.remove('expanded-row-bg');
+    }
 }
 
-// Evento para adicionar linhas ao carregar a página
 document.addEventListener('DOMContentLoaded', function() {
+    // Verificar e atualizar estado das iniciativas e quantidades de materiais
+    verificarAtualizacaoDiaria();
 
-      // Verificar e atualizar estado das iniciativas e quantidades de materiais
-      verificarAtualizacaoDiaria();
-
-      // Verificar restrições das iniciativas pendentes
-      verificarRestricoesIniciativasPendentes();
+    // Verificar restrições das iniciativas pendentes
+    verificarRestricoesIniciativasPendentes();
 
     const dadosIniciativas = JSON.parse(localStorage.getItem('initiatives'));
     if (dadosIniciativas) {
@@ -382,6 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 
 function aprovarIniciativa(button) {
     const row = button.closest('tr').previousElementSibling;
@@ -545,8 +577,10 @@ function atualizarEstadoIniciativasEQuantidades() {
                 initiative.materiais.forEach(materialUtilizado => {
                     const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
                     if (material) {
-                        material.quantidadeTerreno = (material.quantidadeTerreno || 0) + parseInt(materialUtilizado.quantidade);
-                        material.quantidade -= parseInt(materialUtilizado.quantidade);
+                        const quantidadeUtilizada = parseInt(materialUtilizado.quantidade);
+
+                        material.quantidadeTerreno = (material.quantidadeTerreno || 0) + quantidadeUtilizada;
+                        material.quantidade -= quantidadeUtilizada;
 
                         // Verificação se a quantidade fica abaixo de 0
                         if (material.quantidade < 0) {
@@ -562,15 +596,6 @@ function atualizarEstadoIniciativasEQuantidades() {
             if (agora > endDate) {
                 console.log(`Mudando status para concluída: ${initiative.description}`);
                 initiative.status = 'concluída';
-
-                // Transferir quantidadeTerreno para quantidade
-                initiative.materiais.forEach(materialUtilizado => {
-                    const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
-                    if (material && material.quantidadeTerreno) {
-                        material.quantidade += material.quantidadeTerreno;
-                        material.quantidadeTerreno = 0;
-                    }
-                });
             }
         }
 
@@ -592,6 +617,14 @@ function atualizarEstadoIniciativasEQuantidades() {
     localStorage.setItem('initiatives', JSON.stringify(iniciativas));
     localStorage.setItem('materials', JSON.stringify(materiaisData));
 }
+
+function salvarIniciativaConcluida(initiative) {
+    // Implementação da função que salva a iniciativa concluída
+    // Esta função deve garantir que a iniciativa é armazenada adequadamente como concluída
+    console.log(`Salvando iniciativa concluída: ${initiative.description}`);
+    // Implementação de salvamento necessário
+}
+
 
 function verificarAtualizacaoDiaria() {
     const hoje = new Date().toLocaleDateString();
@@ -677,6 +710,8 @@ function verificarRestricoesIniciativasPendentes() {
 
     Object.keys(iniciativasPorDia).forEach(date => {
         const iniciativasDia = iniciativasPorDia[date];
+        iniciativasDia.forEach(initiative => initiative.restrictions = ""); // Limpar restrições existentes
+
         const tiposIniciativas = iniciativasDia.reduce((acc, initiative) => {
             const type = initiative.type;
             if (!acc[type]) {
@@ -686,29 +721,32 @@ function verificarRestricoesIniciativasPendentes() {
             return acc;
         }, {});
 
+        // Função de auxílio para adicionar avisos sem duplicar
+        function adicionarAviso(initiative, aviso) {
+            if (!initiative.restrictions.includes(aviso)) {
+                initiative.restrictions += `${aviso} `;
+                initiative.status = "Recusada";
+            }
+        }
+
         // Verificar múltiplas iniciativas do mesmo tipo no mesmo dia
         Object.keys(tiposIniciativas).forEach(type => {
             if (tiposIniciativas[type].length > 1) {
-                tiposIniciativas[type].forEach(initiative => {
-                    if (!initiative.restrictions.includes(avisoPorTipo)) {
-                        initiative.restrictions = initiative.restrictions ? initiative.restrictions + ` ${avisoPorTipo}` : avisoPorTipo;
-                    }
-                });
+                tiposIniciativas[type].forEach(initiative => adicionarAviso(initiative, avisoPorTipo));
             }
         });
 
         // Verificar se há mais de 3 iniciativas no mesmo dia
         if (iniciativasDia.length > 3) {
-            iniciativasDia.forEach(initiative => {
-                if (!initiative.restrictions.includes(avisoPorQuantidade)) {
-                    initiative.restrictions = initiative.restrictions ? initiative.restrictions + ` ${avisoPorQuantidade}` : avisoPorQuantidade;
-                }
-            });
+            iniciativasDia.forEach(initiative => adicionarAviso(initiative, avisoPorQuantidade));
         }
     });
 
     localStorage.setItem('initiatives', JSON.stringify(initiatives));
 }
+
+
+
 
 
 
