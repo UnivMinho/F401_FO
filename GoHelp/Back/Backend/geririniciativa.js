@@ -429,7 +429,7 @@ function aprovarIniciativa(button) {
             return;
         }
 
-        initiative.status = 'Aprovada';
+        initiative.status = 'Por realizar';
         initiative.lider = liderDropdown.value;
         initiative.profissional = {
             nome: profissional.nome,
@@ -452,7 +452,7 @@ function aprovarIniciativa(button) {
         localStorage.setItem('initiatives', JSON.stringify(initiatives));
 
         // Atualiza o status da iniciativa na tabela principal
-        row.cells[3].innerText = 'Aprovada';
+        row.cells[3].innerText = 'Por realizar';
 
         // Remove o botão de aprovar e altera o botão de recusar para cancelar
         const actionButtons = detailsRow.querySelector('.action-buttons');
