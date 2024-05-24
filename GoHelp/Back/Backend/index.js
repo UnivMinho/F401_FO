@@ -22,7 +22,7 @@ function loadInitiatives(map) {
   const initiatives = JSON.parse(localStorage.getItem("initiatives")) || [];
   const tbody = document.getElementById("initiatives-tbody");
   const initiativesIniciadas = initiatives.filter(
-    (initiative) => initiative.status === "Por decorrer" 
+    (initiative) => initiative.status === "a decorrer" 
   )
   tbody.innerHTML = '';
 
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   const initiatives = JSON.parse(localStorage.getItem("initiatives")) || [];
   const contagemporrealizar = initiatives.filter(
-    (initiative) => initiative.status === "aprovada"
+    (initiative) => initiative.status === "por realizar"
   ).length;
   document.getElementById("iniciativas-por-realizar").innerText =
     contagemporrealizar;
