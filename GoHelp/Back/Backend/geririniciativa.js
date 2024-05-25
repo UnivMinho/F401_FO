@@ -51,12 +51,12 @@ function createRowHTML(initiative) {
     const profissionaisHTML = createProfessionalsDropdown(initiative.id);
     const lideresDropdownHTML = createLeadersDropdown(initiative.id, initiative.lider);
 
-    let actionButtonsHTML = `
-        <button class="btn btn-danger" onclick="recusarIniciativa(${initiative.id})">Recusar</button>`;
+    let actionButtonsHTML = '';
     
-    // Se a iniciativa não tiver restrições, adicionar o botão de Aprovar
+    // Se a iniciativa não tiver restrições, adicionar os botões de Aprovar e Recusar
     if (!initiative.restrictions || initiative.restrictions.trim() === "") {
         actionButtonsHTML += `
+            <button class="btn btn-danger" onclick="recusarIniciativa(${initiative.id})">Recusar</button>
             <button class="btn btn-success" onclick="aprovarIniciativa(this)">Aprovar</button>`;
     }
 
@@ -141,8 +141,8 @@ function createRowHTML(initiative) {
                     <div class="d-flex">
                         <div class="min-width-cell">
                             <p>Restrições</p>
-                            <h5 style="color: red">${initiative.restrictions}</h5>
-                            <h8>${initiative.rejectReason}</h8>
+                            <h5 style="color: red">${initiative.restrictions || 'Sem restrições'}</h5>
+                            <h8>${initiative.rejectReason || 'Sem restrições'}</h8>
                         </div>
                         <div class="action-buttons ml-auto">
                             ${actionButtonsHTML}
@@ -155,23 +155,24 @@ function createRowHTML(initiative) {
 }
 
 
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // Exemplo de iniciativa a ser adicionada
 const iniciativaExemplo = {
-    id: "id-2711228062873-4703",
-    type: "Campanhas",
+    id: "id-2332111112113-4703",
+    type: "Limpeza",
     volunteers: "5",
     location: "Apulia",
     latitude: 40.7928393,
     longitude: 17.1011931,
     date: "2024-05-25",
     start_hour: "12:49",
-    end_hour: "17:00",
+    end_hour: "18:25",
     name: "PRAIA",
     description: "ADORO PRAIA",
     comments: "QUERO BASSOURAS, PUTAS E VINHO VERDE",
-    status: "Pendente",
+    status: "A decorrer",
     userEmail: "mirefightyt@gmail.com",
     associatedVolunteers: ["mirefightyt@gmail.com"],
     lider: "Liandro Cruz",
@@ -602,27 +603,16 @@ function recusarIniciativa(initiativeId) {
 
 
 
-// Função para alternar a exibição da linha de detalhes
-function toggleDetailsRow(button) {
-    const detailsRow = button.parentElement.nextElementSibling;
-    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
-}
- 
 function atualizarEstadoIniciativasEQuantidades() {
     const agora = new Date();
-    const hoje = agora.toLocaleDateString();
+    const hoje = agora.toISOString().split('T')[0]; // Obter data no formato "YYYY-MM-DD"
     const iniciativas = JSON.parse(localStorage.getItem('initiatives')) || [];
     const materiaisData = JSON.parse(localStorage.getItem('materials')) || [];
 
     iniciativas.forEach(initiative => {
-        const [ano, mes, dia] = initiative.date.split('-').map(Number); // Ajuste para o formato de data "YYYY-MM-DD"
+        const [ano, mes, dia] = initiative.date.split('-').map(Number);
         const [horas, minutos] = initiative.end_hour.split(':').map(Number);
         const endDate = new Date(ano, mes - 1, dia, horas, minutos);
-
-        console.log(`Verificando iniciativa: ${initiative.description}`);
-        console.log(`Status atual: ${initiative.status}`);
-        console.log(`End Date: ${endDate}`);
-        console.log(`Data e hora atual: ${agora}`);
 
         if (initiative.status === 'A decorrer') {
             // Atualizar quantidades de materiais para iniciativas em curso hoje
@@ -630,14 +620,27 @@ function atualizarEstadoIniciativasEQuantidades() {
                 initiative.materiais.forEach(materialUtilizado => {
                     const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
                     if (material) {
-                        material.quantidadeTerreno = (material.quantidadeTerreno || 0) + parseInt(materialUtilizado.quantidade);
-                        material.quantidade -= parseInt(materialUtilizado.quantidade);
+                        // Garantir que a quantidade só é transferida uma vez
+                        if (!material.hasOwnProperty('quantidadeTerreno')) {
+                            material.quantidadeTerreno = 0;
+                        }
 
-                        // Verificação se a quantidade fica abaixo de 0
-                        if (material.quantidade < 0) {
-                            const unidadesNecessarias = Math.abs(material.quantidade);
-                            alert(`Deve adicionar ${unidadesNecessarias} unidades do material ${material.nome}`);
-                            material.quantidade = 0; // Ajusta a quantidade para 0 para evitar valores negativos
+                        // Verifica se a quantidade já foi transferida para o terreno
+                        const quantidadeUtilizada = parseInt(materialUtilizado.quantidade);
+                        if (!initiative.hasOwnProperty('quantidadeTransferida')) {
+                            initiative.quantidadeTransferida = {};
+                        }
+
+                        if (!initiative.quantidadeTransferida[material.nome]) {
+                            material.quantidadeTerreno += quantidadeUtilizada;
+                            material.quantidade -= quantidadeUtilizada;
+                            initiative.quantidadeTransferida[material.nome] = true;
+
+                            if (material.quantidade < 0) {
+                                const unidadesNecessarias = Math.abs(material.quantidade);
+                                alert(`Deve adicionar ${unidadesNecessarias} unidades do material ${material.nome}`);
+                                material.quantidade = 0; // Ajusta a quantidade para 0 para evitar valores negativos
+                            }
                         }
                     }
                 });
@@ -645,10 +648,9 @@ function atualizarEstadoIniciativasEQuantidades() {
 
             // Verificar se a iniciativa já passou do end_hour e atualizar o estado
             if (agora > endDate) {
-                console.log(`Mudando status para concluída: ${initiative.description}`);
                 initiative.status = 'Concluída';
 
-                // Transferir quantidadeTerreno para quantidade
+                // Transferir quantidadeTerreno de volta para quantidade
                 initiative.materiais.forEach(materialUtilizado => {
                     const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
                     if (material && material.quantidadeTerreno) {
@@ -656,21 +658,10 @@ function atualizarEstadoIniciativasEQuantidades() {
                         material.quantidadeTerreno = 0;
                     }
                 });
+
+                // Remover o flag de quantidade transferida
+                delete initiative.quantidadeTransferida;
             }
-        }
-
-        // Transferir quantidadeTerreno para quantidade para iniciativas concluídas
-        if (initiative.status === 'Concluída') {
-            initiative.materiais.forEach(materialUtilizado => {
-                const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
-                if (material && material.quantidadeTerreno) {
-                    material.quantidade += material.quantidadeTerreno;
-                    material.quantidadeTerreno = 0;
-                }
-            });
-
-            // Salvar a iniciativa concluída
-            salvarIniciativaConcluida(initiative);
         }
     });
 
@@ -679,7 +670,7 @@ function atualizarEstadoIniciativasEQuantidades() {
 }
 
 function verificarAtualizacaoDiaria() {
-    const hoje = new Date().toLocaleDateString();
+    const hoje = new Date().toISOString().split('T')[0];
     const ultimaAtualizacao = localStorage.getItem('ultimaAtualizacao');
 
     if (ultimaAtualizacao !== hoje) {
@@ -687,6 +678,9 @@ function verificarAtualizacaoDiaria() {
         localStorage.setItem('ultimaAtualizacao', hoje);
     }
 }
+
+
+
 
 function salvarIniciativaConcluida(initiative) {
     const iniciativasConcluidas = JSON.parse(localStorage.getItem('iniciativasConcluidas')) || [];
@@ -751,7 +745,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function verificarRestricoesIniciativasPendentes() {
     const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
     const pendentes = initiatives.filter(i => i.status === 'Pendente');
-    const avisoPorTipo = "Aviso: Existem múltiplas iniciativas do mesmo tipo neste dia.";
+    const aprovadas = initiatives.filter(i => i.status === 'Por realizar' || i.status === 'Por realizar');
+    const avisoPorTipo = "Aviso: Existe uma iniciativa do mesmo tipo marcada para o mesmo dia!.";
     const avisoPorQuantidade = "Aviso: Existem mais de 3 iniciativas neste dia.";
 
     const iniciativasPorDia = pendentes.reduce((acc, initiative) => {
@@ -765,7 +760,11 @@ function verificarRestricoesIniciativasPendentes() {
 
     Object.keys(iniciativasPorDia).forEach(date => {
         const iniciativasDia = iniciativasPorDia[date];
-        iniciativasDia.forEach(initiative => initiative.restrictions = ""); // Limpar restrições existentes
+        iniciativasDia.forEach(initiative => {
+            initiative.restrictions = ""; // Limpar restrições existentes
+            initiative.rejectReason = ""; // Limpar razões de recusa existentes
+        });
+
         const tiposIniciativas = iniciativasDia.reduce((acc, initiative) => {
             const type = initiative.type;
             if (!acc[type]) {
@@ -775,18 +774,24 @@ function verificarRestricoesIniciativasPendentes() {
             return acc;
         }, {});
 
-        // Função de auxílio para adicionar avisos sem duplicar
-        function adicionarAviso(initiative, aviso) {
-            if (!initiative.restrictions.includes(aviso)) {
-                initiative.restrictions += `${aviso} `;
-                initiative.status = "Recusada";
-            }
-        }
-
         // Verificar múltiplas iniciativas do mesmo tipo no mesmo dia
         Object.keys(tiposIniciativas).forEach(type => {
-            if (tiposIniciativas[type].length > 1) {
-                tiposIniciativas[type].forEach(initiative => adicionarAviso(initiative, avisoPorTipo));
+            const iniciativasMesmoTipo = tiposIniciativas[type];
+            if (iniciativasMesmoTipo.length > 1) {
+                iniciativasMesmoTipo.forEach(initiative => {
+                    adicionarAviso(initiative, avisoPorTipo);
+                });
+            }
+        });
+
+        // Verificar se já existe uma iniciativa aprovada do mesmo tipo neste dia
+        Object.keys(tiposIniciativas).forEach(type => {
+            const iniciativasMesmoTipo = tiposIniciativas[type];
+            const iniciativasAprovadasMesmoDiaETipo = aprovadas.filter(i => i.date === date && i.type === type);
+            if (iniciativasAprovadasMesmoDiaETipo.length > 0) {
+                iniciativasMesmoTipo.forEach(initiative => {
+                    adicionarAviso(initiative, avisoPorTipo);
+                });
             }
         });
 
@@ -796,8 +801,17 @@ function verificarRestricoesIniciativasPendentes() {
         }
     });
 
+    function adicionarAviso(initiative, aviso) {
+        if (!initiative.restrictions.includes(aviso)) {
+            initiative.restrictions += `${aviso} `;
+            initiative.rejectReason += `${aviso} `;
+            initiative.status = "Recusada";
+        }
+    }
+
     localStorage.setItem('initiatives', JSON.stringify(initiatives));
 }
+
 
 
 
