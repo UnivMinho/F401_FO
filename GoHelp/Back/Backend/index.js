@@ -104,7 +104,7 @@ function loadMaterials() {
 document.addEventListener("DOMContentLoaded", function () {
   const initiatives = JSON.parse(localStorage.getItem("initiatives")) || [];
   const contagempendentes = initiatives.filter(
-    (initiative) => initiative.status === "pendente"
+    (initiative) => initiative.status === "Pendente"
   ).length;
   document.getElementById("iniciativas-pendentes").innerText =
     contagempendentes;
