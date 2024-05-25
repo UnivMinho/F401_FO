@@ -67,7 +67,7 @@ function createRowHTML(initiative) {
 
     return `
     <tr data-id="${initiative.id}" style="background-color: green;">
-        <td>${initiative.description}</td>
+        <td>${initiative.name}</td>
         <td>${initiative.type}</td>
         <td>${getProponentName(initiative.userEmail)}</td>
         <td class="status-cell">${initiative.status}</td>
@@ -210,11 +210,11 @@ const iniciativaExemplo = {
     latitude: 40.7928393,
     longitude: 17.1011931,
     date: "2024-05-25",
-    start_hour: "12:49",
-    end_hour: "19:27",
-    name: "PRAIA",
-    description: "ADORO PRAIA",
-    comments: "QUERO BASSOURAS, PUTAS E VINHO VERDE",
+    start_hour: "19:00",
+    end_hour: "23:00",
+    name: "Limpar a praia juntos!",
+    description: "Vamos todos reunir e limpar a praia da Apulia",
+    comments: "Preciso de baldes",
     status: "A decorrer",
     userEmail: "mirefightyt@gmail.com",
     associatedVolunteers: ["mirefightyt@gmail.com"],
