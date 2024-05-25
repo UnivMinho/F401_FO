@@ -115,7 +115,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="logout.html">
+            <a class="nav-link" id="logoutButton" href="../Front/index.html">
               <i class="mdi mdi-logout menu-icon"></i>
               <span class="menu-title">Log Out</span>
             </a>
@@ -230,6 +230,7 @@
                           <label class="sr-only" for="quantityInput">Quantidade</label>
                           <div class="input-group">
                             <input type="number" class="form-control" id="quantityInput" value="1" min="1">
+                            <span class="availability">Disponibilidade: <span class="quantity-available">0</span></span>
                           </div>
                         </div>
                       </div>
@@ -302,7 +303,7 @@
   <script src="js/template.js"></script>
   <script src="js/settings.js"></script>
   <script src="js/todolist.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7M3JveIeVQP579NFgw4nG_uGR8dp1XI&libraries=places&callback=initMap" async defer></script>
+  <script src="../Front/js/google.js" type="module"></script>  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7M3JveIeVQP579NFgw4nG_uGR8dp1XI&libraries=places&callback=initMap" async defer></script>
   <script src="./Backend/criariniciativa.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->

@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const quantity = quantityInput.value; 
 
       if (materialNome !== "Selecionar Material..." && quantity) {
-        materials.push({ material: materialNome, quantity });
+        materials.push({ nome: materialNome, quantidade: quantity });
       }
     });
     serializedData.materials = materials;
@@ -132,8 +132,8 @@ function saveDataToLocalStorage(data) {
               end_hour: data["end-hour"],
               description: data["iniciativa-description"],
               comments: data["iniciativa-comments"],
-              materials: data.materials,
-              professionals: data.professionals,
+              materiais: data.materials,
+              professionais: data.professionals,
               status: "Por realizar",
               userEmail: userEmail,
               associatedVolunteers: [userEmail],
@@ -280,3 +280,66 @@ document.addEventListener("DOMContentLoaded", function () {
     input.dataset.placeholder = input.getAttribute("placeholder");
   });
 });
+
+//Event listener para verificar as quantidades disponíveis dos materiais 
+document.addEventListener("DOMContentLoaded", function() {
+  const materialDropdown = document.querySelector(".material-dropdown");
+  const availabilitySpan = document.querySelector(".quantity-available");
+
+  materialDropdown.addEventListener("change", function() {
+      const selectedOption = materialDropdown.options[materialDropdown.selectedIndex];
+      const selectedMaterialName = selectedOption.text;
+      console.log(selectedMaterialName);
+      const selectedDate = document.getElementById("iniciativa-date").value;
+
+      const initiatives = fetchInitiativesForDate(selectedDate);
+
+      const availability = calculateMaterialAvailability(initiatives, selectedMaterialName);
+
+      availabilitySpan.textContent = availability;
+  });
+});
+
+//Vai buscar a localStorage todas as inicativas na mesma data introduzida
+function fetchInitiativesForDate(date) {
+  const initiatives = JSON.parse(localStorage.getItem("initiatives")) || [];
+  return initiatives.filter(initiative => initiative.date === date);
+}
+
+//Percorre todas as iniciativas para ver quais usam o material em causa
+function calculateMaterialAvailability(initiatives, materialName) {
+  let totalQuantity = 0;
+
+  initiatives.forEach(initiative => {
+  
+      if (initiative.materiais) {
+
+          if (initiative.materiais.length > 0) {
+              if (initiative.materiais.some(material => material.nome === materialName)) {
+                 
+                  const material = initiative.materiais.find(material => material.nome === materialName);
+                  totalQuantity += parseInt(material.quantidade);
+              }
+          } else {
+              console.log("No materials found in initiative.");
+          }
+      }
+  });
+
+  const totalAvailable = fetchTotalQuantity(materialName);
+
+  const availability = totalAvailable - totalQuantity;
+
+  return availability >= 0 ? availability : "N/A";
+}
+
+//Função para ir buscar a quantidade total do material
+function fetchTotalQuantity(materialName) {
+  const materials = JSON.parse(localStorage.getItem("materials")) || [];
+  const material = materials.find(material => material.nome === materialName);
+  return material ? parseInt(material.quantidade) : 0;
+}
+
+
+
+

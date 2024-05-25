@@ -133,6 +133,13 @@ function validateHour() {
 
     let timeError = document.getElementById("timeError");
 
+    if (endHour < startHour) {
+        timeError.innerText = "A hora de fim da iniciativa é menor que a hora de início."
+        return false;
+    }else{
+        timeError.innerText = "";
+    }
+
     switch (tipoIniciativa) {
         case 'Limpeza':
         case 'Reflorestação':
