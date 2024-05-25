@@ -148,84 +148,78 @@
                     <div class="col-lg-12 col-12">
                       <h5 class="mb-3">Tipo de iniciativa:</h5>
                     </div>
-
+                
                     <div class="col-lg-6 col-6 form-check-group form-check-group-donation-frequency">
                       <div class="form-check form-check-radio">
-                        <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaLimpeza"
-                          value="Limpeza" checked>
+                        <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaLimpeza" value="Limpeza" checked>
                         <label class="form-check-label" for="TipoIniciativaLimpeza">Limpeza</label>
                       </div>
                     </div>
                     <div class="col-lg-6 col-6 form-check-group form-check-group-donation-frequency">
                       <div class="form-check form-check-radio">
-                        <input class="form-check-input" type="radio" name="TipoIniciativa"
-                          id="TipoIniciativaReflorestacao" value="Reflorestação">
+                        <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaReflorestacao" value="Reflorestação">
                         <label class="form-check-label" for="TipoIniciativaReflorestacao">Reflorestação</label>
                       </div>
                     </div>
                     <div class="col-lg-6 col-6 form-check-group form-check-group-donation-frequency">
                       <div class="form-check form-check-radio">
-                        <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaCampanhas"
-                          value="Campanhas">
+                        <input class="form-check-input" type="radio" name="TipoIniciativa" id="TipoIniciativaCampanhas" value="Campanhas">
                         <label class="form-check-label" for="TipoIniciativaCampanhas">Campanhas</label>
                       </div>
                     </div>
-                    </script>
-                    <div class="form-group">
-                      <br>
-                      <label for="localizacaoPretendida">Nome da Iniciativa</label>
-                      <input type="text" name="iniciativa-title" id="iniciativa-title" class="form-control"
-                        placeholder="Praia limpa!" required>
-                    </div>
-                    <label for="exampleInputName1">Número máximo de participantes</label>
-                    <input type="number" class="form-control" id="volunteersInput" name="volunteers" value="1" min="1"
-                      max="100">
                   </div>
+                
                   <div class="form-group">
-                    <label for="localizacaoPretendida">Localização pretendida</label>
-                    <input type="text" name="iniciativa-location" id="iniciativa-location" class="form-control"
-                      placeholder="Praia do Senhor da Pedra, Vila Nova de Gaia " required>
+                    <label for="iniciativa-title">Nome da Iniciativa</label>
+                    <input type="text" name="iniciativa-title" id="iniciativa-title" class="form-control" placeholder="Praia limpa!" required>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="volunteersInput">Número máximo de participantes</label>
+                    <input type="number" class="form-control" id="volunteersInput" name="volunteers" value="1" min="1" max="100">
+                  </div>
+                
+                  <div class="form-group">
+                    <label for="iniciativa-location">Localização pretendida</label>
+                    <input type="text" name="iniciativa-location" id="iniciativa-location" class="form-control" placeholder="Praia do Senhor da Pedra, Vila Nova de Gaia " required>
                     <span id="locationError" style="color: red;"></span>
                   </div>
+                
                   <div class="form-group">
-                    <label for="horaInicio">Dia</label>
+                    <label for="iniciativa-date">Dia</label>
                     <div class="input-group">
                       <input type="date" name="iniciativa-date" id="iniciativa-date" class="form-control" required>
                       <span id="dateError" style="color: red;"></span>
                     </div>
                   </div>
-
+                
                   <div class="form-group">
-                    <label for="horaInicio">Hora Inicio</label>
+                    <label for="start-hour">Hora Inicio</label>
                     <div class="input-group">
                       <input type="time" name="start-hour" id="start-hour" class="form-control" required>
-                      <label style="margin-top: -99px;" for="horaFim">Hora Fim</label>
+                      <label for="end-hour">Hora Fim</label>
                       <input type="time" name="end-hour" id="end-hour" class="form-control" required>
                     </div>
                   </div>
+                
                   <div class="form-group">
-                    <label for="descricao">Breve Descrição</label>
-                    <input type="text" name="iniciativa-description" id="iniciativa-description" class="form-control"
-                      placeholder="Vamos querer limpar a praia com vassouras e meter em saco do lixo. Há 3 elementos que já vão levar vassouras de casa, mas nenhum elemento vai levar sacos do lixo. Até já!">
+                    <label for="iniciativa-description">Breve Descrição</label>
+                    <input type="text" name="iniciativa-description" id="iniciativa-description" class="form-control" placeholder="Breve descrição da iniciativa">
                   </div>
+                
                   <div class="form-group">
-                    <label for="Observacoes">Observações</label>
-                    <input type="text" name="iniciativa-comments" id="iniciativa-comments" class="form-control"
-                      placeholder="Vamos querer limpar a praia com vassouras e meter em saco do lixo. Há 3 elementos que já vão levar vassouras de casa, mas nenhum elemento vai levar sacos do lixo. Até já!">
+                    <label for="iniciativa-comments">Observações</label>
+                    <input type="text" name="iniciativa-comments" id="iniciativa-comments" class="form-control" placeholder="Observações adicionais">
                   </div>
-
-
-
-                  <!-- FORMULÁRIO INTERVALOS -->
-                  <label for="exampleInputName1">Materiais a utilizar</label>
-                  <form id="materials-form">
-                    <div class="materials-container">
+                
+                  <!-- Materiais a utilizar -->
+                  <div class="form-group">
+                    <label for="materials-form">Materiais a utilizar</label>
+                    <div id="materials-form" class="materials-container">
                       <div class="form-row align-items-center material-row">
                         <div class="col-sm-6 my-1">
                           <label class="sr-only" for="materialDropdown">Material</label>
                           <div class="input-group">
-                            <div class="input-group-prepend">
-                            </div>
                             <select class="custom-select material-dropdown mr-3">
                               <option selected>Selecionar Material...</option>
                               <!-- Mais opções aqui -->
@@ -235,35 +229,24 @@
                         <div class="col-sm-6 my-1">
                           <label class="sr-only" for="quantityInput">Quantidade</label>
                           <div class="input-group">
-                            <div class="input-group-prepend">
-                            </div>
                             <input type="number" class="form-control" id="quantityInput" value="1" min="1">
-                            <div class="input-group-append">
-                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-sm-6 my-1">
-                      <button type="button" class="btn btn-link add-material-button"
-                        style="margin-left: -2.9em; margin-bottom: 2em;">
-                        <i class="mdi mdi-plus-circle-outline"></i> Adicionar Material
-                      </button>
-                    </div>
-                  </form>
-
-
-
-                  <!-- FORMULÁRIO PROFISSIONAIS -->
-                  <label for="exampleInputName1">Associar Profissional</label>
-                  <form id="profissionais-form">
-                    <div class="profissional-container">
+                    <button type="button" class="btn btn-link add-material-button" style="margin-bottom: 2em;">
+                      <i class="mdi mdi-plus-circle-outline"></i> Adicionar Material
+                    </button>
+                  </div>
+                
+                  <!-- Associar Profissional -->
+                  <div class="form-group">
+                    <label for="profissionais-form">Associar Profissional</label>
+                    <div id="profissionais-form" class="profissional-container">
                       <div class="form-row align-items-center profissional-row">
                         <div class="col-sm-6 my-1">
                           <label class="sr-only" for="profissionalDropdown">Profissional</label>
                           <div class="input-group">
-                            <div class="input-group-prepend">
-                            </div>
                             <select class="custom-select profissional-dropdown mr-3 mb-5">
                               <option selected>Selecionar Profissional...</option>
                             </select>
@@ -271,19 +254,16 @@
                         </div>
                       </div>
                     </div>
-                  </form>
-                  <div class="col-sm-6 my-1">
-                    <button type="button" class="btn btn-link add-professional-button"
-                      style="margin-left: -2.9em; margin-top:-4em;">
+                    <button type="button" class="btn btn-link add-professional-button" style="margin-top: -4em;">
                       <i class="mdi mdi-plus-circle-outline"></i> Adicionar Profissional
                     </button>
                   </div>
-
-
+                
                   <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary mr-2">Criar Iniciativa</button>
                   </div>
                 </form>
+                
               </div>
             </div>
           </div>
@@ -322,11 +302,46 @@
   <script src="js/template.js"></script>
   <script src="js/settings.js"></script>
   <script src="js/todolist.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAY7M3JveIeVQP579NFgw4nG_uGR8dp1XI&libraries=places&callback=initMap" async defer></script>
   <script src="./Backend/criariniciativa.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
+
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">Iniciativa Guardada</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Iniciativa guardada e a aguardar aprovação!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="unsuccessModal" tabindex="-1" aria-labelledby="unsuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="unsuccessModalLabel">Erro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Localização inválida. Por favor insira outra localização e submeta novamente.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

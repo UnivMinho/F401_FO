@@ -1,3 +1,8 @@
+// Função para gerar ID
+function generateUniqueId() {
+  return 'id-' + new Date().getTime() + '-' + Math.floor(Math.random() * 10000);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const userData = JSON.parse(localStorage.getItem("userData"));
     const userProfileImage = userData.profileImage || userData.imageUrl;
@@ -13,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
       option.textContent = material.nome;
       materialDropdown.appendChild(option);
     });
+
     const addMaterialButton = document.querySelector(".add-material-button");
     addMaterialButton.addEventListener("click", function () {
         const materialTemplate = document.querySelector(".material-row");
@@ -33,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
       option.textContent = profissional.nome;
       profissionalDropdown.appendChild(option);
     });
+
     const addProfessionalButton = document.querySelector(".add-professional-button");
     addProfessionalButton.addEventListener("click", function () {
         // Clone do modelo do profissional
@@ -56,6 +63,29 @@ document.addEventListener("DOMContentLoaded", function () {
       for (const [key, value] of formData.entries()) {
         serializedData[key] = value;
       }
+
+      // Adicionar materiais
+      const materials = [];
+      document.querySelectorAll(".material-row").forEach((row) => {
+          const material = row.querySelector(".material-dropdown").value;
+          const quantity = row.querySelector("#quantityInput").value;
+          if (material !== "Selecionar Material...") {
+              materials.push({ material, quantity });
+          }
+      });
+      serializedData.materials = materials;
+
+      // Adicionar profissionais
+      const professionals = [];
+      document.querySelectorAll(".profissional-row").forEach((row) => {
+          const professional = row.querySelector(".profissional-dropdown").value;
+          if (professional !== "Selecionar Profissional...") {
+              professionals.push(professional);
+          }
+      });
+
+      serializedData.professionals = professionals;
+
   
       // Salvar dados em localStorage
       saveDataToLocalStorage(serializedData);
@@ -87,8 +117,8 @@ document.addEventListener("DOMContentLoaded", function () {
               end_hour: data["end-hour"],
               description: data["iniciativa-description"],
               comments: data["iniciativa-comments"],
-              materials: data["materials"],
-              professionals: data["profissionais"],
+              materials: data.materials,
+              professionals: data.professionals,
               status: "Por realizar",
               userEmail: userEmail,
               associatedVolunteers: [userEmail],
@@ -97,14 +127,14 @@ document.addEventListener("DOMContentLoaded", function () {
   
             localStorage.setItem("initiatives", JSON.stringify(existingInitiatives));
   
-            const successModal = new bootstrap.Modal(document.getElementById("successModal"));
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
             successModal.show();
   
-            form.reset();
-            clearAndRestoreFormInputs(form);
+            document.querySelector('.forms-sample').reset();
+            clearAndRestoreFormInputs(document.querySelector('.forms-sample'));
             locationError.innerText = "";
           } else {
-            const unsuccessModal = new bootstrap.Modal(document.getElementById("unsuccessModal"));
+            const unsuccessModal = new bootstrap.Modal(document.getElementById('unsuccessModal'));
             unsuccessModal.show();
   
             locationError.innerText = "Localização inválida. Por favor insira outra localização e submeta novamente.";
