@@ -859,6 +859,11 @@ function verificarRestricoesIniciativasPendentes() {
             initiative.restrictions += `${aviso} `;
             initiative.rejectReason += `${aviso} `;
             initiative.status = "Recusada";
+
+            // Enviar notificação ao utilizador
+            const userEmail = initiative.userEmail;
+            const notificationMessage = `A sua iniciativa "${initiative.name}" foi recusada pelo seguinte motivo: ${initiative.rejectReason}.`;
+            sendNotification(userEmail, notificationMessage);
         }
     }
 
