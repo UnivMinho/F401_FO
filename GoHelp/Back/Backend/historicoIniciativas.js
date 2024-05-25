@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tableBody.innerHTML = '';
 
         initiatives.forEach(initiative => {
-            if (initiative.status === "concluída") {
+            if (initiative.status === "Concluída") {
                 // Garantir que associatedVolunteers seja um array
                 initiative.associatedVolunteers = initiative.associatedVolunteers || [];
 
