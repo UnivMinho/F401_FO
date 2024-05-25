@@ -22,7 +22,7 @@ function loadInitiatives(map) {
   const initiatives = JSON.parse(localStorage.getItem("initiatives")) || [];
   const tbody = document.getElementById("initiatives-tbody");
   const initiativesIniciadas = initiatives.filter(
-    (initiative) => initiative.status === "a decorrer" 
+    (initiative) => initiative.status === "A decorrer" 
   )
   tbody.innerHTML = '';
 
