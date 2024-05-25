@@ -81,7 +81,7 @@ function setPredefinedInitiatives() {
                 date: '2024-04-15',
                 start_hour: '21:00',
                 end_hour: '22:00',
-                name: 'Sensibilização Ambiental',
+                name: 'Sabe mais sobre o ambiente!',
                 description: 'Venha apreender mais sobre o ambiente!',
                 comments: 'Materiais: panfletos. Profissionais: Orador',
                 status: 'Concluída',
@@ -93,25 +93,25 @@ function setPredefinedInitiatives() {
                 restrictions: ''
             },
             {
-            id: generateUniqueId(),
-            type: 'Campanhas',
-            volunteers: 5,
-            location: 'Universidade do Minho',
-            latitude: 41.541648,
-            longitude: -8.421845099999999,
-            date: '2024-05-25',
-            start_hour: '19:20',
-            end_hour: '20:20',
-            name: 'Sensibilização Ambiental',
-            description: 'Venha apreender mais sobre o ambiente!',
-            comments: 'Materiais: panfletos. Profissionais: Orador',
-            status: 'A decorrer',
-            userEmail: 'pwtrabalho1@gmail.com',
-            associatedVolunteers: ['pwtrabalho1@gmail.com'],
-            lider: 'Trabalho PW',
-            materiais: [{nome:'Panfletos', quantidade:'5'}],
-            profissional: {nome: 'Mafalda Miguel', cargo: 'Oradora'},
-            restrictions: ''
+                id: generateUniqueId(),
+                type: 'Campanhas',
+                volunteers: 8,
+                location: 'Universidade do Minho',
+                latitude: 41.541648,
+                longitude: -8.421845099999999,
+                date: '2024-05-29',
+                start_hour: '09:40',
+                end_hour: '10:40',
+                name: 'Apresentação PW',
+                description: 'Realização da apresentação de PW!',
+                comments: 'Materiais: projetor. Profissionais: Orador',
+                status: 'Por realizar',
+                userEmail: 'pwtrabalho1@gmail.com',
+                associatedVolunteers: ['pwtrabalho1@gmail.com'],
+                lider: 'Trabalho PW',
+                materiais: [{nome:'Projetores', quantidade:'1'}],
+                profissional: {nome: 'Mafalda Miguel', cargo: 'Oradora'},
+                restrictions: ''
             }
 
         ];
@@ -126,49 +126,49 @@ function setPredefinedMaterials() {
     if (!existingMaterials || existingMaterials.length === 0) {
         const predefinedMaterials = [
             {
-                id:'1716570258231',
+                id: 1716570258231,
                 imagem: '',
                 nome: 'Luvas',
                 quantidade: 50,
                 quantidadeTerreno: 0
             },
             {
-                id: '1716570258232',
+                id: 1716570258232,
                 imagem: '',
                 nome: 'Sementes',
                 quantidade: 150,
                 quantidadeTerreno: 0
             },
             {
-                id:'1716570258233',
+                id: 1716570258233,
                 imagem: '',
                 nome: 'Sacos do lixo',
                 quantidade: 100,
                 quantidadeTerreno: 0
             },
             {
-                id:'1716570258234',
+                id: 1716570258234,
                 imagem: '',
                 nome: 'Projetores',
                 quantidade: 5,
                 quantidadeTerreno: 0
             },
             {
-                id:'1716570258238',
+                id: 1716570258238,
                 imagem: '',
                 nome: 'Panfletos',
                 quantidade: 100,
                 quantidadeTerreno: 0
             },
             {
-                id:'1716570258235',
+                id: 1716570258235,
                 imagem: '',
                 nome: 'Pás',
                 quantidade: 30,
                 quantidadeTerreno: 0
             },
             {
-                id: '1716570258236', 
+                id: 1716570258236, 
                 imagem: '',
                 nome: 'Carrinhos de mão',
                 quantidade: 15,
