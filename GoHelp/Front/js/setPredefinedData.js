@@ -127,49 +127,49 @@ function setPredefinedMaterials() {
         const predefinedMaterials = [
             {
                 id: 1716570258231,
-                imagem: '',
+                imagem: 'https://mindthetrash.pt/wp-content/uploads/2023/11/Luvas_latex_natural_02_mind_the_trash.jpg',
                 nome: 'Luvas',
                 quantidade: 50,
                 quantidadeTerreno: 0
             },
             {
                 id: 1716570258232,
-                imagem: '',
+                imagem: 'https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/201801/16/05218139100210____5__600x600.jpg',
                 nome: 'Sementes',
                 quantidade: 150,
                 quantidadeTerreno: 0
             },
             {
                 id: 1716570258233,
-                imagem: '',
+                imagem: 'https://plasticosmacar.pt/430-large_default/sacos-rolo-lixo-domestico.jpg',
                 nome: 'Sacos do lixo',
                 quantidade: 100,
                 quantidadeTerreno: 0
             },
             {
                 id: 1716570258234,
-                imagem: '',
+                imagem: 'https://www.bcnonline.pt/wp-content/uploads/2020/11/epsonEB-w49.jpg',
                 nome: 'Projetores',
                 quantidade: 5,
                 quantidadeTerreno: 0
             },
             {
                 id: 1716570258238,
-                imagem: '',
+                imagem: 'https://www.nblgrafica.com/uploads/produtos/panfletos-14x20cm-couche-brilho-90g-corte-reto-4x0-16900291388282773164bbcc52c739c.png',
                 nome: 'Panfletos',
                 quantidade: 100,
                 quantidadeTerreno: 0
             },
             {
                 id: 1716570258235,
-                imagem: '',
+                imagem: 'https://cdn.pecol.pt/files/ImagensDoGlaciar/31543_0113110101.79_Pas.png',
                 nome: 'Pás',
                 quantidade: 30,
                 quantidadeTerreno: 0
             },
             {
                 id: 1716570258236, 
-                imagem: '',
+                imagem: 'https://media.adeo.com/marketplace/LMPT/88281618/2303397.jpeg?width=3000&height=3000&format=jpg&quality=80&fit=bounds',
                 nome: 'Carrinhos de mão',
                 quantidade: 15,
                 quantidadeTerreno: 0
