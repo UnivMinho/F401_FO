@@ -79,7 +79,7 @@ function createMaterialTableRow(material) {
   const tr = document.createElement("tr");
   tr.innerHTML = `
     <td>${material.nome}</td>
-    <td>0</td>
+    <td>${material.quantidadeTerreno}</td>
     <td>${material.quantidade}</td>
   `;
   return tr;

@@ -91,7 +91,29 @@ function setPredefinedInitiatives() {
                 materiais: [{nome:'Panfletos', quantidade:'5'}],
                 profissional: {nome: 'Mafalda Miguel', cargo: 'Oradora'},
                 restrictions: ''
+            },
+            {
+            id: generateUniqueId(),
+            type: 'Campanhas',
+            volunteers: 5,
+            location: 'Universidade do Minho',
+            latitude: 41.541648,
+            longitude: -8.421845099999999,
+            date: '2024-05-25',
+            start_hour: '19:20',
+            end_hour: '20:20',
+            name: 'Sensibilização Ambiental',
+            description: 'Venha apreender mais sobre o ambiente!',
+            comments: 'Materiais: panfletos. Profissionais: Orador',
+            status: 'A decorrer',
+            userEmail: 'pwtrabalho1@gmail.com',
+            associatedVolunteers: ['pwtrabalho1@gmail.com'],
+            lider: 'Trabalho PW',
+            materiais: [{nome:'Panfletos', quantidade:'5'}],
+            profissional: {nome: 'Mafalda Miguel', cargo: 'Oradora'},
+            restrictions: ''
             }
+
         ];
 
         localStorage.setItem('initiatives', JSON.stringify(predefinedInitiatives));
