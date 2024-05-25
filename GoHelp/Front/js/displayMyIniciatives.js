@@ -85,7 +85,7 @@ function displayAndSetStatusUserInitiatives(map) {
         // Definir status com base na data
         const statusCell = row.querySelector('.status-button');
 
-        if (initiative.status === 'pendente') {
+        if (initiative.status === 'Pendente') {
             statusCell.textContent = 'Pendente';
             statusCell.style.backgroundColor = '#D75413';
         } else if (initiative.status === 'Por realizar') {
@@ -94,7 +94,7 @@ function displayAndSetStatusUserInitiatives(map) {
         } else if (initiative.status === 'A decorrer') {
             statusCell.textContent = 'A decorrer';
             statusCell.style.backgroundColor = '#FFD700'; 
-        } else if(initiative.status === 'concluída') {
+        } else if(initiative.status === 'Concluída') {
             statusCell.textContent = 'Concluída';
             statusCell.style.backgroundColor = '#FF0000'; 
         };

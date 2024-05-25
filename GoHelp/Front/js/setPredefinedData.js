@@ -26,7 +26,7 @@ function setPredefinedInitiatives() {
                 associatedVolunteers: ['pwtrabalho1@gmail.com'],
                 lider: 'Trabalho PW',
                 materiais: [{nome:'Luvas', quantidade:'10'},{nome:'Sacos do lixo', quantidade:'20'}],
-                profissional: [{nome: 'Eduardo Gomes', cargo: 'Engenheiro Ambiental'}],
+                profissional: {nome: 'Eduardo Gomes', cargo: 'Engenheiro Ambiental'},
                 restrictions: ''
             },
             {
@@ -47,7 +47,7 @@ function setPredefinedInitiatives() {
                 associatedVolunteers: ['pwtrabalho1@gmail.com'],
                 lider: 'Trabalho PW',
                 materiais: [{nome:'Sementes', quantidade:'5'},{nome:'Pás', quantidade:'10'}],
-                profissional: [{nome: 'Simão Cunha', cargo: 'Engenheiro Florestal'}],
+                profissional: {nome: 'Simão Cunha', cargo: 'Engenheiro Florestal'},
                 restrictions: ''
             },
             {
@@ -68,7 +68,7 @@ function setPredefinedInitiatives() {
                 associatedVolunteers: ['pwtrabalho1@gmail.com'],
                 lider: 'Trabalho PW',
                 materiais: [{nome:'Panfletos', quantidade:'30'}],
-                profissional: [{nome: 'Mafalda Miguel', cargo: 'Oradora'}],
+                profissional: {nome: 'Mafalda Miguel', cargo: 'Oradora'},
                 restrictions: ''
             },
             {
@@ -84,12 +84,12 @@ function setPredefinedInitiatives() {
                 name: 'Sensibilização Ambiental',
                 description: 'Venha apreender mais sobre o ambiente!',
                 comments: 'Materiais: panfletos. Profissionais: Orador',
-                status: 'concluída',
+                status: 'Concluída',
                 userEmail: 'pwtrabalho1@gmail.com',
                 associatedVolunteers: ['pwtrabalho1@gmail.com'],
                 lider: 'Trabalho PW',
                 materiais: [{nome:'Panfletos', quantidade:'5'}],
-                profissional: [{nome: 'Mafalda Miguel', cargo: 'Oradora'}],
+                profissional: {nome: 'Mafalda Miguel', cargo: 'Oradora'},
                 restrictions: ''
             }
         ];
@@ -105,21 +105,21 @@ function setPredefinedMaterials() {
         const predefinedMaterials = [
             {
                 id:'1716570258231',
-                imagem: '../Backend/images/Materiais/luvas.png',
+                imagem: '',
                 nome: 'Luvas',
                 quantidade: 50,
                 quantidadeTerreno: 0
             },
             {
                 id: '1716570258232',
-                imagem: '../Backend/images/Materiais/sementes.png',
+                imagem: '',
                 nome: 'Sementes',
                 quantidade: 150,
                 quantidadeTerreno: 0
             },
             {
                 id:'1716570258233',
-                imagem: '../Backend/images/Materiais/sacolixo.png',
+                imagem: '',
                 nome: 'Sacos do lixo',
                 quantidade: 100,
                 quantidadeTerreno: 0
@@ -140,14 +140,14 @@ function setPredefinedMaterials() {
             },
             {
                 id:'1716570258235',
-                imagem: '../Backend/images/Materiais/pa.png',
+                imagem: '',
                 nome: 'Pás',
                 quantidade: 30,
                 quantidadeTerreno: 0
             },
             {
                 id: '1716570258236', 
-                imagem: '../Backend/images/Materiais/carrinho.png',
+                imagem: '',
                 nome: 'Carrinhos de mão',
                 quantidade: 15,
                 quantidadeTerreno: 0

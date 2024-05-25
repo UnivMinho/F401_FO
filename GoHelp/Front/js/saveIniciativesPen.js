@@ -29,7 +29,7 @@ function saveDataToLocalStorage(data) {
                     name: data['iniciativa-title'], 
                     description: data['iniciativa-description'], 
                     comments: data['iniciativa-comments'],
-                    status: "pendente",
+                    status: "Pendente",
                     userEmail: userEmail,
                     associatedVolunteers: [userEmail]
                 };

@@ -613,7 +613,7 @@
                 created() {
                     try {
                         const pastinitiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
-                        const contagemrealizadas = pastinitiatives.filter(initiative => initiative.status === 'concluída').length;
+                        const contagemrealizadas = pastinitiatives.filter(initiative => initiative.status === 'Concluída').length;
                         const usersData = JSON.parse(localStorage.getItem('usersData')) || [];          
                         const contagemvoluntarios = usersData.filter(user => user.userType === 'Voluntário').length;
                         const professionals = JSON.parse(localStorage.getItem('profissionais')) || [];
@@ -642,7 +642,7 @@
                 created(){
                     try {
                         const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
-                        const contagemtodas = initiatives.filter(initiative => initiative.status === 'concluída' || initiative.status === 'A decorrer' || initiative.status === 'Por realizar').length;
+                        const contagemtodas = initiatives.filter(initiative => initiative.status === 'Concluída' || initiative.status === 'A decorrer' || initiative.status === 'Por realizar').length;
                     
                         this.allInitiatives = contagemtodas || 0;
                     
