@@ -22,7 +22,7 @@ function loadInitiatives(map) {
   const initiatives = JSON.parse(localStorage.getItem("initiatives")) || [];
   const tbody = document.getElementById("initiatives-tbody");
   const initiativesIniciadas = initiatives.filter(
-    (initiative) => initiative.status === "a decorrer" 
+    (initiative) => initiative.status === "A decorrer" 
   )
   tbody.innerHTML = '';
 
@@ -52,7 +52,7 @@ function createInitiativeTableRow(initiative) {
     <td>${initiative.name}</td>
     <td>${initiative.location}</td>
     <td>${initiative.type}</td>
-    <td>${initiative.proponent}</td>
+    <td>${initiative.userEmail}</td>
     <td>
       <div class="progress">
         <div class="progress-bar bg-success" role="progressbar" style="width: ${progress}%" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div>
