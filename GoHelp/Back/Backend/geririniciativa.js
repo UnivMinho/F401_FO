@@ -156,18 +156,50 @@ function createRowHTML(initiative) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    // Exemplo de iniciativa a ser adicionada
+const iniciativaExemplo = {
+    id: "id-2711228062873-4703",
+    type: "Campanhas",
+    volunteers: "5",
+    location: "Apulia",
+    latitude: 40.7928393,
+    longitude: 17.1011931,
+    date: "2024-05-25",
+    start_hour: "12:49",
+    end_hour: "17:00",
+    name: "PRAIA",
+    description: "ADORO PRAIA",
+    comments: "QUERO BASSOURAS, PUTAS E VINHO VERDE",
+    status: "Pendente",
+    userEmail: "mirefightyt@gmail.com",
+    associatedVolunteers: ["mirefightyt@gmail.com"],
+    lider: "Liandro Cruz",
+    profissional: {
+        nome: "Liandro Macedo Cruz",
+        cargo: "guarda"
+    },
+    materiais: [{
+        nome: "Baldes",
+        quantidade: "10"
+    }]
+};
+    // Adicionar a iniciativa de exemplo ao localStorage se ainda não estiver presente
+    const iniciativasExistentes = JSON.parse(localStorage.getItem('initiatives')) || [];
+    const iniciativaJaExiste = iniciativasExistentes.some(i => i.id === iniciativaExemplo.id);
+    if (!iniciativaJaExiste) {
+        iniciativasExistentes.push(iniciativaExemplo);
+        localStorage.setItem('initiatives', JSON.stringify(iniciativasExistentes));
+    }
     // Verificar e atualizar estado das iniciativas e quantidades de materiais
     verificarAtualizacaoDiaria();
+    atualizarEstadoIniciativasEQuantidades();
 
     // Verificar restrições das iniciativas pendentes
     verificarRestricoesIniciativasPendentes();
 
     const dadosIniciativas = JSON.parse(localStorage.getItem('initiatives'));
-    if (dadosIniciativas) {
-        dadosIniciativas.forEach(initiative => {
-            adicionarLinha(initiative);
-        });
-    }
+   
 });
 
 
@@ -248,7 +280,7 @@ function createMaterialsContainerHTML(initiativeId, materiais) {
             <div class="col-sm-6 my-1">
                 <label class="sr-only" for="quantity-${initiativeId}-${index}">Quantidade</label>
                 <div class="input-group">
-                    ${createQuantityControlHTML(initiativeId, index)}
+                    
                     <input type="number" class="form-control material-quantity" id="quantity-${initiativeId}-${index}" min="1" max="${material.quantidade}" value="${material.quantidade}" disabled/>
                     <button type="button" class="btn btn-link remove-material-button" onclick="removeMaterialFields(${initiativeId}, this)">
                         <i class="mdi mdi-minus-circle-outline mr-2"></i> Remover Material
@@ -517,7 +549,7 @@ function cancelarIniciativa(initiativeId) {
     const initiative = initiatives.find(i => i.id === initiativeId);
 
     if (initiative) {
-        initiative.status = 'cancelada';
+        initiative.status = 'Cancelada';
         localStorage.setItem('initiatives', JSON.stringify(initiatives));
         location.reload(); // Atualizar a página para refletir as mudanças
 
@@ -551,7 +583,7 @@ function recusarIniciativa(initiativeId) {
         const initiative = initiatives.find(i => i.id === initiativeId);
 
         if (initiative) {
-            initiative.status = 'recusada';
+            initiative.status = 'Recusada';
             initiative.rejectReason = reason;
 
             localStorage.setItem('initiatives', JSON.stringify(initiatives));
@@ -583,8 +615,8 @@ function atualizarEstadoIniciativasEQuantidades() {
     const materiaisData = JSON.parse(localStorage.getItem('materials')) || [];
 
     iniciativas.forEach(initiative => {
-        const [dia, mes, ano] = initiative.date.split('/');
-        const [horas, minutos] = initiative.end_hour.split(':');
+        const [ano, mes, dia] = initiative.date.split('-').map(Number); // Ajuste para o formato de data "YYYY-MM-DD"
+        const [horas, minutos] = initiative.end_hour.split(':').map(Number);
         const endDate = new Date(ano, mes - 1, dia, horas, minutos);
 
         console.log(`Verificando iniciativa: ${initiative.description}`);
@@ -598,10 +630,8 @@ function atualizarEstadoIniciativasEQuantidades() {
                 initiative.materiais.forEach(materialUtilizado => {
                     const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
                     if (material) {
-                        const quantidadeUtilizada = parseInt(materialUtilizado.quantidade);
-
-                        material.quantidadeTerreno = (material.quantidadeTerreno || 0) + quantidadeUtilizada;
-                        material.quantidade -= quantidadeUtilizada;
+                        material.quantidadeTerreno = (material.quantidadeTerreno || 0) + parseInt(materialUtilizado.quantidade);
+                        material.quantidade -= parseInt(materialUtilizado.quantidade);
 
                         // Verificação se a quantidade fica abaixo de 0
                         if (material.quantidade < 0) {
@@ -616,12 +646,21 @@ function atualizarEstadoIniciativasEQuantidades() {
             // Verificar se a iniciativa já passou do end_hour e atualizar o estado
             if (agora > endDate) {
                 console.log(`Mudando status para concluída: ${initiative.description}`);
-                initiative.status = 'concluída';
+                initiative.status = 'Concluída';
+
+                // Transferir quantidadeTerreno para quantidade
+                initiative.materiais.forEach(materialUtilizado => {
+                    const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
+                    if (material && material.quantidadeTerreno) {
+                        material.quantidade += material.quantidadeTerreno;
+                        material.quantidadeTerreno = 0;
+                    }
+                });
             }
         }
 
         // Transferir quantidadeTerreno para quantidade para iniciativas concluídas
-        if (initiative.status === 'concluída') {
+        if (initiative.status === 'Concluída') {
             initiative.materiais.forEach(materialUtilizado => {
                 const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
                 if (material && material.quantidadeTerreno) {
@@ -639,14 +678,6 @@ function atualizarEstadoIniciativasEQuantidades() {
     localStorage.setItem('materials', JSON.stringify(materiaisData));
 }
 
-function salvarIniciativaConcluida(initiative) {
-    // Implementação da função que salva a iniciativa concluída
-    // Esta função deve garantir que a iniciativa é armazenada adequadamente como concluída
-    console.log(`Salvando iniciativa concluída: ${initiative.description}`);
-    // Implementação de salvamento necessário
-}
-
-
 function verificarAtualizacaoDiaria() {
     const hoje = new Date().toLocaleDateString();
     const ultimaAtualizacao = localStorage.getItem('ultimaAtualizacao');
@@ -656,6 +687,20 @@ function verificarAtualizacaoDiaria() {
         localStorage.setItem('ultimaAtualizacao', hoje);
     }
 }
+
+function salvarIniciativaConcluida(initiative) {
+    const iniciativasConcluidas = JSON.parse(localStorage.getItem('iniciativasConcluidas')) || [];
+    iniciativasConcluidas.push(initiative);
+    localStorage.setItem('iniciativasConcluidas', JSON.stringify(iniciativasConcluidas));
+    console.log(`Iniciativa concluída salva: ${initiative.description}`);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    verificarAtualizacaoDiaria();
+    atualizarEstadoIniciativasEQuantidades();
+});
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     // Verificar e atualizar estado das iniciativas e quantidades de materiais
@@ -667,17 +712,6 @@ document.addEventListener('DOMContentLoaded', function() {
         verificarAtualizacaoDiaria(); // Para garantir que as quantidades sejam atualizadas novamente após a reversão
 
 });
-
-
-
-
-// Função para salvar iniciativas concluídas
-function salvarIniciativaConcluida(initiative) {
-    const iniciativasConcluidas = JSON.parse(localStorage.getItem('iniciativasConcluidas')) || [];
-    iniciativasConcluidas.push(initiative);
-    localStorage.setItem('iniciativasConcluidas', JSON.stringify(iniciativasConcluidas));
-}
-
 function saveLeaderImmediately(event, initiativeId) {
     const leaderName = event.target.value;
     const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
@@ -716,7 +750,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function verificarRestricoesIniciativasPendentes() {
     const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
-    const pendentes = initiatives.filter(i => i.status === 'pendente');
+    const pendentes = initiatives.filter(i => i.status === 'Pendente');
     const avisoPorTipo = "Aviso: Existem múltiplas iniciativas do mesmo tipo neste dia.";
     const avisoPorQuantidade = "Aviso: Existem mais de 3 iniciativas neste dia.";
 
@@ -732,7 +766,6 @@ function verificarRestricoesIniciativasPendentes() {
     Object.keys(iniciativasPorDia).forEach(date => {
         const iniciativasDia = iniciativasPorDia[date];
         iniciativasDia.forEach(initiative => initiative.restrictions = ""); // Limpar restrições existentes
-
         const tiposIniciativas = iniciativasDia.reduce((acc, initiative) => {
             const type = initiative.type;
             if (!acc[type]) {
