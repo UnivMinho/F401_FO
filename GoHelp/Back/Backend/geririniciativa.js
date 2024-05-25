@@ -533,6 +533,12 @@ function aprovarIniciativa(button) {
             rejectButton.innerText = 'Cancelar';
             rejectButton.onclick = () => cancelarIniciativa(initiative.id);
         }
+
+        // Enviar notificação ao utilizador - NOVO
+        const userEmail = initiative.userEmail;
+        const notificationMessage = `A sua iniciativa "${initiative.name}" foi aprovada.`;
+        sendNotification(userEmail, notificationMessage);
+
     } else {
         console.error("Iniciativa não encontrada.");
     }
@@ -546,16 +552,26 @@ function cancelarIniciativa(initiativeId) {
         initiative.status = 'Cancelada';
         localStorage.setItem('initiatives', JSON.stringify(initiatives));
         location.reload(); // Atualizar a página para refletir as mudanças
+
+        // Enviar notificação ao utilizador - NOVO
+        const userEmail = initiative.userEmail;
+        const notificationMessage = `A sua iniciativa "${initiative.name}" foi cancelada.`;
+        sendNotification(userEmail, notificationMessage);
+
     } else {
         console.error("Iniciativa não encontrada.");
     }
 }
 
+//Funcao para enviar notificação ao utilizador
+function sendNotification(userEmail, message) {
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+    notifications.push({ email: userEmail, message, timestamp: new Date().getTime() });
+    localStorage.setItem('notifications', JSON.stringify(notifications));
 
-
-
-
-
+    // Trigger a storage event manually (for cross-tab synchronization)
+    localStorage.setItem('trigger', JSON.stringify({ action: 'new_notification' }));
+}
 
 
 
@@ -572,6 +588,11 @@ function recusarIniciativa(initiativeId) {
 
             localStorage.setItem('initiatives', JSON.stringify(initiatives));
             location.reload(); // Atualizar a página para refletir as mudanças
+
+            // Enviar notificação ao utilizador - NOVA 
+            const userEmail = initiative.userEmail;
+            const notificationMessage = `A sua iniciativa "${initiative.name}" foi recusada pelo seguinte motivo: ${reason}.`;
+            sendNotification(userEmail, notificationMessage);
         }
     } else {
         alert('Por favor, escreva o motivo da recusa.');

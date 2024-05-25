@@ -32,6 +32,19 @@
   align-items: center;
 }
 
+.dropdown-menu {
+  width: 400px; 
+  max-width: 100%;
+  word-wrap: break-word;
+}
+.dropdown-item {
+  white-space: normal; 
+}
+.notification-item {
+  width: 100%;
+  padding: 10px;
+}
+
 /*acrescentado*/
 
 

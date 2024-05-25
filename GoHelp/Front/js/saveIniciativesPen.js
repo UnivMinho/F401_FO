@@ -137,7 +137,7 @@ function validateHour() {
         case 'Limpeza':
         case 'Reflorestação':
             if (durationHours > 4 || (durationHours === 4 && durationMinutes > 0)) {
-                timeError.innerText = "A duração execede o tempo limite para este tipo de iniciativa"
+                timeError.innerText = "A duração excede o tempo limite para este tipo de iniciativa"
                 return false;
             }else{
                 timeError.innerText = "";
@@ -145,7 +145,7 @@ function validateHour() {
             break;
         case 'Campanhas':
             if (durationHours > 1 || (durationHours === 1 && durationMinutes > 0)) {
-                timeError.innerText = "A duração execede o tempo limite para este tipo de iniciativa"
+                timeError.innerText = "A duração excede o tempo limite para este tipo de iniciativa"
                 return false;
             }else{
                 timeError.innerText = "";
