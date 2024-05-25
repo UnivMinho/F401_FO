@@ -42,25 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
     profissionalDropdown.appendChild(option);
   });
 
-  const addProfessionalButton = document.querySelector(
-    ".add-professional-button"
-  );
-  addProfessionalButton.addEventListener("click", function () {
-    // Clone do modelo do profissional
-    const professionalTemplate = document.querySelector(".profissional-row");
-    const newProfessional = professionalTemplate.cloneNode(true);
-
-    // Limpar o valor da seleção
-    newProfessional.querySelector(".profissional-dropdown").value =
-      "Selecionar Profissional...";
-
-    // Adicionar o novo profissional ao formulário
-    const professionalContainer = document.querySelector(
-      ".profissional-container"
-    );
-    professionalContainer.appendChild(newProfessional);
-  });
-
   const form = document.querySelector(".forms-sample");
   form.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -192,78 +173,6 @@ function geocodeLocation(location, callback) {
   });
 }
 
-// Validar duração da iniciativa
-function validateHour() {
-  const tipoIniciativa = document.querySelector(
-    'input[name="TipoIniciativa"]:checked'
-  ).value;
-  const startHour = parseInt(
-    document.getElementById("start-hour").value.split(":")[0]
-  );
-  const startMinute = parseInt(
-    document.getElementById("start-hour").value.split(":")[1]
-  );
-  const endHour = parseInt(
-    document.getElementById("end-hour").value.split(":")[0]
-  );
-  const endMinute = parseInt(
-    document.getElementById("end-hour").value.split(":")[1]
-  );
-
-  const durationHours = endHour - startHour;
-  const durationMinutes = endMinute - startMinute;
-
-  let timeError = document.getElementById("timeError");
-
-  switch (tipoIniciativa) {
-    case "Limpeza":
-    case "Reflorestação":
-      if (durationHours > 4 || (durationHours === 4 && durationMinutes > 0)) {
-        timeError.innerText =
-          "A duração excede o tempo limite para este tipo de iniciativa";
-        return false;
-      } else {
-        timeError.innerText = "";
-      }
-      break;
-    case "Campanhas":
-      if (durationHours > 1 || (durationHours === 1 && durationMinutes > 0)) {
-        timeError.innerText =
-          "A duração excede o tempo limite para este tipo de iniciativa";
-        return false;
-      } else {
-        timeError.innerText = "";
-      }
-      break;
-    default:
-      timeError.innerText = "";
-      break;
-  }
-
-  return true;
-}
-
-// Validar data
-function validateDate() {
-  const iniciativaDate = new Date(
-    document.getElementById("iniciativa-date").value
-  );
-  const today = new Date();
-  if (iniciativaDate <= today) {
-    document.getElementById("dateError").innerText =
-      "A data deve ser no futuro.";
-    return false;
-  }
-  document.getElementById("dateError").innerText = "";
-  return true;
-}
-
-function submitForm() {
-  if (!validateDate() || !validateHour()) {
-    alert("Por favor selecione uma data e/ou hora no futuro.");
-  }
-}
-
 // Apagar os campos e restaurar os placeholders
 function clearAndRestoreFormInputs(form) {
   form.querySelectorAll("input, textarea").forEach((input) => {
@@ -280,6 +189,144 @@ document.addEventListener("DOMContentLoaded", function () {
     input.dataset.placeholder = input.getAttribute("placeholder");
   });
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("iniciativa-date").addEventListener("input", function() {
+      validateDate();
+      validateNumberInitiatives();
+  });
+
+  document.getElementById("end-hour").addEventListener("input", function(){
+      validateHour();
+  });
+
+  const initiativeTypes = document.querySelectorAll('input[name="TipoIniciativa"]');
+  initiativeTypes.forEach(type => {
+    type.addEventListener('change', function() {
+      validateNumberInitiatives();
+    });
+  });
+
+  document.getElementById("quantityInput").addEventListener("input", function(){
+    validateQuantity();
+  });
+});
+
+function validateDate() {
+  const inputDate = new Date(document.getElementById("iniciativa-date").value);
+  const currentDate = new Date();
+  const threeDaysAfter = new Date(currentDate);
+  threeDaysAfter.setDate(currentDate.getDate() + 1);
+
+  let dateError = document.getElementById("dateError");
+
+  if (inputDate < threeDaysAfter) {
+      dateError.innerText = "Por favor selecione uma data no futuro.";
+      return false;
+  } else {
+      dateError.innerText = "";
+  }
+
+  return true; 
+}
+
+function validateHour() {
+  const tipoIniciativa = document.querySelector('input[name="TipoIniciativa"]:checked').value;
+  const startHour = parseInt(document.getElementById("start-hour").value.split(':')[0]);
+  const startMinute = parseInt(document.getElementById("start-hour").value.split(':')[1]);
+  const endHour = parseInt(document.getElementById("end-hour").value.split(':')[0]);
+  const endMinute = parseInt(document.getElementById("end-hour").value.split(':')[1]);
+
+  const durationHours = endHour - startHour;
+  const durationMinutes = endMinute - startMinute;
+
+  let timeError = document.getElementById("timeError");
+
+  if (endHour < startHour) {
+      timeError.innerText = "A hora de fim da iniciativa é menor que a hora de início."
+      return false;
+  }else{
+      timeError.innerText = "";
+  }
+
+  switch (tipoIniciativa) {
+      case 'Limpeza':
+      case 'Reflorestação':
+          if (durationHours > 4 || (durationHours === 4 && durationMinutes > 0)) {
+              timeError.innerText = "A duração excede o tempo limite para este tipo de iniciativa"
+              return false;
+          }else{
+              timeError.innerText = "";
+          }
+          break;
+      case 'Campanhas':
+          if (durationHours > 1 || (durationHours === 1 && durationMinutes > 0)) {
+              timeError.innerText = "A duração excede o tempo limite para este tipo de iniciativa"
+              return false;
+          }else{
+              timeError.innerText = "";
+          }
+          break;
+      default:
+          timeError.innerText = "";
+          break;
+      }
+
+  return true; 
+}
+
+function validateNumberInitiatives() {
+  const selectedDate = document.getElementById("iniciativa-date").value;
+  const tipoIniciativa = document.querySelector('input[name="TipoIniciativa"]:checked').value;
+
+  const initiatives = JSON.parse(localStorage.getItem("initiatives")) || [];
+
+  const existingInitiative = initiatives.find(initiative => 
+      initiative.date === selectedDate && initiative.type === tipoIniciativa
+  );
+
+  let initiativeError = document.getElementById("initiativeError");
+
+  if (existingInitiative) {
+      initiativeError.innerText = `Já existe uma iniciativa do tipo ${tipoIniciativa} para a data selecionada.`;
+      return false;
+  } else {
+      initiativeError.innerText = "";
+  }
+
+  return true;
+}
+
+function validateQuantity() {
+  const materialDropdown = document.querySelector(".material-dropdown");
+  const quantityInput = document.getElementById("quantityInput");
+  const availabilitySpan = document.querySelector(".quantity-available");
+  const quantityError = document.getElementById("quantityError");
+
+  const selectedOption = materialDropdown.options[materialDropdown.selectedIndex];
+  const selectedMaterialName = selectedOption.text;
+  const enteredQuantity = parseInt(quantityInput.value);
+
+  const availableQuantity = parseInt(availabilitySpan.textContent);
+
+  if (enteredQuantity > availableQuantity) {
+      quantityError.innerText = `A quantidade solicitada excede a disponibilidade de ${availableQuantity}.`;
+      return false;
+  } else {
+      quantityError.innerText = "";
+  }
+
+  return true;
+}
+
+function submitForm() {
+  if (!validateDate() || !validateHour() || !validateNumberInitiatives() || !validateQuantity()) {
+      alert("Por favor corrija os erros antes de submeter.");
+      return;
+  }else{
+    return true;
+  }
+}
 
 //Event listener para verificar as quantidades disponíveis dos materiais 
 document.addEventListener("DOMContentLoaded", function() {
