@@ -19799,6 +19799,10 @@ code {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2)
 }
 
+.stretch-card > .card > #map{
+  min-height: 40em;
+}
+
 @media (min-width: 576px) {
   .border-right-sm {
     border-right: 1px solid #CED4DA;
