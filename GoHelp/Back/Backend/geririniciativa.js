@@ -37,7 +37,7 @@ function createMaterialRowHTML(initiativeId, selectedMaterials = []) {
             <label class="sr-only" for="quantity-${initiativeId}-${materialId}">Quantidade</label>
             <div class="input-group">
                 ${createQuantityControlHTML(initiativeId, materialId)}
-                <button type="button" class="btn btn-link add-material-button" onclick="addMaterialFields(${initiativeId}, this)">
+                <button type="button" class="btn btn-link add-material-button" onclick="addMaterialFields('${initiativeId}', this)">
                     <i class="mdi mdi-plus-circle-outline mr-2"></i> Adicionar Material
                 </button>
             </div>
@@ -46,26 +46,31 @@ function createMaterialRowHTML(initiativeId, selectedMaterials = []) {
 }
 
 
+
 function createRowHTML(initiative) {
     const materiaisHTML = createMaterialsContainerHTML(initiative.id, initiative.materiais || []);
     const profissionaisHTML = createProfessionalsDropdown(initiative.id);
     const lideresDropdownHTML = createLeadersDropdown(initiative.id, initiative.lider);
 
-    let actionButtonsHTML = `
-        <button class="btn btn-danger" onclick="recusarIniciativa(${initiative.id})">Recusar</button>`;
-    
-    // Se a iniciativa não tiver restrições, adicionar o botão de Aprovar
-    if (!initiative.restrictions || initiative.restrictions.trim() === "") {
+    let actionButtonsHTML = '';
+    if (initiative.status === 'Pendente') {
         actionButtonsHTML += `
-            <button class="btn btn-success" onclick="aprovarIniciativa(this)">Aprovar</button>`;
+            <button class="btn btn-danger" onclick="recusarIniciativa('${initiative.id}')">Recusar</button>
+            <button class="btn btn-success" onclick="aprovarIniciativa('${initiative.id}')">Aprovar</button>`;
+    } else if (initiative.status === 'Recusada') {
+        actionButtonsHTML += `
+            <button class="btn btn-success" onclick="aprovarIniciativa('${initiative.id}')">Aprovar</button>`;
+    } else if (initiative.status === 'Por realizar') {
+        actionButtonsHTML += `
+            <button class="btn btn-warning" onclick="recusarIniciativa('${initiative.id}')">Recusar</button>`;
     }
 
     return `
-    <tr style="background-color: green;">
+    <tr data-id="${initiative.id}" style="background-color: green;">
         <td>${initiative.description}</td>
         <td>${initiative.type}</td>
         <td>${getProponentName(initiative.userEmail)}</td>
-        <td>${initiative.status}</td>
+        <td class="status-cell">${initiative.status}</td>
         <td>${initiative.date}</td>
         <td style="cursor: pointer;" onclick="toggleDetailsRow(this)">↓</td>
     </tr>
@@ -141,10 +146,10 @@ function createRowHTML(initiative) {
                     <div class="d-flex">
                         <div class="min-width-cell">
                             <p>Restrições</p>
-                            <h5 style="color: red">${initiative.restrictions}</h5>
-                            <h8>${initiative.rejectReason}</h8>
+                            <h5 style="color: red">${initiative.restrictions || 'Sem restrições'}</h5>
+                            <h8 class="reject-reason-cell">${initiative.rejectReason || 'Sem motivo de recusa'}</h8>
                         </div>
-                        <div class="action-buttons ml-auto">
+                        <div class="action-buttons-cell action-buttons ml-auto">
                             ${actionButtonsHTML}
                         </div>
                     </div>
@@ -155,23 +160,62 @@ function createRowHTML(initiative) {
 }
 
 
+function updateTableRow(initiative) {
+    const row = document.querySelector(`tr[data-id="${initiative.id}"]`);
+    if (row) {
+        const statusCell = row.querySelector('.status-cell');
+        const actionButtonsCell = row.querySelector('.action-buttons-cell');
+        const detailsRow = row.nextElementSibling;
+        const rejectReasonCell = detailsRow.querySelector('.reject-reason-cell');
+
+        if (statusCell) {
+            statusCell.innerText = initiative.status;
+        }
+
+        if (rejectReasonCell) {
+            rejectReasonCell.innerText = initiative.rejectReason || 'Sem motivo de recusa';
+        }
+
+        
+        let actionButtonsHTML = '';
+        if (initiative.status === 'Pendente') {
+            actionButtonsHTML = `
+                <button class="btn btn-danger" onclick="recusarIniciativa('${initiative.id}')">Recusar</button>
+                <button class="btn btn-success" onclick="aprovarIniciativa('${initiative.id}')">Aprovar</button>`;
+        } else if (initiative.status === 'Recusada') {
+            actionButtonsHTML = `
+                <button class="btn btn-success" onclick="aprovarIniciativa('${initiative.id}')">Aprovar</button>`;
+        } else if (initiative.status === 'Por realizar') {
+            actionButtonsHTML = `
+                <button class="btn btn-warning" onclick="recusarIniciativa('${initiative.id}')">Recusar</button>`;
+        }
+
+        if (actionButtonsCell) {
+            actionButtonsCell.innerHTML = actionButtonsHTML;
+        }
+    }
+}
+
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // Exemplo de iniciativa a ser adicionada
 const iniciativaExemplo = {
-    id: "id-2711228062873-4703",
-    type: "Campanhas",
+    id: "id-1324411212113-4703",
+    type: "Limpeza",
     volunteers: "5",
     location: "Apulia",
     latitude: 40.7928393,
     longitude: 17.1011931,
     date: "2024-05-25",
     start_hour: "12:49",
-    end_hour: "17:00",
+    end_hour: "19:27",
     name: "PRAIA",
     description: "ADORO PRAIA",
     comments: "QUERO BASSOURAS, PUTAS E VINHO VERDE",
-    status: "Pendente",
+    status: "A decorrer",
     userEmail: "mirefightyt@gmail.com",
     associatedVolunteers: ["mirefightyt@gmail.com"],
     lider: "Liandro Cruz",
@@ -218,7 +262,7 @@ function saveLeader(initiativeId, leaderName) {
 // Função auxiliar para criar o dropdown de materiais
 function createMaterialsDropdown(initiativeId, selectedMaterials = [], materialId) {
     const materiaisData = JSON.parse(localStorage.getItem('materials'));
-    let materiaisHTML = `<select class="custom-select material-dropdown" id="materialDropdown-${initiativeId}-${materialId}">`;
+    let materiaisHTML = `<select class="custom-select material-dropdown" id="materialDropdown-${initiativeId}-${materialId}" onchange="saveMaterialImmediately(event, '${initiativeId}', '${materialId}')">`;
     materiaisHTML += '<option value="">Selecione um material</option>';
     if (Array.isArray(materiaisData)) {
         materiaisData.forEach(material => {
@@ -231,10 +275,11 @@ function createMaterialsDropdown(initiativeId, selectedMaterials = [], materialI
     return materiaisHTML;
 }
 
+
 // Função auxiliar para criar o dropdown de líderes com ID único e adicionar evento de mudança
 function createLeadersDropdown(initiativeId, selectedLeader) {
     const usersData = JSON.parse(localStorage.getItem('usersData'));
-    let lideresDropdownHTML = `<select id="liderDropdown-${initiativeId}" class="custom-select" onchange="saveLeaderImmediately(event, ${initiativeId})">`;
+    let lideresDropdownHTML = `<select id="liderDropdown-${initiativeId}" class="custom-select" onchange="saveLeaderImmediately(event, '${initiativeId}')">`;
     lideresDropdownHTML += '<option selected>Selecione</option>';
     if (Array.isArray(usersData)) {
         usersData.forEach(user => {
@@ -245,20 +290,28 @@ function createLeadersDropdown(initiativeId, selectedLeader) {
     return lideresDropdownHTML;
 }
 
-// Função auxiliar para criar o dropdown de profissionais com ID único e adicionar evento de mudança
+
 function createProfessionalsDropdown(initiativeId) {
-    const profissionaisData = JSON.parse(localStorage.getItem('profissionais'));
-    let profissionaisHTML = `<select id="profissionalDropdown-${initiativeId}" class="profissional-dropdown form-control" onchange="saveProfessionalImmediately(event, ${initiativeId})">`;
+    const iniciativas = JSON.parse(localStorage.getItem('initiatives')) || [];
+    const initiative = iniciativas.find(i => i.id === initiativeId);
+    const profissionaisData = JSON.parse(localStorage.getItem('profissionais')) || [];
+
+    let profissionaisHTML = `<select id="profissionalDropdown-${initiativeId}" class="profissional-dropdown form-control" onchange="saveProfessionalImmediately(event, '${initiativeId}')">`;
     profissionaisHTML += '<option value="">Selecione um profissional</option>';
+
     if (Array.isArray(profissionaisData)) {
         profissionaisData.forEach(profissional => {
             const value = `${profissional.nome} - ${profissional.cargo}`;
-            profissionaisHTML += `<option value="${value}">${profissional.nome} - ${profissional.cargo}</option>`;
+            const selected = initiative.profissional && initiative.profissional.nome === profissional.nome && initiative.profissional.cargo === profissional.cargo ? 'selected' : '';
+            profissionaisHTML += `<option value="${value}" ${selected}>${profissional.nome} - ${profissional.cargo}</option>`;
         });
     }
     profissionaisHTML += '</select>';
     return profissionaisHTML;
 }
+
+
+
 
 
 // Função auxiliar para criar o container de materiais com os materiais já adicionados
@@ -314,9 +367,15 @@ function addMaterialFields(initiativeId, button) {
             return;
         }
 
-        // Atualiza a quantidade no localStorage
-        material.quantidade -= quantidadeUtilizada;
-        localStorage.setItem('materials', JSON.stringify(materiaisData));
+        // Verificar o estado da iniciativa
+        const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+        const initiative = initiatives.find(i => i.id === initiativeId);
+
+        if (initiative && (initiative.status === 'A decorrer' || initiative.status === 'Concluída')) {
+            // Atualiza a quantidade no localStorage somente se a iniciativa estiver 'A decorrer' ou 'Concluída'
+            material.quantidade -= quantidadeUtilizada;
+            localStorage.setItem('materials', JSON.stringify(materiaisData));
+        }
 
         materialDropdown.disabled = true;
         quantidadeInput.disabled = true;
@@ -328,9 +387,6 @@ function addMaterialFields(initiativeId, button) {
         const selectedMaterials = Array.from(materiaisContainer.querySelectorAll('.material-dropdown'))
             .filter(dropdown => dropdown.disabled)
             .map(dropdown => dropdown.value);
-
-        const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
-        const initiative = initiatives.find(i => i.id === initiativeId);
 
         if (initiative) {
             initiative.materiais = initiative.materiais || [];
@@ -351,6 +407,7 @@ function addMaterialFields(initiativeId, button) {
         alert('Por favor, selecione um material e insira uma quantidade válida.');
     }
 }
+
 
 
 // Função para remover campos de material
@@ -447,43 +504,23 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-function aprovarIniciativa(button) {
-    const row = button.closest('tr').previousElementSibling;
-
-    if (!row || !row.cells || row.cells.length === 0) {
-        console.error("Não foi possível obter a linha da iniciativa.");
-        return;
-    }
-
-    const initiativeDescription = row.cells[0].innerText;
-
+function aprovarIniciativa(initiativeId) {
     const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
-    const initiative = initiatives.find(i => i.description === initiativeDescription);
+    const initiative = initiatives.find(i => i.id === initiativeId);
 
     if (initiative) {
+        const row = document.querySelector(`tr[data-id="${initiative.id}"]`);
         const detailsRow = row.nextElementSibling;
-
-        if (!detailsRow || !detailsRow.querySelector) {
-            console.error("Não foi possível obter a linha de detalhes da iniciativa.");
-            return;
-        }
-
         const liderDropdown = detailsRow.querySelector(`#liderDropdown-${initiative.id}`);
         const profissionalDropdown = detailsRow.querySelector(`#profissionalDropdown-${initiative.id}`);
 
-        if (!liderDropdown) {
-            console.error(`Elemento liderDropdown com ID #liderDropdown-${initiative.id} não encontrado.`);
-            return;
-        }
-        
-        if (!profissionalDropdown) {
-            console.error(`Elemento profissionalDropdown com ID #profissionalDropdown-${initiative.id} não encontrado.`);
+        if (!liderDropdown || !profissionalDropdown) {
+            alert("Escolha um líder e um profissional");
             return;
         }
 
         const profissionalSelecionado = profissionalDropdown.value;
         const [nomeProfissional, cargoProfissional] = profissionalSelecionado.split(' - ').map(s => s.trim());
-
         const profissionaisData = JSON.parse(localStorage.getItem('profissionais'));
 
         const profissional = profissionaisData.find(p => p.nome === nomeProfissional && p.cargo === cargoProfissional);
@@ -515,26 +552,9 @@ function aprovarIniciativa(button) {
 
         localStorage.setItem('initiatives', JSON.stringify(initiatives));
 
-        // Atualiza o status da iniciativa na tabela principal
-        row.cells[3].innerText = 'Por realizar';
+        updateTableRow(initiative);
 
-        // Remove o botão de aprovar e altera o botão de recusar para cancelar
-        const actionButtons = detailsRow.querySelector('.action-buttons');
-        const approveButton = actionButtons.querySelector('.btn.btn-success');
-        const rejectButton = actionButtons.querySelector('.btn.btn-danger');
-
-        if (approveButton) {
-            approveButton.remove();
-        }
-
-        if (rejectButton) {
-            rejectButton.classList.remove('btn-danger');
-            rejectButton.classList.add('btn-warning');
-            rejectButton.innerText = 'Cancelar';
-            rejectButton.onclick = () => cancelarIniciativa(initiative.id);
-        }
-
-        // Enviar notificação ao utilizador - NOVO
+        // Enviar notificação ao utilizador
         const userEmail = initiative.userEmail;
         const notificationMessage = `A sua iniciativa "${initiative.name}" foi aprovada.`;
         sendNotification(userEmail, notificationMessage);
@@ -543,6 +563,7 @@ function aprovarIniciativa(button) {
         console.error("Iniciativa não encontrada.");
     }
 }
+
 
 function cancelarIniciativa(initiativeId) {
     const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
@@ -575,7 +596,6 @@ function sendNotification(userEmail, message) {
 
 
 
-// Função para recusar uma iniciativa com motivo
 function recusarIniciativa(initiativeId) {
     const reason = prompt("Por favor, escreva o motivo da recusa:");
     if (reason) {
@@ -587,12 +607,14 @@ function recusarIniciativa(initiativeId) {
             initiative.rejectReason = reason;
 
             localStorage.setItem('initiatives', JSON.stringify(initiatives));
-            location.reload(); // Atualizar a página para refletir as mudanças
+            updateTableRow(initiative); // Atualizar a tabela sem recarregar a página
 
-            // Enviar notificação ao utilizador - NOVA 
+            // Enviar notificação ao utilizador
             const userEmail = initiative.userEmail;
             const notificationMessage = `A sua iniciativa "${initiative.name}" foi recusada pelo seguinte motivo: ${reason}.`;
             sendNotification(userEmail, notificationMessage);
+        } else {
+            console.error("Iniciativa não encontrada.");
         }
     } else {
         alert('Por favor, escreva o motivo da recusa.');
@@ -602,27 +624,19 @@ function recusarIniciativa(initiativeId) {
 
 
 
-// Função para alternar a exibição da linha de detalhes
-function toggleDetailsRow(button) {
-    const detailsRow = button.parentElement.nextElementSibling;
-    detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
-}
- 
+
+
+
 function atualizarEstadoIniciativasEQuantidades() {
     const agora = new Date();
-    const hoje = agora.toLocaleDateString();
+    const hoje = agora.toISOString().split('T')[0]; // Obter data no formato "YYYY-MM-DD"
     const iniciativas = JSON.parse(localStorage.getItem('initiatives')) || [];
     const materiaisData = JSON.parse(localStorage.getItem('materials')) || [];
 
     iniciativas.forEach(initiative => {
-        const [ano, mes, dia] = initiative.date.split('-').map(Number); // Ajuste para o formato de data "YYYY-MM-DD"
+        const [ano, mes, dia] = initiative.date.split('-').map(Number);
         const [horas, minutos] = initiative.end_hour.split(':').map(Number);
         const endDate = new Date(ano, mes - 1, dia, horas, minutos);
-
-        console.log(`Verificando iniciativa: ${initiative.description}`);
-        console.log(`Status atual: ${initiative.status}`);
-        console.log(`End Date: ${endDate}`);
-        console.log(`Data e hora atual: ${agora}`);
 
         if (initiative.status === 'A decorrer') {
             // Atualizar quantidades de materiais para iniciativas em curso hoje
@@ -630,14 +644,27 @@ function atualizarEstadoIniciativasEQuantidades() {
                 initiative.materiais.forEach(materialUtilizado => {
                     const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
                     if (material) {
-                        material.quantidadeTerreno = (material.quantidadeTerreno || 0) + parseInt(materialUtilizado.quantidade);
-                        material.quantidade -= parseInt(materialUtilizado.quantidade);
+                        // Garantir que a quantidade só é transferida uma vez
+                        if (!material.hasOwnProperty('quantidadeTerreno')) {
+                            material.quantidadeTerreno = 0;
+                        }
 
-                        // Verificação se a quantidade fica abaixo de 0
-                        if (material.quantidade < 0) {
-                            const unidadesNecessarias = Math.abs(material.quantidade);
-                            alert(`Deve adicionar ${unidadesNecessarias} unidades do material ${material.nome}`);
-                            material.quantidade = 0; // Ajusta a quantidade para 0 para evitar valores negativos
+                        // Verifica se a quantidade já foi transferida para o terreno
+                        const quantidadeUtilizada = parseInt(materialUtilizado.quantidade);
+                        if (!initiative.hasOwnProperty('quantidadeTransferida')) {
+                            initiative.quantidadeTransferida = {};
+                        }
+
+                        if (!initiative.quantidadeTransferida[material.nome]) {
+                            material.quantidadeTerreno += quantidadeUtilizada;
+                            material.quantidade -= quantidadeUtilizada;
+                            initiative.quantidadeTransferida[material.nome] = true;
+
+                            if (material.quantidade < 0) {
+                                const unidadesNecessarias = Math.abs(material.quantidade);
+                                alert(`Deve adicionar ${unidadesNecessarias} unidades do material ${material.nome}`);
+                                material.quantidade = 0; // Ajusta a quantidade para 0 para evitar valores negativos
+                            }
                         }
                     }
                 });
@@ -645,10 +672,9 @@ function atualizarEstadoIniciativasEQuantidades() {
 
             // Verificar se a iniciativa já passou do end_hour e atualizar o estado
             if (agora > endDate) {
-                console.log(`Mudando status para concluída: ${initiative.description}`);
                 initiative.status = 'Concluída';
 
-                // Transferir quantidadeTerreno para quantidade
+                // Transferir quantidadeTerreno de volta para quantidade
                 initiative.materiais.forEach(materialUtilizado => {
                     const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
                     if (material && material.quantidadeTerreno) {
@@ -656,21 +682,10 @@ function atualizarEstadoIniciativasEQuantidades() {
                         material.quantidadeTerreno = 0;
                     }
                 });
+
+                // Remover o flag de quantidade transferida
+                delete initiative.quantidadeTransferida;
             }
-        }
-
-        // Transferir quantidadeTerreno para quantidade para iniciativas concluídas
-        if (initiative.status === 'Concluída') {
-            initiative.materiais.forEach(materialUtilizado => {
-                const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
-                if (material && material.quantidadeTerreno) {
-                    material.quantidade += material.quantidadeTerreno;
-                    material.quantidadeTerreno = 0;
-                }
-            });
-
-            // Salvar a iniciativa concluída
-            salvarIniciativaConcluida(initiative);
         }
     });
 
@@ -679,7 +694,7 @@ function atualizarEstadoIniciativasEQuantidades() {
 }
 
 function verificarAtualizacaoDiaria() {
-    const hoje = new Date().toLocaleDateString();
+    const hoje = new Date().toISOString().split('T')[0];
     const ultimaAtualizacao = localStorage.getItem('ultimaAtualizacao');
 
     if (ultimaAtualizacao !== hoje) {
@@ -687,6 +702,9 @@ function verificarAtualizacaoDiaria() {
         localStorage.setItem('ultimaAtualizacao', hoje);
     }
 }
+
+
+
 
 function salvarIniciativaConcluida(initiative) {
     const iniciativasConcluidas = JSON.parse(localStorage.getItem('iniciativasConcluidas')) || [];
@@ -725,6 +743,7 @@ function saveLeaderImmediately(event, initiativeId) {
         console.error("Iniciativa não encontrada.");
     }
 }
+
 function saveProfessionalImmediately(event, initiativeId) {
     const profissionalSelecionado = event.target.value;
     const [nomeProfissional, cargoProfissional] = profissionalSelecionado.split(' - ').map(s => s.trim());
@@ -742,6 +761,34 @@ function saveProfessionalImmediately(event, initiativeId) {
         console.error("Iniciativa não encontrada.");
     }
 }
+
+
+function saveMaterialImmediately(event, initiativeId, materialId) {
+    const materialNome = event.target.value;
+    const quantidadeInput = document.getElementById(`quantity-${initiativeId}-${materialId}`);
+    const quantidade = quantidadeInput.value;
+
+    const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
+    const initiative = initiatives.find(i => i.id === initiativeId);
+
+    if (initiative) {
+        const materialIndex = initiative.materiais.findIndex(m => m.nome === materialNome);
+        if (materialIndex > -1) {
+            initiative.materiais[materialIndex].quantidade = quantidade;
+        } else {
+            initiative.materiais.push({
+                nome: materialNome,
+                quantidade: quantidade
+            });
+        }
+        localStorage.setItem('initiatives', JSON.stringify(initiatives));
+        console.log(`Material ${materialNome} (${quantidade}) salvo para a iniciativa ${initiativeId}`);
+    } else {
+        console.error("Iniciativa não encontrada.");
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const userProfileImage = userData.profileImage || userData.imageUrl;
@@ -751,7 +798,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function verificarRestricoesIniciativasPendentes() {
     const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
     const pendentes = initiatives.filter(i => i.status === 'Pendente');
-    const avisoPorTipo = "Aviso: Existem múltiplas iniciativas do mesmo tipo neste dia.";
+    const aprovadas = initiatives.filter(i => i.status === 'Por realizar' || i.status === 'Por realizar');
+    const avisoPorTipo = "Aviso: Existe uma iniciativa do mesmo tipo marcada para o mesmo dia!.";
     const avisoPorQuantidade = "Aviso: Existem mais de 3 iniciativas neste dia.";
 
     const iniciativasPorDia = pendentes.reduce((acc, initiative) => {
@@ -765,7 +813,11 @@ function verificarRestricoesIniciativasPendentes() {
 
     Object.keys(iniciativasPorDia).forEach(date => {
         const iniciativasDia = iniciativasPorDia[date];
-        iniciativasDia.forEach(initiative => initiative.restrictions = ""); // Limpar restrições existentes
+        iniciativasDia.forEach(initiative => {
+            initiative.restrictions = ""; // Limpar restrições existentes
+            initiative.rejectReason = ""; // Limpar razões de recusa existentes
+        });
+
         const tiposIniciativas = iniciativasDia.reduce((acc, initiative) => {
             const type = initiative.type;
             if (!acc[type]) {
@@ -775,18 +827,24 @@ function verificarRestricoesIniciativasPendentes() {
             return acc;
         }, {});
 
-        // Função de auxílio para adicionar avisos sem duplicar
-        function adicionarAviso(initiative, aviso) {
-            if (!initiative.restrictions.includes(aviso)) {
-                initiative.restrictions += `${aviso} `;
-                initiative.status = "Recusada";
-            }
-        }
-
         // Verificar múltiplas iniciativas do mesmo tipo no mesmo dia
         Object.keys(tiposIniciativas).forEach(type => {
-            if (tiposIniciativas[type].length > 1) {
-                tiposIniciativas[type].forEach(initiative => adicionarAviso(initiative, avisoPorTipo));
+            const iniciativasMesmoTipo = tiposIniciativas[type];
+            if (iniciativasMesmoTipo.length > 1) {
+                iniciativasMesmoTipo.forEach(initiative => {
+                    adicionarAviso(initiative, avisoPorTipo);
+                });
+            }
+        });
+
+        // Verificar se já existe uma iniciativa aprovada do mesmo tipo neste dia
+        Object.keys(tiposIniciativas).forEach(type => {
+            const iniciativasMesmoTipo = tiposIniciativas[type];
+            const iniciativasAprovadasMesmoDiaETipo = aprovadas.filter(i => i.date === date && i.type === type);
+            if (iniciativasAprovadasMesmoDiaETipo.length > 0) {
+                iniciativasMesmoTipo.forEach(initiative => {
+                    adicionarAviso(initiative, avisoPorTipo);
+                });
             }
         });
 
@@ -796,8 +854,22 @@ function verificarRestricoesIniciativasPendentes() {
         }
     });
 
+    function adicionarAviso(initiative, aviso) {
+        if (!initiative.restrictions.includes(aviso)) {
+            initiative.restrictions += `${aviso} `;
+            initiative.rejectReason += `${aviso} `;
+            initiative.status = "Recusada";
+
+            // Enviar notificação ao utilizador
+            const userEmail = initiative.userEmail;
+            const notificationMessage = `A sua iniciativa "${initiative.name}" foi recusada pelo seguinte motivo: ${initiative.rejectReason}.`;
+            sendNotification(userEmail, notificationMessage);
+        }
+    }
+
     localStorage.setItem('initiatives', JSON.stringify(initiatives));
 }
+
 
 
 
