@@ -83,13 +83,15 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault(); 
 
-        const formData = new FormData(form);
-        const serializedData = {};
-        for (const [key, value] of formData.entries()) {
-            serializedData[key] = value;
-        }        
-          // Salvar dados em localStorage
-          saveDataToLocalStorage(serializedData);
+        if (submitForm() === true) {
+            const formData = new FormData(form);
+            const serializedData = {};
+            for (const [key, value] of formData.entries()) {
+                serializedData[key] = value;
+            }        
+            // Salvar dados em localStorage
+            saveDataToLocalStorage(serializedData);
+        }
     });
 });
 
@@ -168,8 +170,11 @@ function validateHour() {
 
 
 function submitForm() {
-    if (!validateDate() && !validateHour()) {
+    if (!validateDate() || !validateHour()) {
         alert("Por favor selecione uma data e/ou hora no futuro.");
+        return false;
+    } else {
+        return true;
     }
 }
 

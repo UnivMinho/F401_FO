@@ -44,45 +44,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const form = document.querySelector(".forms-sample");
   form.addEventListener("submit", function (event) {
-    event.preventDefault();
+      event.preventDefault();
 
-    const formData = new FormData(form);
-    const serializedData = {};
-    for (const [key, value] of formData.entries()) {
-      serializedData[key] = value;
-    }
+      if (submitForm() === true) {
+          const formData = new FormData(form);
+          const serializedData = {};
+          for (const [key, value] of formData.entries()) {
+              serializedData[key] = value;
+          }
 
-    // Adicionar materiais
-    const materials = [];
-    document.querySelectorAll(".material-row").forEach((row) => {
-      const materialDropdown = row.querySelector(".material-dropdown");
-      const materialId = materialDropdown.value;
-      const materialNome =
-        materialDropdown.options[materialDropdown.selectedIndex].text; 
+          // Adicionar materiais
+          const materials = [];
+          document.querySelectorAll(".material-row").forEach((row) => {
+              const materialDropdown = row.querySelector(".material-dropdown");
+              const materialId = materialDropdown.value;
+              const materialNome =
+                  materialDropdown.options[materialDropdown.selectedIndex].text;
 
-      const quantityInput = row.querySelector("#quantityInput");
-      const quantity = quantityInput.value; 
+              const quantityInput = row.querySelector("#quantityInput");
+              const quantity = quantityInput.value;
 
-      if (materialNome !== "Selecionar Material..." && quantity) {
-        materials.push({ nome: materialNome, quantidade: quantity });
+              if (materialNome !== "Selecionar Material..." && quantity) {
+                  materials.push({ nome: materialNome, quantidade: quantity });
+              }
+          });
+          serializedData.materials = materials;
+
+          // Adicionar profissionais
+          const professionals = [];
+          document.querySelectorAll(".profissional-row").forEach((row) => {
+              const professional = row.querySelector(".profissional-dropdown").value;
+              if (professional !== "Selecionar Profissional...") {
+                  professionals.push(professional);
+              }
+          });
+
+          serializedData.professionals = professionals;
+
+          // Salvar dados em localStorage
+          saveDataToLocalStorage(serializedData);
       }
-    });
-    serializedData.materials = materials;
-
-    // Adicionar profissionais
-    const professionals = [];
-    document.querySelectorAll(".profissional-row").forEach((row) => {
-      const professional = row.querySelector(".profissional-dropdown").value;
-      if (professional !== "Selecionar Profissional...") {
-        professionals.push(professional);
-      }
-    });
-
-    serializedData.professionals = professionals;
-
-    // Salvar dados em localStorage
-    saveDataToLocalStorage(serializedData);
   });
+
 });
 
 function saveDataToLocalStorage(data) {
@@ -322,7 +325,7 @@ function validateQuantity() {
 function submitForm() {
   if (!validateDate() || !validateHour() || !validateNumberInitiatives() || !validateQuantity()) {
       alert("Por favor corrija os erros antes de submeter.");
-      return;
+      return false;
   }else{
     return true;
   }
