@@ -30,7 +30,7 @@ function displayAndSetStatusUserInitiatives(map) {
     proposedTableBody.innerHTML = '';
 
     userInitiatives.forEach(initiative => {
-        if (!initiative.status === "Recusada") {
+        if (!(initiative.status === "Recusada") || !(initiative.status === "Cancelada" )) {
         const row = document.createElement('tr');
         row.innerHTML = `
         <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">                        
