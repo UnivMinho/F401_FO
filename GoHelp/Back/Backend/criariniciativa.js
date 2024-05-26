@@ -323,11 +323,40 @@ function validateQuantity() {
 }
 
 function submitForm() {
+  const materialRows = document.querySelectorAll(".material-row");
+  let materialSelected = false;
+  materialRows.forEach(row => {
+      const materialDropdown = row.querySelector(".material-dropdown");
+      if (materialDropdown.value !== "Selecionar Material...") {
+          materialSelected = true;
+      }
+  });
+
+  if (!materialSelected) {
+      alert("Por favor selecione pelo menos um material.");
+      return false;
+  }
+
+  const professionalRows = document.querySelectorAll(".profissional-row");
+  let professionalSelected = false;
+  professionalRows.forEach(row => {
+      const professionalDropdown = row.querySelector(".profissional-dropdown");
+      if (professionalDropdown.value !== "Selecionar Profissional...") {
+          professionalSelected = true;
+      }
+  });
+
+  if (!professionalSelected) {
+      alert("Por favor selecione pelo menos um profissional.");
+      return false;
+  }
+
   if (!validateDate() || !validateHour() || !validateNumberInitiatives() || !validateQuantity()) {
       alert("Por favor corrija os erros antes de submeter.");
       return false;
   }else{
-    return true;
+
+  return true;
   }
 }
 
