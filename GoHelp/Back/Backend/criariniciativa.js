@@ -10,27 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("user-profile-image-navbar").src = userProfileImage;
 
   // Preencher dropdown de materiais
-  const materialDropdown = document.querySelector(".material-dropdown");
   const materials = JSON.parse(localStorage.getItem("materials")) || [];
-  materials.forEach((material) => {
-    const option = document.createElement("option");
-    option.value = material.id;
-    option.textContent = material.nome;
-    materialDropdown.appendChild(option);
-  });
+  populateMaterialsDropdown(document.querySelector(".material-dropdown"), materials);
 
   const addMaterialButton = document.querySelector(".add-material-button");
   addMaterialButton.addEventListener("click", function () {
-    const materialTemplate = document.querySelector(".material-row");
-    const newMaterial = materialTemplate.cloneNode(true);
-
-    newMaterial.querySelector(".material-dropdown").value =
-      "Selecionar Material...";
-    newMaterial.querySelector("#quantityInput").value = "1";
-
-    const materialsContainer = document.querySelector(".materials-container");
-    materialsContainer.appendChild(newMaterial);
+    addNewMaterialRow(materials);
   });
+
 
   // Preencher dropdown de profissionais
   const profissionalDropdown = document.querySelector(".profissional-dropdown");
@@ -87,7 +74,53 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
+function populateMaterialsDropdown(dropdown, materials) {
+  materials.forEach((material) => {
+    const option = document.createElement("option");
+    option.value = material.id;
+    option.textContent = material.nome;
+    dropdown.appendChild(option);
+  });
+}
+function addNewMaterialRow(materials) {
+  const newMaterialRow = document.createElement('div');
+  newMaterialRow.className = 'form-row align-items-center material-row';
+  newMaterialRow.innerHTML = `
+    <div class="col-sm-6 my-1">
+      <label class="sr-only" for="materialDropdown">Material</label>
+      <div class="input-group">
+        <select class="custom-select material-dropdown mr-3">
+          <option selected>Selecionar Material...</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-6 my-1">
+      <label class="sr-only" for="quantityInput">Quantidade</label>
+      <div class="input-group">
+        <input type="number" class="form-control quantity-input" id="quantityInput" value="0" min="0">
+        <span class="availability">Disponibilidade: <span class="quantity-available">0</span></span>
+        <span id="quantityError" style="color: red;"></span>
+        <button type="button" class="btn btn-link remove-material-button">
+          <i class="mdi mdi-minus-circle-outline"></i>
+        </button>
+      </div>
+    </div>
+  `;
 
+  populateMaterialsDropdown(newMaterialRow.querySelector('.material-dropdown'), materials);
+
+  document.querySelector('.materials-container').appendChild(newMaterialRow);
+
+  newMaterialRow.querySelector('.remove-material-button').addEventListener('click', function() {
+    newMaterialRow.remove();
+  });
+
+  newMaterialRow.querySelector('.material-dropdown').addEventListener('change', function() {
+    updateMaterialAvailability(newMaterialRow);
+  });
+
+  newMaterialRow.querySelector('.quantity-input').addEventListener('input', validateQuantity);
+}
 function saveDataToLocalStorage(data) {
   if (typeof localStorage !== "undefined") {
     try {
@@ -313,7 +346,7 @@ function validateQuantity() {
   const availableQuantity = parseInt(availabilitySpan.textContent);
 
   if (enteredQuantity > availableQuantity) {
-      quantityError.innerText = `A quantidade solicitada excede a disponibilidade de ${availableQuantity}.`;
+      quantityError.innerText = `Quantidade indisponível .`;
       return false;
   } else {
       quantityError.innerText = "";
@@ -362,22 +395,27 @@ function submitForm() {
 
 //Event listener para verificar as quantidades disponíveis dos materiais 
 document.addEventListener("DOMContentLoaded", function() {
-  const materialDropdown = document.querySelector(".material-dropdown");
-  const availabilitySpan = document.querySelector(".quantity-available");
-
-  materialDropdown.addEventListener("change", function() {
-      const selectedOption = materialDropdown.options[materialDropdown.selectedIndex];
-      const selectedMaterialName = selectedOption.text;
-      console.log(selectedMaterialName);
-      const selectedDate = document.getElementById("iniciativa-date").value;
-
-      const initiatives = fetchInitiativesForDate(selectedDate);
-
-      const availability = calculateMaterialAvailability(initiatives, selectedMaterialName);
-
-      availabilitySpan.textContent = availability;
+  document.querySelectorAll(".material-dropdown").forEach(dropdown => {
+    dropdown.addEventListener("change", function() {
+      const row = dropdown.closest(".material-row");
+      updateMaterialAvailability(row);
+    });
   });
 });
+
+function updateMaterialAvailability(row) {
+  const materialDropdown = row.querySelector(".material-dropdown");
+  const availabilitySpan = row.querySelector(".quantity-available");
+  const selectedOption = materialDropdown.options[materialDropdown.selectedIndex];
+  const selectedMaterialName = selectedOption.text;
+  const selectedDate = document.getElementById("iniciativa-date").value;
+
+  const initiatives = fetchInitiativesForDate(selectedDate);
+
+  const availability = calculateMaterialAvailability(initiatives, selectedMaterialName);
+
+  availabilitySpan.textContent = availability;
+}
 
 //Vai buscar a localStorage todas as inicativas na mesma data introduzida
 function fetchInitiativesForDate(date) {
