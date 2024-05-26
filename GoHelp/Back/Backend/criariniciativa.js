@@ -11,13 +11,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Preencher dropdown de materiais
   const materials = JSON.parse(localStorage.getItem("materials")) || [];
-  populateMaterialsDropdown(document.querySelector(".material-dropdown"), materials);
+  populateMaterialsDropdown(
+    document.querySelector(".material-dropdown"),
+    materials
+  );
 
   const addMaterialButton = document.querySelector(".add-material-button");
   addMaterialButton.addEventListener("click", function () {
     addNewMaterialRow(materials);
   });
-
 
   // Preencher dropdown de profissionais
   const profissionalDropdown = document.querySelector(".profissional-dropdown");
@@ -31,48 +33,54 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const form = document.querySelector(".forms-sample");
   form.addEventListener("submit", function (event) {
-      event.preventDefault();
+    event.preventDefault();
 
-      if (submitForm() === true) {
-          const formData = new FormData(form);
-          const serializedData = {};
-          for (const [key, value] of formData.entries()) {
-              serializedData[key] = value;
-          }
-
-          // Adicionar materiais
-          const materials = [];
-          document.querySelectorAll(".material-row").forEach((row) => {
-              const materialDropdown = row.querySelector(".material-dropdown");
-              const materialId = materialDropdown.value;
-              const materialNome =
-                  materialDropdown.options[materialDropdown.selectedIndex].text;
-
-              const quantityInput = row.querySelector("#quantityInput");
-              const quantity = quantityInput.value;
-
-              if (materialNome !== "Selecionar Material..." && quantity) {
-                  materials.push({ nome: materialNome, quantidade: quantity });
-              }
-          });
-          serializedData.materials = materials;
-
-          // Adicionar profissionais
-          const professionals = [];
-          document.querySelectorAll(".profissional-row").forEach((row) => {
-              const professional = row.querySelector(".profissional-dropdown").value;
-              if (professional !== "Selecionar Profissional...") {
-                  professionals.push(professional);
-              }
-          });
-
-          serializedData.professionals = professionals;
-
-          // Salvar dados em localStorage
-          saveDataToLocalStorage(serializedData);
+    if (submitForm() === true) {
+      const formData = new FormData(form);
+      const serializedData = {};
+      for (const [key, value] of formData.entries()) {
+        serializedData[key] = value;
       }
-  });
 
+      // Adicionar materiais
+      const materials = [];
+      document.querySelectorAll(".material-row").forEach((row) => {
+        const materialDropdown = row.querySelector(".material-dropdown");
+        const materialId = materialDropdown.value;
+        const materialNome =
+          materialDropdown.options[materialDropdown.selectedIndex].text;
+
+        const quantityInput = row.querySelector("#quantityInput");
+        const quantity = quantityInput.value;
+
+        if (materialNome !== "Selecionar Material..." && quantity) {
+          materials.push({ nome: materialNome, quantidade: quantity });
+        }
+      });
+      serializedData.materials = materials;
+
+      // Adicionar profissionais
+      let selectedProfessional = null;
+      document.querySelectorAll(".profissional-row").forEach((row) => {
+        const profissionalDropdown = row.querySelector(
+          ".profissional-dropdown"
+        );
+        selectedProfessional = profissionais.find(
+          (p) => p.nome === profissionalDropdown.value
+        );
+      });
+
+      if (selectedProfessional) {
+        serializedData.profissional = {
+          nome: selectedProfessional.nome,
+          cargo: selectedProfessional.cargo,
+        };
+      }
+
+      // Salvar dados em localStorage
+      saveDataToLocalStorage(serializedData);
+    }
+  });
 });
 function populateMaterialsDropdown(dropdown, materials) {
   materials.forEach((material) => {
@@ -83,8 +91,8 @@ function populateMaterialsDropdown(dropdown, materials) {
   });
 }
 function addNewMaterialRow(materials) {
-  const newMaterialRow = document.createElement('div');
-  newMaterialRow.className = 'form-row align-items-center material-row';
+  const newMaterialRow = document.createElement("div");
+  newMaterialRow.className = "form-row align-items-center material-row";
   newMaterialRow.innerHTML = `
     <div class="col-sm-6 my-1">
       <label class="sr-only" for="materialDropdown">Material</label>
@@ -107,19 +115,28 @@ function addNewMaterialRow(materials) {
     </div>
   `;
 
-  populateMaterialsDropdown(newMaterialRow.querySelector('.material-dropdown'), materials);
+  populateMaterialsDropdown(
+    newMaterialRow.querySelector(".material-dropdown"),
+    materials
+  );
 
-  document.querySelector('.materials-container').appendChild(newMaterialRow);
+  document.querySelector(".materials-container").appendChild(newMaterialRow);
 
-  newMaterialRow.querySelector('.remove-material-button').addEventListener('click', function() {
-    newMaterialRow.remove();
-  });
+  newMaterialRow
+    .querySelector(".remove-material-button")
+    .addEventListener("click", function () {
+      newMaterialRow.remove();
+    });
 
-  newMaterialRow.querySelector('.material-dropdown').addEventListener('change', function() {
-    updateMaterialAvailability(newMaterialRow);
-  });
+  newMaterialRow
+    .querySelector(".material-dropdown")
+    .addEventListener("change", function () {
+      updateMaterialAvailability(newMaterialRow);
+    });
 
-  newMaterialRow.querySelector('.quantity-input').addEventListener('input', validateQuantity);
+  newMaterialRow
+    .querySelector(".quantity-input")
+    .addEventListener("input", validateQuantity);
 }
 function saveDataToLocalStorage(data) {
   if (typeof localStorage !== "undefined") {
@@ -150,7 +167,7 @@ function saveDataToLocalStorage(data) {
               description: data["iniciativa-description"],
               comments: data["iniciativa-comments"],
               materiais: data.materials,
-              professionais: data.professionals,
+              profissional: data.profissional,
               status: "Por realizar",
               userEmail: userEmail,
               associatedVolunteers: [userEmail],
@@ -226,26 +243,32 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("iniciativa-date").addEventListener("input", function() {
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("iniciativa-date")
+    .addEventListener("input", function () {
       validateDate();
       validateNumberInitiatives();
+    });
+
+  document.getElementById("end-hour").addEventListener("input", function () {
+    validateHour();
   });
 
-  document.getElementById("end-hour").addEventListener("input", function(){
-      validateHour();
-  });
-
-  const initiativeTypes = document.querySelectorAll('input[name="TipoIniciativa"]');
-  initiativeTypes.forEach(type => {
-    type.addEventListener('change', function() {
+  const initiativeTypes = document.querySelectorAll(
+    'input[name="TipoIniciativa"]'
+  );
+  initiativeTypes.forEach((type) => {
+    type.addEventListener("change", function () {
       validateNumberInitiatives();
     });
   });
 
-  document.getElementById("quantityInput").addEventListener("input", function(){
-    validateQuantity();
-  });
+  document
+    .getElementById("quantityInput")
+    .addEventListener("input", function () {
+      validateQuantity();
+    });
 });
 
 function validateDate() {
@@ -257,21 +280,31 @@ function validateDate() {
   let dateError = document.getElementById("dateError");
 
   if (inputDate < threeDaysAfter) {
-      dateError.innerText = "Por favor selecione uma data no futuro.";
-      return false;
+    dateError.innerText = "Por favor selecione uma data no futuro.";
+    return false;
   } else {
-      dateError.innerText = "";
+    dateError.innerText = "";
   }
 
-  return true; 
+  return true;
 }
 
 function validateHour() {
-  const tipoIniciativa = document.querySelector('input[name="TipoIniciativa"]:checked').value;
-  const startHour = parseInt(document.getElementById("start-hour").value.split(':')[0]);
-  const startMinute = parseInt(document.getElementById("start-hour").value.split(':')[1]);
-  const endHour = parseInt(document.getElementById("end-hour").value.split(':')[0]);
-  const endMinute = parseInt(document.getElementById("end-hour").value.split(':')[1]);
+  const tipoIniciativa = document.querySelector(
+    'input[name="TipoIniciativa"]:checked'
+  ).value;
+  const startHour = parseInt(
+    document.getElementById("start-hour").value.split(":")[0]
+  );
+  const startMinute = parseInt(
+    document.getElementById("start-hour").value.split(":")[1]
+  );
+  const endHour = parseInt(
+    document.getElementById("end-hour").value.split(":")[0]
+  );
+  const endMinute = parseInt(
+    document.getElementById("end-hour").value.split(":")[1]
+  );
 
   const durationHours = endHour - startHour;
   const durationMinutes = endMinute - startMinute;
@@ -279,55 +312,61 @@ function validateHour() {
   let timeError = document.getElementById("timeError");
 
   if (endHour < startHour) {
-      timeError.innerText = "A hora de fim da iniciativa é menor que a hora de início."
-      return false;
-  }else{
-      timeError.innerText = "";
+    timeError.innerText =
+      "A hora de fim da iniciativa é menor que a hora de início.";
+    return false;
+  } else {
+    timeError.innerText = "";
   }
 
   switch (tipoIniciativa) {
-      case 'Limpeza':
-      case 'Reflorestação':
-          if (durationHours > 4 || (durationHours === 4 && durationMinutes > 0)) {
-              timeError.innerText = "A duração excede o tempo limite para este tipo de iniciativa"
-              return false;
-          }else{
-              timeError.innerText = "";
-          }
-          break;
-      case 'Campanhas':
-          if (durationHours > 1 || (durationHours === 1 && durationMinutes > 0)) {
-              timeError.innerText = "A duração excede o tempo limite para este tipo de iniciativa"
-              return false;
-          }else{
-              timeError.innerText = "";
-          }
-          break;
-      default:
-          timeError.innerText = "";
-          break;
+    case "Limpeza":
+    case "Reflorestação":
+      if (durationHours > 4 || (durationHours === 4 && durationMinutes > 0)) {
+        timeError.innerText =
+          "A duração excede o tempo limite para este tipo de iniciativa";
+        return false;
+      } else {
+        timeError.innerText = "";
       }
+      break;
+    case "Campanhas":
+      if (durationHours > 1 || (durationHours === 1 && durationMinutes > 0)) {
+        timeError.innerText =
+          "A duração excede o tempo limite para este tipo de iniciativa";
+        return false;
+      } else {
+        timeError.innerText = "";
+      }
+      break;
+    default:
+      timeError.innerText = "";
+      break;
+  }
 
-  return true; 
+  return true;
 }
 
 function validateNumberInitiatives() {
   const selectedDate = document.getElementById("iniciativa-date").value;
-  const tipoIniciativa = document.querySelector('input[name="TipoIniciativa"]:checked').value;
+  const tipoIniciativa = document.querySelector(
+    'input[name="TipoIniciativa"]:checked'
+  ).value;
 
   const initiatives = JSON.parse(localStorage.getItem("initiatives")) || [];
 
-  const existingInitiative = initiatives.find(initiative => 
+  const existingInitiative = initiatives.find(
+    (initiative) =>
       initiative.date === selectedDate && initiative.type === tipoIniciativa
   );
 
   let initiativeError = document.getElementById("initiativeError");
 
   if (existingInitiative) {
-      initiativeError.innerText = `Já existe uma iniciativa do tipo ${tipoIniciativa} para a data selecionada.`;
-      return false;
+    initiativeError.innerText = `Já existe uma iniciativa do tipo ${tipoIniciativa} para a data selecionada.`;
+    return false;
   } else {
-      initiativeError.innerText = "";
+    initiativeError.innerText = "";
   }
 
   return true;
@@ -339,17 +378,18 @@ function validateQuantity() {
   const availabilitySpan = document.querySelector(".quantity-available");
   const quantityError = document.getElementById("quantityError");
 
-  const selectedOption = materialDropdown.options[materialDropdown.selectedIndex];
+  const selectedOption =
+    materialDropdown.options[materialDropdown.selectedIndex];
   const selectedMaterialName = selectedOption.text;
   const enteredQuantity = parseInt(quantityInput.value);
 
   const availableQuantity = parseInt(availabilitySpan.textContent);
 
   if (enteredQuantity > availableQuantity) {
-      quantityError.innerText = `Quantidade indisponível .`;
-      return false;
+    quantityError.innerText = `Quantidade indisponível.`;
+    return false;
   } else {
-      quantityError.innerText = "";
+    quantityError.innerText = "";
   }
 
   return true;
@@ -358,45 +398,49 @@ function validateQuantity() {
 function submitForm() {
   const materialRows = document.querySelectorAll(".material-row");
   let materialSelected = false;
-  materialRows.forEach(row => {
-      const materialDropdown = row.querySelector(".material-dropdown");
-      if (materialDropdown.value !== "Selecionar Material...") {
-          materialSelected = true;
-      }
+  materialRows.forEach((row) => {
+    const materialDropdown = row.querySelector(".material-dropdown");
+    if (materialDropdown.value !== "Selecionar Material...") {
+      materialSelected = true;
+    }
   });
 
   if (!materialSelected) {
-      alert("Por favor selecione pelo menos um material.");
-      return false;
+    alert("Por favor selecione pelo menos um material.");
+    return false;
   }
 
   const professionalRows = document.querySelectorAll(".profissional-row");
   let professionalSelected = false;
-  professionalRows.forEach(row => {
-      const professionalDropdown = row.querySelector(".profissional-dropdown");
-      if (professionalDropdown.value !== "Selecionar Profissional...") {
-          professionalSelected = true;
-      }
+  professionalRows.forEach((row) => {
+    const professionalDropdown = row.querySelector(".profissional-dropdown");
+    if (professionalDropdown.value !== "Selecionar Profissional...") {
+      professionalSelected = true;
+    }
   });
 
   if (!professionalSelected) {
-      alert("Por favor selecione pelo menos um profissional.");
-      return false;
+    alert("Por favor selecione pelo menos um profissional.");
+    return false;
   }
 
-  if (!validateDate() || !validateHour() || !validateNumberInitiatives() || !validateQuantity()) {
-      alert("Por favor corrija os erros antes de submeter.");
-      return false;
-  }else{
-
-  return true;
+  if (
+    !validateDate() ||
+    !validateHour() ||
+    !validateNumberInitiatives() ||
+    !validateQuantity()
+  ) {
+    alert("Por favor corrija os erros antes de submeter.");
+    return false;
+  } else {
+    return true;
   }
 }
 
-//Event listener para verificar as quantidades disponíveis dos materiais 
-document.addEventListener("DOMContentLoaded", function() {
-  document.querySelectorAll(".material-dropdown").forEach(dropdown => {
-    dropdown.addEventListener("change", function() {
+//Event listener para verificar as quantidades disponíveis dos materiais
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".material-dropdown").forEach((dropdown) => {
+    dropdown.addEventListener("change", function () {
       const row = dropdown.closest(".material-row");
       updateMaterialAvailability(row);
     });
@@ -406,13 +450,17 @@ document.addEventListener("DOMContentLoaded", function() {
 function updateMaterialAvailability(row) {
   const materialDropdown = row.querySelector(".material-dropdown");
   const availabilitySpan = row.querySelector(".quantity-available");
-  const selectedOption = materialDropdown.options[materialDropdown.selectedIndex];
+  const selectedOption =
+    materialDropdown.options[materialDropdown.selectedIndex];
   const selectedMaterialName = selectedOption.text;
   const selectedDate = document.getElementById("iniciativa-date").value;
 
   const initiatives = fetchInitiativesForDate(selectedDate);
 
-  const availability = calculateMaterialAvailability(initiatives, selectedMaterialName);
+  const availability = calculateMaterialAvailability(
+    initiatives,
+    selectedMaterialName
+  );
 
   availabilitySpan.textContent = availability;
 }
@@ -420,27 +468,30 @@ function updateMaterialAvailability(row) {
 //Vai buscar a localStorage todas as inicativas na mesma data introduzida
 function fetchInitiativesForDate(date) {
   const initiatives = JSON.parse(localStorage.getItem("initiatives")) || [];
-  return initiatives.filter(initiative => initiative.date === date);
+  return initiatives.filter((initiative) => initiative.date === date);
 }
 
 //Percorre todas as iniciativas para ver quais usam o material em causa
 function calculateMaterialAvailability(initiatives, materialName) {
   let totalQuantity = 0;
 
-  initiatives.forEach(initiative => {
-  
-      if (initiative.materiais) {
-
-          if (initiative.materiais.length > 0) {
-              if (initiative.materiais.some(material => material.nome === materialName)) {
-                 
-                  const material = initiative.materiais.find(material => material.nome === materialName);
-                  totalQuantity += parseInt(material.quantidade);
-              }
-          } else {
-              console.log("No materials found in initiative.");
-          }
+  initiatives.forEach((initiative) => {
+    if (initiative.materiais) {
+      if (initiative.materiais.length > 0) {
+        if (
+          initiative.materiais.some(
+            (material) => material.nome === materialName
+          )
+        ) {
+          const material = initiative.materiais.find(
+            (material) => material.nome === materialName
+          );
+          totalQuantity += parseInt(material.quantidade);
+        }
+      } else {
+        console.log("No materials found in initiative.");
       }
+    }
   });
 
   const totalAvailable = fetchTotalQuantity(materialName);
@@ -453,10 +504,6 @@ function calculateMaterialAvailability(initiatives, materialName) {
 //Função para ir buscar a quantidade total do material
 function fetchTotalQuantity(materialName) {
   const materials = JSON.parse(localStorage.getItem("materials")) || [];
-  const material = materials.find(material => material.nome === materialName);
+  const material = materials.find((material) => material.nome === materialName);
   return material ? parseInt(material.quantidade) : 0;
 }
-
-
-
-
