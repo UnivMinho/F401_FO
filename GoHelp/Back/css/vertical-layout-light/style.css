@@ -30725,10 +30725,34 @@ div.tagsinput span.tag a {
   padding: 5px;
   border: none;
 }
-
 .input-group {
   display: flex;
   align-items: center;
+  margin-top: 10px;
+}
+.input-group1 {
+  display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.time-label-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 48%;
+}
+
+.time-label-group label {
+  margin-bottom: 5px;
+  white-space: nowrap; 
+}
+
+.time-label-group input {
+  width: 100%;
+}
+
+#timeError {
+  display: block;
   margin-top: 10px;
 }
 #taskInput {
