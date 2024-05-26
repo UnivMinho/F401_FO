@@ -106,7 +106,7 @@ function addNewMaterialRow(materials) {
     <div class="col-sm-6 my-1">
       <label class="sr-only" for="quantityInput">Quantidade</label>
       <div class="input-group">
-        <input type="number" class="form-control quantity-input" id="quantityInput" value="0" min="0">
+        <input type="number" class="form-control quantity-input" id="quantityInput" value="0" min="1">
         <span class="availability">Disponibilidade: <span class="quantity-available">0</span></span>
         <span id="quantityError" style="color: red;"></span>
         <button type="button" class="btn btn-link remove-material-button">
@@ -328,7 +328,7 @@ function validateHour() {
 
   let timeError = document.getElementById("timeError");
 
-  if (endHour < startHour) {
+  if (endHour < startHour|| (endHour === startHour && endMinute < startMinute)) {
     timeError.innerText =
       "A hora de fim da iniciativa é menor que a hora de início.";
     return false;
