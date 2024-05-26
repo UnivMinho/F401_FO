@@ -203,8 +203,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Exemplo de iniciativa a ser adicionada
 const iniciativaExemplo = {
-    id: "id-02122212218117-4703",
-    type: "Limpeza",
+    id: "id-02122214428117-4703",
+    type: "Reflorestação",
     volunteers: "5",
     location: "Portalegre",
     latitude: 40.7928393,
@@ -215,7 +215,7 @@ const iniciativaExemplo = {
     name: "Limpo!",
     description: "ADORO PRAIA",
     comments: "QUERO BASSOURAS, PUTAS E VINHO VERDE",
-    status: "Concluída",
+    status: "Por realizar",
     userEmail: "mirefightyt@gmail.com",
     associatedVolunteers: ["mirefightyt@gmail.com", "pedrocruz123@mail.com", "joaoalves@mail.com"],
     lider: "Liandro Cruz",

@@ -4,8 +4,79 @@ $(function() {
    * Data and config for chartjs
    */
   'use strict';
+  
+  // Recuperar dados do localStorage
+  const storedInitiatives = JSON.parse(localStorage.getItem("initiatives"));
+
+  // Verificar se os dados foram corretamente recuperados
+  if (!storedInitiatives) {
+    console.error("Dados das iniciativas não encontrados no localStorage.");
+    return;
+  }
+
+  console.log("Iniciativas:", storedInitiatives);
+
+  // Contar o número de iniciativas de cada tipo
+  const initiativeTypes = {
+    Limpeza: 0,
+    Reflorestação: 0,
+    Campanhas: 0
+  };
+
+  storedInitiatives.forEach(initiative => {
+    if (initiative.type in initiativeTypes) {
+      initiativeTypes[initiative.type]++;
+    }
+  });
+
+  // Configuração dos dados para o gráfico de donut
+  var doughnutPieData = {
+    datasets: [{
+      data: [
+        initiativeTypes.Limpeza,
+        initiativeTypes.Reflorestação,
+        initiativeTypes.Campanhas
+      ],
+      backgroundColor: [
+        'rgba(144, 238, 144, 0.5)', // Verde pastel
+        'rgba(102, 205, 170, 0.5)', // Verde médio água-marinha
+        'rgba(135, 206, 250, 0.5)'  // Azul claro
+      ],
+      borderColor: [
+        'rgba(144, 238, 144, 1)',   // Verde pastel
+        'rgba(102, 205, 170, 1)',   // Verde médio água-marinha
+        'rgba(135, 206, 250, 1)'    // Azul claro
+      ],
+    }],
+    labels: [
+      'Limpeza',
+      'Reflorestação',
+      'Campanhas'
+    ]
+  };
+
+  var doughnutPieOptions = {
+    responsive: true,
+    animation: {
+      animateScale: true,
+      animateRotate: true
+    }
+  };
+
+  // Inicializar o gráfico de donut
+  var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
+  var doughnutChart = new Chart(doughnutChartCanvas, {
+    type: 'doughnut',
+    data: doughnutPieData,
+    options: doughnutPieOptions
+  });
+
+
+  
+
+  // Outros gráficos (mantidos do seu código original)
   var data = {
-    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
+    labels: ["2013", "2014", "2015", "2016", "2017", "2018"],
     datasets: [{
       label: '# of Votes',
       data: [10, 19, 3, 5, 2, 3],
@@ -75,42 +146,6 @@ $(function() {
       point: {
         radius: 0
       }
-    }
-
-  };
-  var doughnutPieData = {
-    datasets: [{
-      data: [30, 40, 30],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.5)',
-        'rgba(54, 162, 235, 0.5)',
-        'rgba(255, 206, 86, 0.5)',
-        'rgba(75, 192, 192, 0.5)',
-        'rgba(153, 102, 255, 0.5)',
-        'rgba(255, 159, 64, 0.5)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-    }],
-
-    // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels: [
-      'Green',
-      'Teal',
-      'Success',
-    ]
-  };
-  var doughnutPieOptions = {
-    responsive: true,
-    animation: {
-      animateScale: true,
-      animateRotate: true
     }
   };
   var areaData = {
@@ -267,16 +302,97 @@ $(function() {
       }]
     }
   }
-  // Get context with jQuery - using jQuery's .get() method.
-  if ($("#barChart").length) {
-    var barChartCanvas = $("#barChart").get(0).getContext("2d");
-    // This will get the first returned node in the jQuery collection.
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
-      data: data,
-      options: options
-    });
-  }
+
+ 
+ 
+ 
+ 
+ 
+ 
+  $(function() {
+    'use strict';
+  
+    // Função para recuperar dados do localStorage
+    function getLocalStorageData(key) {
+      return JSON.parse(localStorage.getItem(key));
+    }
+  
+    function updateBarChart(data) {
+      var barChartCanvas = $("#barChart").get(0).getContext("2d");
+      var barChart = new Chart(barChartCanvas, {
+        type: 'bar',
+        data: data,
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          },
+          legend: {
+            display: true
+          },
+          elements: {
+            point: {
+              radius: 0
+            }
+          }
+        }
+      });
+    }
+  
+    function processData(users, initiatives) {
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var newVolunteersByMonth = new Array(12).fill(0);
+      var materialsCount = {};
+  
+      users.forEach(user => {
+        var creationDate = new Date(user.dataCriado);
+        var monthIndex = creationDate.getMonth();
+        newVolunteersByMonth[monthIndex]++;
+      });
+  
+      initiatives.forEach(initiative => {
+        if (["Por realizar", "A decorrer", "Concluída"].includes(initiative.status)) {
+          initiative.materiais.forEach(material => {
+            if (materialsCount[material.nome]) {
+              materialsCount[material.nome] += parseInt(material.quantidade);
+            } else {
+              materialsCount[material.nome] = parseInt(material.quantidade);
+            }
+          });
+        }
+      });
+  
+      var barChartData = {
+        labels: months,
+        datasets: [{
+          label: 'Novos Voluntários',
+          data: newVolunteersByMonth,
+          backgroundColor: 'rgba(144, 238, 144, 0.5)', // Verde pastel
+          borderColor: 'rgba(144, 238, 144, 1)', // Verde pastel
+          borderWidth: 1
+        }]
+      };
+  
+      return { barChartData };
+    }
+  
+    // Inicialização dos gráficos com o ano atual
+    var currentYear = new Date().getFullYear();
+    $('#dropdownMenuDate2').text('Year: ' + currentYear);
+  
+    var storedUsers = getLocalStorageData("usersData");
+    var storedInitiatives = getLocalStorageData("initiatives");
+  
+    if (storedUsers && storedInitiatives) {
+      var { barChartData } = processData(storedUsers, storedInitiatives);
+      updateBarChart(barChartData);
+    }
+  });
+  
+  
 
   if ($("#lineChart").length) {
     var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
@@ -345,7 +461,7 @@ $(function() {
     var doughnutChartCanvas = $("#browserTrafficChart").get(0).getContext("2d");
     var doughnutChart = new Chart(doughnutChartCanvas, {
       type: 'doughnut',
-      data: browserTrafficData,
+      data: doughnutPieData,
       options: doughnutPieOptions
     });
   }
