@@ -611,7 +611,7 @@ function recusarIniciativa(initiativeId) {
 
             // Enviar notificação ao utilizador
             const userEmail = initiative.userEmail;
-            const notificationMessage = `A sua iniciativa "${initiative.name}" foi recusada pelo seguinte motivo: ${reason}.`;
+            const notificationMessage = `A sua iniciativa "${initiative.name}" foi recusada. Motivo: "${reason}".`;
             sendNotification(userEmail, notificationMessage);
         } else {
             console.error("Iniciativa não encontrada.");
