@@ -203,19 +203,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Exemplo de iniciativa a ser adicionada
 const iniciativaExemplo = {
-    id: "id-1324411212113-4703",
-    type: "Limpeza",
+    id: "id-1322212212113-4703",
+    type: "Reflorestação",
     volunteers: "5",
     location: "Apulia",
     latitude: 40.7928393,
     longitude: 17.1011931,
-    date: "2024-05-25",
-    start_hour: "12:49",
+    date: "2024-05-26",
+    start_hour: "16:25",
     end_hour: "19:27",
     name: "PRAIA",
     description: "ADORO PRAIA",
     comments: "QUERO BASSOURAS, PUTAS E VINHO VERDE",
-    status: "A decorrer",
+    status: "Pendente",
     userEmail: "mirefightyt@gmail.com",
     associatedVolunteers: ["mirefightyt@gmail.com"],
     lider: "Liandro Cruz",
@@ -635,57 +635,62 @@ function atualizarEstadoIniciativasEQuantidades() {
 
     iniciativas.forEach(initiative => {
         const [ano, mes, dia] = initiative.date.split('-').map(Number);
-        const [horas, minutos] = initiative.end_hour.split(':').map(Number);
-        const endDate = new Date(ano, mes - 1, dia, horas, minutos);
+        const [startHoras, startMinutos] = initiative.start_hour.split(':').map(Number);
+        const [endHoras, endMinutos] = initiative.end_hour.split(':').map(Number);
+        const startDate = new Date(ano, mes - 1, dia, startHoras, startMinutos);
+        const endDate = new Date(ano, mes - 1, dia, endHoras, endMinutos);
 
-        if (initiative.status === 'A decorrer') {
-            // Atualizar quantidades de materiais para iniciativas em curso hoje
-            if (initiative.date === hoje) {
-                initiative.materiais.forEach(materialUtilizado => {
-                    const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
-                    if (material) {
-                        // Garantir que a quantidade só é transferida uma vez
-                        if (!material.hasOwnProperty('quantidadeTerreno')) {
-                            material.quantidadeTerreno = 0;
-                        }
+        // Verificar se a iniciativa deve estar a decorrer
+        if (initiative.status === 'Por realizar' && agora >= startDate && agora <= endDate) {
+            initiative.status = 'A decorrer';
+        }
 
-                        // Verifica se a quantidade já foi transferida para o terreno
-                        const quantidadeUtilizada = parseInt(materialUtilizado.quantidade);
-                        if (!initiative.hasOwnProperty('quantidadeTransferida')) {
-                            initiative.quantidadeTransferida = {};
-                        }
+        // Verificar se a iniciativa já passou do end_hour e atualizar o estado
+        if (initiative.status === 'A decorrer' && agora > endDate) {
+            initiative.status = 'Concluída';
 
-                        if (!initiative.quantidadeTransferida[material.nome]) {
-                            material.quantidadeTerreno += quantidadeUtilizada;
-                            material.quantidade -= quantidadeUtilizada;
-                            initiative.quantidadeTransferida[material.nome] = true;
+            // Transferir quantidadeTerreno de volta para quantidade
+            initiative.materiais.forEach(materialUtilizado => {
+                const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
+                if (material && material.quantidadeTerreno) {
+                    material.quantidade += material.quantidadeTerreno;
+                    material.quantidadeTerreno = 0;
+                }
+            });
 
-                            if (material.quantidade < 0) {
-                                const unidadesNecessarias = Math.abs(material.quantidade);
-                                alert(`Deve adicionar ${unidadesNecessarias} unidades do material ${material.nome}`);
-                                material.quantidade = 0; // Ajusta a quantidade para 0 para evitar valores negativos
-                            }
-                        }
-                    }
-                });
-            }
+            // Remover o flag de quantidade transferida
+            delete initiative.quantidadeTransferida;
+        }
 
-            // Verificar se a iniciativa já passou do end_hour e atualizar o estado
-            if (agora > endDate) {
-                initiative.status = 'Concluída';
-
-                // Transferir quantidadeTerreno de volta para quantidade
-                initiative.materiais.forEach(materialUtilizado => {
-                    const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
-                    if (material && material.quantidadeTerreno) {
-                        material.quantidade += material.quantidadeTerreno;
+        // Atualizar quantidades de materiais para iniciativas em curso hoje
+        if (initiative.status === 'A decorrer' && initiative.date === hoje) {
+            initiative.materiais.forEach(materialUtilizado => {
+                const material = materiaisData.find(m => m.nome === materialUtilizado.nome);
+                if (material) {
+                    // Garantir que a quantidade só é transferida uma vez
+                    if (!material.hasOwnProperty('quantidadeTerreno')) {
                         material.quantidadeTerreno = 0;
                     }
-                });
 
-                // Remover o flag de quantidade transferida
-                delete initiative.quantidadeTransferida;
-            }
+                    // Verifica se a quantidade já foi transferida para o terreno
+                    const quantidadeUtilizada = parseInt(materialUtilizado.quantidade);
+                    if (!initiative.hasOwnProperty('quantidadeTransferida')) {
+                        initiative.quantidadeTransferida = {};
+                    }
+
+                    if (!initiative.quantidadeTransferida[material.nome]) {
+                        material.quantidadeTerreno += quantidadeUtilizada;
+                        material.quantidade -= quantidadeUtilizada;
+                        initiative.quantidadeTransferida[material.nome] = true;
+
+                        if (material.quantidade < 0) {
+                            const unidadesNecessarias = Math.abs(material.quantidade);
+                            alert(`Deve adicionar ${unidadesNecessarias} unidades do material ${material.nome}`);
+                            material.quantidade = 0; // Ajusta a quantidade para 0 para evitar valores negativos
+                        }
+                    }
+                }
+            });
         }
     });
 

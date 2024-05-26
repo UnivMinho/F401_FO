@@ -179,3 +179,11 @@ function updateUserType(userId, newUserType) {
         loadUserData();  // Recarrega os dados do usuário para atualizar a tabela
     }
 }
+
+// Função para remover um usuário
+function removeUser(userId) {
+    let users = JSON.parse(localStorage.getItem('usersData')) || [];
+    users = users.filter(user => user.id !== userId);  // Filtra o usuário a ser removido
+    localStorage.setItem('usersData', JSON.stringify(users));  // Atualiza o localStorage
+    loadUserData();  // Recarrega os dados do usuário para atualizar a tabela
+}
