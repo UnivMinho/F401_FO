@@ -20583,6 +20583,29 @@ code {
   content: "\e64b";
 }
 
+.btn-group .btn {
+  border: 1px solid #5BC2AC;
+  background-color: white;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 8px 8px 8px 8px;
+}
+
+.btn-group .btn:hover {
+  background-color: #5BC2AC;
+  color: white;
+}
+
+.form-check-input {
+  display: none;
+}
+
+.form-check-input:checked + .btn {
+  background-color: #5BC2AC;
+  color: white;
+}
+
 /* Badges */
 .badge {
   border-radius: 20px;
