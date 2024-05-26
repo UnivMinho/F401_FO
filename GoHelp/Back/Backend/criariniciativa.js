@@ -90,6 +90,7 @@ function populateMaterialsDropdown(dropdown, materials) {
     dropdown.appendChild(option);
   });
 }
+
 function addNewMaterialRow(materials) {
   const newMaterialRow = document.createElement("div");
   newMaterialRow.className = "form-row align-items-center material-row";
@@ -126,12 +127,14 @@ function addNewMaterialRow(materials) {
     .querySelector(".remove-material-button")
     .addEventListener("click", function () {
       newMaterialRow.remove();
+      updateAllMaterialDropdowns();
     });
 
   newMaterialRow
     .querySelector(".material-dropdown")
     .addEventListener("change", function () {
       updateMaterialAvailability(newMaterialRow);
+      updateAllMaterialDropdowns();
     });
 
   newMaterialRow
@@ -139,6 +142,8 @@ function addNewMaterialRow(materials) {
     .addEventListener("input", function () {
       validateQuantity(newMaterialRow);
     });
+
+  updateAllMaterialDropdowns();
 }
 function saveDataToLocalStorage(data) {
   if (typeof localStorage !== "undefined") {
@@ -430,7 +435,7 @@ function submitForm() {
   });
 
   if (!professionalSelected) {
-    alert("Por favor selecione pelo menos um profissional.");
+    alert("Por favor selecione um profissional.");
     return false;
   }
 
@@ -479,6 +484,26 @@ function updateMaterialAvailability(row) {
   );
 
   availabilitySpan.textContent = availability;
+}
+function updateAllMaterialDropdowns() {
+  const selectedMaterials = new Set();
+  document.querySelectorAll(".material-dropdown").forEach((dropdown) => {
+    const selectedOption = dropdown.options[dropdown.selectedIndex];
+    if (selectedOption.value && selectedOption.value !== "Selecionar Material...") {
+      selectedMaterials.add(selectedOption.value);
+    }
+  });
+
+  document.querySelectorAll(".material-dropdown").forEach((dropdown) => {
+    const currentSelectedValue = dropdown.value;
+    Array.from(dropdown.options).forEach((option) => {
+      if (selectedMaterials.has(option.value) && option.value !== currentSelectedValue) {
+        option.disabled = true;
+      } else {
+        option.disabled = false;
+      }
+    });
+  });
 }
 
 //Vai buscar a localStorage todas as inicativas na mesma data introduzida
