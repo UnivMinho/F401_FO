@@ -203,28 +203,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Exemplo de iniciativa a ser adicionada
 const iniciativaExemplo = {
-    id: "id-1322212212113-4703",
-    type: "Reflorestação",
+    id: "id-02122212218117-4703",
+    type: "Limpeza",
     volunteers: "5",
-    location: "Apulia",
+    location: "Portalegre",
     latitude: 40.7928393,
     longitude: 17.1011931,
-    date: "2024-05-26",
+    date: "2024-05-24",
     start_hour: "16:25",
     end_hour: "19:27",
-    name: "PRAIA",
+    name: "Limpo!",
     description: "ADORO PRAIA",
     comments: "QUERO BASSOURAS, PUTAS E VINHO VERDE",
-    status: "Pendente",
+    status: "Concluída",
     userEmail: "mirefightyt@gmail.com",
-    associatedVolunteers: ["mirefightyt@gmail.com"],
+    associatedVolunteers: ["mirefightyt@gmail.com", "pedrocruz123@mail.com", "joaoalves@mail.com"],
     lider: "Liandro Cruz",
     profissional: {
         nome: "Liandro Macedo Cruz",
-        cargo: "guarda"
+        cargo: "Assistente"
     },
     materiais: [{
-        nome: "Baldes",
+        nome: "Pás",
         quantidade: "10"
     }]
 };
