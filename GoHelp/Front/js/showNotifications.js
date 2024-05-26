@@ -1,4 +1,3 @@
-//Para já não está funcional! Ver quando as iniciativas no back-office estiverem a funcionar corretamente.
 const currentUser = JSON.parse(localStorage.getItem('userData')) || {};
 const currentUserEmail = currentUser.email;
 

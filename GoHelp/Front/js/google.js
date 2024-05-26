@@ -97,7 +97,7 @@ function saveUserData(userData) {
 
 function loadUserData() {
     const usersData = JSON.parse(localStorage.getItem('usersData')) || [];
-    const tableBody = document.querySelector('.table tbody');
+    const tableBody = document.querySelector('#displayContas tbody');
 
     if (!tableBody) {
         console.error('O elemento tbody não foi encontrado. Verifique o seletor ou a estrutura do HTML.');

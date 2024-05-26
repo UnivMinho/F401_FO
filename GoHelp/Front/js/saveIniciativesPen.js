@@ -38,15 +38,13 @@ function saveDataToLocalStorage(data) {
                 
                 localStorage.setItem('initiatives', JSON.stringify(existingInitiatives));
 
-                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-                successModal.show();
+                showModal('Iniciativa Guardada', 'Iniciativa guardada e a aguardar aprovação!');
 
                 document.querySelector('.donate-form').reset();
                 clearAndRestoreFormInputs(document.querySelector('.donate-form'));
                 locationError.innerText = ""; // Clear any previous error message
                 } else {
-                    const unsuccessModal = new bootstrap.Modal(document.getElementById('unsuccessModal'));
-                    unsuccessModal.show();
+                    showModal('Erro', 'Localização inválida. Por favor insira outra localização e submeta novamente.');
                     
                     //alert('Localização inválida. Por favor insira outra localização e submeta novamente.');
                     locationError.innerText = "Localização inválida. Por favor insira outra localização e submeta novamente.";
@@ -83,13 +81,15 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault(); 
 
-        const formData = new FormData(form);
-        const serializedData = {};
-        for (const [key, value] of formData.entries()) {
-            serializedData[key] = value;
-        }        
-          // Salvar dados em localStorage
-          saveDataToLocalStorage(serializedData);
+        if (submitForm() === true) {
+            const formData = new FormData(form);
+            const serializedData = {};
+            for (const [key, value] of formData.entries()) {
+                serializedData[key] = value;
+            }        
+            // Salvar dados em localStorage
+            saveDataToLocalStorage(serializedData);
+        }
     });
 });
 
@@ -133,6 +133,13 @@ function validateHour() {
 
     let timeError = document.getElementById("timeError");
 
+    if (endHour < startHour|| (endHour === startHour && endMinute < startMinute)) {
+        timeError.innerText = "A hora de fim da iniciativa é menor que a hora de início."
+        return false;
+    }else{
+        timeError.innerText = "";
+    }
+
     switch (tipoIniciativa) {
         case 'Limpeza':
         case 'Reflorestação':
@@ -161,8 +168,11 @@ function validateHour() {
 
 
 function submitForm() {
-    if (!validateDate() && !validateHour()) {
-        alert("Por favor selecione uma data e/ou hora no futuro.");
+    if (!validateDate() || !validateHour()) {
+        showModal('Erro', 'Por favor selecione uma data e/ou hora no futuro.');        
+        return false;
+    } else {
+        return true;
     }
 }
 
@@ -182,3 +192,10 @@ document.addEventListener('DOMContentLoaded', function() {
         input.dataset.placeholder = input.getAttribute('placeholder');
     });
 });
+
+function showModal(title, body) {
+    document.getElementById('genericModalLabel').innerText = title;
+    document.getElementById('genericModalBody').innerText = body;
+    const myModal = new bootstrap.Modal(document.getElementById('genericModal'));
+    myModal.show();
+}

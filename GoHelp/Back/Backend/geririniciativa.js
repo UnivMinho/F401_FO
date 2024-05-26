@@ -67,7 +67,7 @@ function createRowHTML(initiative) {
 
     return `
     <tr data-id="${initiative.id}" style="background-color: green;">
-        <td>${initiative.description}</td>
+        <td>${initiative.name}</td>
         <td>${initiative.type}</td>
         <td>${getProponentName(initiative.userEmail)}</td>
         <td class="status-cell">${initiative.status}</td>
@@ -611,7 +611,7 @@ function recusarIniciativa(initiativeId) {
 
             // Enviar notificação ao utilizador
             const userEmail = initiative.userEmail;
-            const notificationMessage = `A sua iniciativa "${initiative.name}" foi recusada pelo seguinte motivo: ${reason}.`;
+            const notificationMessage = `A sua iniciativa "${initiative.name}" foi recusada. Motivo: "${reason}".`;
             sendNotification(userEmail, notificationMessage);
         } else {
             console.error("Iniciativa não encontrada.");
@@ -864,6 +864,11 @@ function verificarRestricoesIniciativasPendentes() {
             initiative.restrictions += `${aviso} `;
             initiative.rejectReason += `${aviso} `;
             initiative.status = "Recusada";
+
+            // Enviar notificação ao utilizador
+            const userEmail = initiative.userEmail;
+            const notificationMessage = `A sua iniciativa "${initiative.name}" foi recusada pelo seguinte motivo: ${initiative.rejectReason}.`;
+            sendNotification(userEmail, notificationMessage);
         }
     }
 

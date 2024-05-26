@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 let mainRow = document.createElement('tr');
                 mainRow.setAttribute('onclick', 'this.nextSibling.style.display = this.nextSibling.style.display === "none" ? "table-row" : "none";');
                 mainRow.innerHTML = `
-                    <td>${initiative.description}</td>
+                    <td>${initiative.name}</td>
                     <td>${initiative.type}</td>
                     <td>${initiative.lider}</td>
                     <td>${initiative.status}</td>

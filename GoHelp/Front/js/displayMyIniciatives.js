@@ -30,6 +30,7 @@ function displayAndSetStatusUserInitiatives(map) {
     proposedTableBody.innerHTML = '';
 
     userInitiatives.forEach(initiative => {
+        if (!(initiative.status === "Recusada") && !(initiative.status === "Cancelada" )) {
         const row = document.createElement('tr');
         row.innerHTML = `
         <tr onclick="this.nextSibling.style.display = this.nextSibling.style.display === 'none' ? 'table-row' : 'none';">                        
@@ -99,6 +100,7 @@ function displayAndSetStatusUserInitiatives(map) {
             statusCell.style.backgroundColor = '#FF0000'; 
         };
 
+        }
         });
 
     if (proposedTableBody.children.length === 0) {
@@ -112,6 +114,7 @@ function displayAndSetStatusUserInitiatives(map) {
         noAssociatedInitiativesRow.innerHTML = `<td colspan="5" style="text-align: center;">Não está associado a nenhuma iniciativa.</td>`;
         associatedTableBody.appendChild(noAssociatedInitiativesRow);
     }
+
 }
 
 // Chamar a função displayAndSetStatusUserInitiatives() assim que a página é carregada
