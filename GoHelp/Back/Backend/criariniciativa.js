@@ -249,6 +249,7 @@ function clearAndRestoreFormInputs(form) {
       document.getElementById("quantityInput").value = 0;
     }
   });
+  document.getElementById("volunteersInput").value = 1;
 }
 
 // Guardar os placeholders quando carrega a página
