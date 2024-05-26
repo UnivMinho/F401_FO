@@ -136,7 +136,9 @@ function addNewMaterialRow(materials) {
 
   newMaterialRow
     .querySelector(".quantity-input")
-    .addEventListener("input", validateQuantity);
+    .addEventListener("input", function () {
+      validateQuantity(newMaterialRow);
+    });
 }
 function saveDataToLocalStorage(data) {
   if (typeof localStorage !== "undefined") {
@@ -208,7 +210,7 @@ function saveDataToLocalStorage(data) {
 
 // Gerar longitude e latitude para por o pin no mapa
 function geocodeLocation(location, callback) {
-  var geocoder = new google.maps.Geocoder();
+  const geocoder = new google.maps.Geocoder();
   geocoder.geocode({ address: location }, function (results, status) {
     if (status === "OK") {
       const coordinates = {
@@ -232,7 +234,16 @@ function clearAndRestoreFormInputs(form) {
     input.value = "";
     input.setAttribute("placeholder", input.dataset.placeholder);
   });
-  document.getElementById("volunteersInput").value = 1;
+
+  const materialRows = document.querySelectorAll(".material-row");
+  materialRows.forEach((materialRow, index) => {
+    if (index > 0) {
+      materialRow.remove();
+    } else {
+      materialRow.querySelector(".quantity-available").textContent = "0";
+      document.getElementById("quantityInput").value = 0;
+    }
+  });
 }
 
 // Guardar os placeholders quando carrega a página
@@ -267,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("quantityInput")
     .addEventListener("input", function () {
-      validateQuantity();
+      validateQuantity(document.querySelector(".material-row"));
     });
 });
 
@@ -372,14 +383,13 @@ function validateNumberInitiatives() {
   return true;
 }
 
-function validateQuantity() {
-  const materialDropdown = document.querySelector(".material-dropdown");
-  const quantityInput = document.getElementById("quantityInput");
-  const availabilitySpan = document.querySelector(".quantity-available");
-  const quantityError = document.getElementById("quantityError");
+function validateQuantity(materialRow) {
+  const materialDropdown = materialRow.querySelector(".material-dropdown");
+  const quantityInput = materialRow.querySelector("#quantityInput");
+  const availabilitySpan = materialRow.querySelector(".quantity-available");
+  const quantityError = materialRow.querySelector("#quantityError");
 
-  const selectedOption =
-    materialDropdown.options[materialDropdown.selectedIndex];
+  const selectedOption = materialDropdown.options[materialDropdown.selectedIndex];
   const selectedMaterialName = selectedOption.text;
   const enteredQuantity = parseInt(quantityInput.value);
 
@@ -424,17 +434,23 @@ function submitForm() {
     return false;
   }
 
-  if (
-    !validateDate() ||
-    !validateHour() ||
-    !validateNumberInitiatives() ||
-    !validateQuantity()
-  ) {
+  let isValid =
+    validateDate() &&
+    validateHour() &&
+    validateNumberInitiatives();
+
+  const materialsRows = document.querySelectorAll(".material-row");
+  materialsRows.forEach(materialsRow => {
+    if (!validateQuantity(materialsRow)) {
+      isValid = false;
+    }
+  });
+
+  if (!isValid) {
     alert("Por favor corrija os erros antes de submeter.");
-    return false;
-  } else {
-    return true;
   }
+
+  return isValid;
 }
 
 //Event listener para verificar as quantidades disponíveis dos materiais
