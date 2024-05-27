@@ -60,7 +60,7 @@ function saveDataToLocalStorage(data) {
 
 //gerar longitude e latitude para por o pin no mapa
 function geocodeLocation(location, callback) {
-    var geocoder = new google.maps.Geocoder();
+    const geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'address': location }, function(results, status) {
         if (status === 'OK') {
             const coordinates = {
