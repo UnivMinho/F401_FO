@@ -198,56 +198,6 @@ function updateTableRow(initiative) {
 
 
 
-
-document.addEventListener('DOMContentLoaded', function() {
-
-    // Exemplo de iniciativa a ser adicionada
-const iniciativaExemplo = {
-    id: "id-02122214428117-4703",
-    type: "Reflorestação",
-    volunteers: "5",
-    location: "Portalegre",
-    latitude: 40.7928393,
-    longitude: 17.1011931,
-    date: "2024-05-24",
-    start_hour: "16:25",
-    end_hour: "19:27",
-    name: "Limpo!",
-    description: "Limpar Praia!",
-    comments: "Quero vassouras, pás e baldes",
-    status: "Por realizar",
-    userEmail: "mirefightyt@gmail.com",
-    associatedVolunteers: ["mirefightyt@gmail.com", "pedrocruz123@mail.com", "joaoalves@mail.com"],
-    lider: "Liandro Cruz",
-    profissional: {
-        nome: "Liandro Macedo Cruz",
-        cargo: "Assistente"
-    },
-    materiais: [{
-        nome: "Pás",
-        quantidade: "10"
-    }]
-};
-    // Adicionar a iniciativa de exemplo ao localStorage se ainda não estiver presente
-    const iniciativasExistentes = JSON.parse(localStorage.getItem('initiatives')) || [];
-    const iniciativaJaExiste = iniciativasExistentes.some(i => i.id === iniciativaExemplo.id);
-    if (!iniciativaJaExiste) {
-        iniciativasExistentes.push(iniciativaExemplo);
-        localStorage.setItem('initiatives', JSON.stringify(iniciativasExistentes));
-    }
-    // Verificar e atualizar estado das iniciativas e quantidades de materiais
-    verificarAtualizacaoDiaria();
-    atualizarEstadoIniciativasEQuantidades();
-
-    // Verificar restrições das iniciativas pendentes
-    verificarRestricoesIniciativasPendentes();
-
-    const dadosIniciativas = JSON.parse(localStorage.getItem('initiatives'));
-   
-});
-
-
-
 // Função para salvar o líder selecionado no localStorage
 function saveLeader(initiativeId, leaderName) {
     const initiatives = JSON.parse(localStorage.getItem('initiatives')) || [];
@@ -878,6 +828,52 @@ function verificarRestricoesIniciativasPendentes() {
 
 
 
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Exemplo de iniciativa a ser adicionada
+const iniciativaExemplo = {
+    id: "id-144121114428117-4703",
+    type: "Reflorestação",
+    volunteers: "5",
+    location: "Portalegre",
+    latitude: 40.7928393,
+    longitude: 17.1011931,
+    date: "2024-05-27",
+    start_hour: "16:25",
+    end_hour: "19:27",
+    name: "Limpo!",
+    description: "Limpar Praia!",
+    comments: "Quero vassouras, pás e baldes",
+    status: "A decorrer",
+    userEmail: "mirefightyt@gmail.com",
+    associatedVolunteers: ["mirefightyt@gmail.com", "pedrocruz123@mail.com", "joaoalves@mail.com"],
+    lider: "Liandro Cruz",
+    profissional: {
+        nome: "Liandro Macedo Cruz",
+        cargo: "Assistente"
+    },
+    materiais: [{
+        nome: "Pás",
+        quantidade: "10"
+    }]
+};
+    // Adicionar a iniciativa de exemplo ao localStorage se ainda não estiver presente
+    const iniciativasExistentes = JSON.parse(localStorage.getItem('initiatives')) || [];
+    const iniciativaJaExiste = iniciativasExistentes.some(i => i.id === iniciativaExemplo.id);
+    if (!iniciativaJaExiste) {
+        iniciativasExistentes.push(iniciativaExemplo);
+        localStorage.setItem('initiatives', JSON.stringify(iniciativasExistentes));
+    }
+    // Verificar e atualizar estado das iniciativas e quantidades de materiais
+    verificarAtualizacaoDiaria();
+    atualizarEstadoIniciativasEQuantidades();
+
+    // Verificar restrições das iniciativas pendentes
+    verificarRestricoesIniciativasPendentes();
+
+    const dadosIniciativas = JSON.parse(localStorage.getItem('initiatives'));
+   
+});
 
 
 
