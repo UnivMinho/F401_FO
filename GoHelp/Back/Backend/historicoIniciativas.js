@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <table class="table" style="flex: 1 1 auto;">
                                 <thead>
                                     <tr>
-                                        <th>E-mail do Voluntário</th>
+                                        <th>Voluntários Associados</th>
                                     </tr>
                                 </thead>
                                 <tbody>
