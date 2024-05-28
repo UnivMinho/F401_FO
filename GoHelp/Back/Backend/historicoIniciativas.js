@@ -55,8 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                     </div>
                                 </div>
                                 <div class="expanded-table-normal-cell">
-                                    <p>Observação</p>
-                                    <h6>${initiative.comments}</h6>
+                                <p>Descrição</p>
+                                <h6>${initiative.description}</h6>
+                                <p>Observação</p>
+                                <h6>${initiative.comments}</h6>
+                                
                                 </div> 
                             </div>
                         </div>
@@ -126,8 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <h6>${initiative.date} - ${initiative.end_hour}</h6>
                                 </div>
                                 <div class="min-width-cell ml-5">
-                                    <p>Restrições</p>
-                                    <h6>${initiative.restrictions}</h6>
+                                
                                 </div>
                             </div>
                         </div>                                                                                                                        
